@@ -1,0 +1,148 @@
+/* ============================================================
+   instalog design tokens
+   Light palette. CSS vars structured so dark-mode only needs
+   to swap the ink/surface families in a [data-theme="dark"]
+   block later.
+   ============================================================ */
+
+:root {
+  /* ——— Paper-warm neutrals ——— */
+  --bg:         #f6f4ee;
+  --bg-alt:     #efece2;
+  --bg-inset:   #ecead0;
+  --surface:    #fdfcf8;
+  --surface-2:  #f9f7f0;
+  --surface-3:  #f1eee4;
+
+  /* Lines */
+  --line:        #e4dfd2;
+  --line-soft:   #efece3;
+  --line-strong: #cfc9b9;
+
+  /* Ink */
+  --ink:   #16140f;
+  --ink-2: #4a463c;
+  --ink-3: #8a8577;
+  --ink-4: #b4ae9e;
+  --ink-5: #d6d1bf;
+
+  /* ——— Accent (default: soft blue) ——— */
+  /* Override at [data-accent] for tweaks. */
+  --accent:         #2c5ce6;
+  --accent-hover:   #1f48c2;
+  --accent-pressed: #183a9e;
+  --accent-ink:     #16317a;
+  --accent-soft:    #eaf0ff;
+  --accent-light:   #d6e1ff;
+  --accent-ring:    rgba(44, 92, 230, 0.16);
+  --accent-on:      #ffffff;
+
+  /* ——— Status ——— */
+  --success:        #1a7f4a;
+  --success-light:  #d9efdf;
+  --success-ink:    #0b4224;
+
+  --error:          #c43c2d;
+  --error-light:    #fbe9e4;
+  --error-mid:      #f3c3b8;
+  --error-ink:      #6b1912;
+
+  --warn:           #b0711a;
+  --warn-light:     #fbeed0;
+  --warn-ink:       #5b370a;
+
+  /* ——— Type ——— */
+  --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --serif: 'Fraunces', ui-serif, Georgia, serif;
+
+  /* ——— Radii ——— */
+  --r-1: 4px;
+  --r-2: 6px;
+  --r-3: 8px;
+  --r-4: 10px;
+  --r-5: 14px;
+  --r-6: 20px;
+
+  /* ——— Shadows ——— */
+  --shadow-sm: 0 1px 2px rgba(22, 20, 15, 0.04), 0 1px 3px rgba(22, 20, 15, 0.04);
+  --shadow-md: 0 2px 4px rgba(22, 20, 15, 0.04), 0 12px 24px -10px rgba(22, 20, 15, 0.08);
+  --shadow-lg: 0 4px 8px rgba(22, 20, 15, 0.04), 0 28px 56px -20px rgba(22, 20, 15, 0.12);
+  --shadow-pop: 0 0 0 1px rgba(22, 20, 15, 0.04), 0 10px 30px -8px rgba(22, 20, 15, 0.18);
+
+  /* ——— Density (0..100 mapped elsewhere; defaults here) ——— */
+  --pad-xs: 6px;
+  --pad-sm: 10px;
+  --pad-md: 14px;
+  --pad-lg: 20px;
+  --pad-xl: 28px;
+
+  /* ——— Motion ——— */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.2, 1.4, 0.35, 1);
+}
+
+/* Accent swatches for Tweaks (data-accent on <html>) */
+html[data-accent="blue"] {
+  --accent:         #2c5ce6;
+  --accent-hover:   #1f48c2;
+  --accent-pressed: #183a9e;
+  --accent-ink:     #16317a;
+  --accent-soft:    #eaf0ff;
+  --accent-light:   #d6e1ff;
+  --accent-ring:    rgba(44, 92, 230, 0.16);
+}
+html[data-accent="rust"] {
+  --accent:         #b14a26;
+  --accent-hover:   #953d1e;
+  --accent-pressed: #762f17;
+  --accent-ink:     #5c2411;
+  --accent-soft:    #f8ece4;
+  --accent-light:   #f2d5c4;
+  --accent-ring:    rgba(177, 74, 38, 0.16);
+}
+html[data-accent="forest"] {
+  --accent:         #2c6a42;
+  --accent-hover:   #1f5633;
+  --accent-pressed: #174528;
+  --accent-ink:     #0e2d19;
+  --accent-soft:    #e6f0e8;
+  --accent-light:   #cde1d1;
+  --accent-ring:    rgba(44, 106, 66, 0.16);
+}
+
+/* Density scale — root [data-density="tight|default|airy"] */
+html[data-density="tight"] {
+  --pad-xs: 4px;
+  --pad-sm: 8px;
+  --pad-md: 10px;
+  --pad-lg: 14px;
+  --pad-xl: 20px;
+}
+html[data-density="airy"] {
+  --pad-xs: 8px;
+  --pad-sm: 12px;
+  --pad-md: 18px;
+  --pad-lg: 26px;
+  --pad-xl: 36px;
+}
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "ss02", "cv11";
+}
+button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
+input, textarea { font: inherit; color: inherit; }
+a { color: inherit; }
+::selection { background: var(--accent-light); color: var(--accent-ink); }

@@ -1,73 +1,115 @@
-# React + TypeScript + Vite
+# instalog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal productivity tool for logging timesheet notes to Jira as worklogs. Paste your plain-text timesheet, preview the parsed entries, and submit them in one batch.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Parses plain-text timesheets into structured entries
+- Skips non-billable lines (LUNCH, MAKEUP) automatically
+- Submits each entry as a Jira worklog with proper ADF-formatted comments
+- Per-entry success/failure reporting with inline error messages
+- Retry failed entries without resubmitting successful ones
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Getting started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 20 or later
+- A Jira Cloud account with an API token ([how to create one](https://id.atlassian.com/manage-profile/security/api-tokens))
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone 
+cd instalog
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Configuration
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Copy `.env.example` to `.env` and fill in your Jira credentials:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cp .env.example .env
 ```
+
+Required variables:
+
+| Variable | Description | Example |
+|---|---|---|
+| `VITE_JIRA_BASE_URL` | Your Jira Cloud instance URL | `https://yourcompany.atlassian.net` |
+| `VITE_JIRA_EMAIL` | The email associated with your Jira account | `you@example.com` |
+| `VITE_JIRA_API_TOKEN` | API token from Atlassian | `ATATT3xFfGF0T...` |
+
+> **Security note:** these credentials are bundled into the browser build at compile time. This is fine for local personal use but not suitable for public deployment. See [Deployment](#deployment) for the production path.
+
+### Running
+
+```bash
+npm run dev         # start dev server at http://localhost:5173
+npm run test        # run tests in watch mode
+npm run test:run    # run tests once (CI)
+npm run lint        # lint
+npm run build       # production build
+npm run preview     # preview production build locally
+```
+
+---
+
+## Timesheet format
+
+Plain text, one entry per line, in the format `TICKET-ID START-END (optional description)`:
+
+```text
+16/3/26
+
+C25-3278 8:40am-9:18am
+CCT-77 9:18am-10am
+OPS-1 10am-10:30am
+FDES-13 10:37am-12:35pm
+Lunch 12:35pm-1:15pm
+CCT-77 1:15pm-2:38pm
+OPS-269 2:38pm-3:04pm (slack)
+FDES-13 3:28pm-3:50pm (Helping Vivian w/ Flinders)
+```
+
+- **Date** must appear as the first non-empty line, in `D/M/YY` format
+- **Times** support `9am`, `9:30am`, `12pm`, etc. (12-hour format)
+- **Descriptions** are optional, wrapped in parentheses
+- **LUNCH** and **MAKEUP** entries are recognised and skipped
+
+---
+
+## Project structure
+
+TBD
+
+---
+
+## Testing
+
+Tests are colocated with the code they test (`parser.ts` and `parser.test.ts` in the same folder). The domain pipeline is fully covered; UI components use React Testing Library.
+
+```bash
+npm run test:run
+```
+
+---
+
+## Deployment
+
+Not currently deployed. For public deployment, the Jira credentials must move out of the browser bundle. The recommended path is a thin backend proxy (single serverless function) that holds credentials server-side and exposes a `POST /api/worklog` endpoint to the frontend. This is to be added.
+
+---
+
+## License
+
+MIT
+
+---
+
+README v1.0
