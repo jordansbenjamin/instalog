@@ -11,6 +11,7 @@ A personal productivity tool for logging timesheet notes to Jira as worklogs. Pa
 - Submits each entry as a Jira worklog with proper ADF-formatted comments
 - Per-entry success/failure reporting with inline error messages
 - Retry failed entries without resubmitting successful ones
+- TBD
 
 ---
 
