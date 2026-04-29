@@ -1,21 +1,30 @@
-interface ParsedEntry {
+export interface ParsedDate {
+  year: number;
+  month: number;
+  day: number;
+}
+export interface ParsedEntry {
   lineNumber: number;
   ticketId: string;
   startTime: string;
   endTime: string;
-  workDescription?: string;
+  description?: string;
 }
 
-interface ParseError {
+export interface ParseError {
   lineNumber: number;
+  rawLine: string;
+  errorMessage: string;
 }
 
-interface SkippedLine {
+export interface SkippedLine {
   lineNumber: number;
+  rawLine: string;
 }
 
-export interface ParsedTimesheet {
-  date: string;
+export interface ParseResult {
+  // date: string;
+  date: ParsedDate;
   entries: ParsedEntry[];
   errors: ParseError[];
   skipped: SkippedLine[];

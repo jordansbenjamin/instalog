@@ -1,3 +1,5 @@
+import type { ParseResult } from "../types/shared";
+
 const EXAMPLE_INPUT = `29/4/26
 
 OPS-9 8:45am-9am (going through tasks for the day on Jira)
@@ -22,7 +24,7 @@ C25-2717 3:50pm-4:30pm
 
 OPS-127 4:30pm-5:10pm (External templates meeting w/ Leon, Jenna, and Marcus)`
 
-export function parseTimesheet(input: string): ParsedTimesheet {
+export function parseTimesheet(input: string): ParseResult {
   
 }
 
