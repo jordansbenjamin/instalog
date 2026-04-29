@@ -34,10 +34,12 @@ const EXAMPLE_INPUT_2 = `29/4/26
 OPS-9 8:45am-9am (going through tasks for the day on Jira)
 CCT-118 9am-10am`
 
-function isValidDate(date: string) {
+function isValidDate(date: string): boolean {
   // Only supports DD/M/YY for now
   const isValidDateFormat = /^\d{1,2}\/\d{1,2}\/\d{2}$/.test(date);
-  return isValidDateFormat;
+  const [ day, month ] = date.split('/').map(Number);
+  const isValidRange = day >= 1 && day <= 31 && month >= 1 && month <= 12;
+  return isValidDateFormat && isValidRange;
 }
 
 function extractDateInfo(date: string): ParsedDate {
@@ -45,7 +47,9 @@ function extractDateInfo(date: string): ParsedDate {
 }
 
 export function parseTimesheet(input: string): ParseResult | ParseError {
-  if (!input || input === '' || typeof input !== "string") return { errorMessage: "Input is empty, please enter timesheet."};
+  if (!input || input === '' || typeof input !== "string") {
+    return { errorMessage: "Input is empty, please enter timesheet."};
+  }
 
   const lines = input.trim().split('\n');
   const entries: ParsedEntry[] = [];
@@ -55,11 +59,12 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
 
   for (let i = 0; i < lines.length; i++) {
     const currentLine = lines[i];
-    if (currentLine === '') continue;
+    if (currentLine.trim() === '') continue;
 
     // If line is a date, parse and save date then continue
     if (isValidDate(currentLine)) {
-      const { day, month, year } = extractDateInfo(currentLine);
+      
+
       continue;
     }
 
