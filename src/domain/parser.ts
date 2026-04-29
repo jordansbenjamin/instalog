@@ -1,4 +1,4 @@
-import type { ParseResult } from "../types/shared";
+import type { ParsedDate, ParsedEntry, ParseError, ParseResult, SkippedLine } from "../types/shared";
 
 // const EXAMPLE_INPUT = `29/4/26
 
@@ -34,8 +34,38 @@ const EXAMPLE_INPUT_2 = `29/4/26
 OPS-9 8:45am-9am (going through tasks for the day on Jira)
 CCT-118 9am-10am`
 
-export function parseTimesheet(input: string): ParseResult {
+function isValidDate(date: string) {
+  // Only supports DD/M/YY for now
+  const isValidDateFormat = /^\d{1,2}\/\d{1,2}\/\d{2}$/.test(date);
+  return isValidDateFormat;
+}
+
+function extractDateInfo(date: string): ParsedDate {
+
+}
+
+export function parseTimesheet(input: string): ParseResult | ParseError {
+  if (!input || input === '' || typeof input !== "string") return { errorMessage: "Input is empty, please enter timesheet."};
+
   const lines = input.trim().split('\n');
+  const entries: ParsedEntry[] = [];
+  const date: ParsedDate = {};
+  const error: ParseError[] = [];
+  const skipped: SkippedLine[] = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const currentLine = lines[i];
+    if (currentLine === '') continue;
+
+    // If line is a date, parse and save date then continue
+    if (isValidDate(currentLine)) {
+      const { day, month, year } = extractDateInfo(currentLine);
+      continue;
+    }
+
+    // If line is a valid entry (a ticket line), grab ticket info
+  }
+
   console.log(lines)
 }
 

@@ -16,8 +16,8 @@ export interface ParsedEntry {
 
 // Represents a line that failed to parse with error details.
 export interface ParseError {
-  lineNumber: number;
-  rawLine: string;
+  lineNumber?: number;
+  rawLine?: string;
   errorMessage: string;
 }
 
