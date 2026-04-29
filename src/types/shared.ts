@@ -9,8 +9,8 @@ export interface ParsedDate {
 export interface ParsedEntry {
   lineNumber: number;
   ticketId: string;
-  startTime: string;
-  endTime: string;
+  startMinutes: number;
+  endMinutes: number;
   description?: string;
 }
 

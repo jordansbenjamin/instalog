@@ -9,11 +9,11 @@ C25-3278 8:40am-9:18am`
 
     const result = parseTimesheet(input)
 
-    expect(result.date).toBe('16/3/26')
+    expect(result.date).toEqual({ year: 26, month: 3, day: 16 })
     expect(result.entries).toHaveLength(1)
     expect(result.entries[0].ticketId).toBe('C25-3278')
-    expect(result.entries[0].startTime).toBe('8:40am')
-    expect(result.entries[0].endTime).toBe('9:18am')
+    expect(result.entries[0].startMinutes).toBe(520) // 8:40am
+    expect(result.entries[0].endMinutes).toBe(558)   // 9:18am
     expect(result.entries[0].description).toBeUndefined()
   })
 
@@ -36,17 +36,17 @@ CCT-77 1:15pm-2:38pm`
 
     const result = parseTimesheet(input)
 
-    expect(result.date).toBe('16/3/26')
+    expect(result.date).toEqual({ year: 26, month: 3, day: 16 })
     expect(result.entries).toHaveLength(6)
 
     expect(result.entries[0].ticketId).toBe('C25-3278')
-    expect(result.entries[0].startTime).toBe('8:40am')
-    expect(result.entries[0].endTime).toBe('9:18am')
+    expect(result.entries[0].startMinutes).toBe(520) // 8:40am
+    expect(result.entries[0].endMinutes).toBe(558)   // 9:18am
     expect(result.entries[0].description).toBeUndefined()
 
     expect(result.entries[5].ticketId).toBe('CCT-77')
-    expect(result.entries[5].startTime).toBe('1:15pm')
-    expect(result.entries[5].endTime).toBe('2:38pm')
+    expect(result.entries[5].startMinutes).toBe(795) // 1:15pm
+    expect(result.entries[5].endMinutes).toBe(878)   // 2:38pm
     expect(result.entries[5].description).toBeUndefined()
   })
 
@@ -57,11 +57,11 @@ C25-3278 8:40am-9:18am (test description)`
 
     const result = parseTimesheet(input)
 
-    expect(result.date).toBe('16/3/26')
+    expect(result.date).toEqual({ year: 26, month: 3, day: 16 })
     expect(result.entries).toHaveLength(1)
     expect(result.entries[0].ticketId).toBe('C25-3278')
-    expect(result.entries[0].startTime).toBe('8:40am')
-    expect(result.entries[0].endTime).toBe('9:18am')
+    expect(result.entries[0].startMinutes).toBe(520)
+    expect(result.entries[0].endMinutes).toBe(558)
     expect(result.entries[0].description).toBe('test description')
   })
 
@@ -74,8 +74,8 @@ FDES-13 3:28pm-3:50pm (Helping Vivian w/ Flinders)`
 
     expect(result.entries).toHaveLength(1)
     expect(result.entries[0].ticketId).toBe('FDES-13')
-    expect(result.entries[0].startTime).toBe('3:28pm')
-    expect(result.entries[0].endTime).toBe('3:50pm')
+    expect(result.entries[0].startMinutes).toBe(928) // 3:28pm
+    expect(result.entries[0].endMinutes).toBe(950)   // 3:50pm
     expect(result.entries[0].description).toBe('Helping Vivian w/ Flinders')
   })
 
@@ -93,6 +93,8 @@ CCT-77 1:15pm-2:38pm`
     expect(result.entries).toHaveLength(2)
     expect(result.entries[0].ticketId).toBe('FDES-13')
     expect(result.entries[1].ticketId).toBe('CCT-77')
+    expect(result.skipped).toHaveLength(1)
+    expect(result.skipped[0].rawLine).toBe('Lunch 12:35pm-1:15pm')
   })
 
   it('handles duplicate ticket IDs as separate entries', () => {
@@ -106,12 +108,12 @@ CCT-77 1:15pm-2:38pm`
 
     expect(result.entries).toHaveLength(2)
     expect(result.entries[0].ticketId).toBe('CCT-77')
-    expect(result.entries[0].startTime).toBe('9:18am')
+    expect(result.entries[0].startMinutes).toBe(558) // 9:18am
     expect(result.entries[1].ticketId).toBe('CCT-77')
-    expect(result.entries[1].startTime).toBe('1:15pm')
+    expect(result.entries[1].startMinutes).toBe(795) // 1:15pm
   })
 
-  it('handles entry with no blank lines between entries', () => {
+  it('handles entries with no blank lines between them', () => {
     const input = `16/3/26
 C25-3278 8:40am-9:18am
 CCT-77 9:18am-10am`
@@ -134,11 +136,26 @@ Makeup 5pm-5:30pm`
 
     expect(result.entries).toHaveLength(1)
     expect(result.entries[0].ticketId).toBe('C25-3278')
+    expect(result.skipped).toHaveLength(1)
+    expect(result.skipped[0].rawLine).toBe('Makeup 5pm-5:30pm')
   })
 })
 
-describe('parseTimesheet lineInfo', () => {
-  it('emits one LineInfo per input line, aligned positionally', () => {
+describe('parseTimesheet classification tests', () => {
+  it('records parse errors with line number and raw line', () => {
+    const input = `16/3/26
+
+C25-3278 8:40am-9:18am
+BAD-1 not-a-time`
+
+    const result = parseTimesheet(input)
+
+    expect(result.errors).toHaveLength(1)
+    expect(result.errors[0].lineNumber).toBe(4)
+    expect(result.errors[0].rawLine).toBe('BAD-1 not-a-time')
+  })
+
+  it('records skipped lines with line number and raw line', () => {
     const input = `16/3/26
 
 C25-3278 8:40am-9:18am
@@ -146,56 +163,30 @@ Lunch 12:35pm-1:15pm`
 
     const result = parseTimesheet(input)
 
-    expect(result.lineInfo).toHaveLength(input.split(/\n/).length)
+    expect(result.skipped).toHaveLength(1)
+    expect(result.skipped[0].lineNumber).toBe(4)
+    expect(result.skipped[0].rawLine).toBe('Lunch 12:35pm-1:15pm')
   })
 
-  it('classifies each line kind', () => {
-    const input = `16/3/26
-
-C25-3278 8:40am-9:18am
-Lunch 12:35pm-1:15pm
-BAD-1 not-a-time`
-
-    const result = parseTimesheet(input)
-
-    expect(result.lineInfo.map(l => l.kind)).toEqual([
-      'date',
-      'blank',
-      'ok',
-      'skip',
-      'err',
-    ])
-  })
-
-  it('preserves trailing blank lines', () => {
-    const input = `16/3/26
-
-C25-3278 8:40am-9:18am
-
-`
-
-    const result = parseTimesheet(input)
-
-    expect(result.lineInfo.at(-1)?.kind).toBe('blank')
-    expect(result.lineInfo).toHaveLength(5)
-  })
-
-  it('classifies MAKEUP as skip (not err)', () => {
+  it('classifies MAKEUP as skipped (not an error)', () => {
     const input = `16/3/26
 Makeup 5pm-5:30pm`
 
     const result = parseTimesheet(input)
 
-    expect(result.lineInfo[1].kind).toBe('skip')
+    expect(result.skipped).toHaveLength(1)
+    expect(result.skipped[0].rawLine).toBe('Makeup 5pm-5:30pm')
+    expect(result.errors).toHaveLength(0)
   })
 
-  it('classifies non-ticket first words as skip even with a valid time range', () => {
+  it('classifies non-ticket first words as skipped even with a valid time range', () => {
     const input = `16/3/26
 FooBar 9am-10am`
 
     const result = parseTimesheet(input)
 
-    expect(result.lineInfo[1].kind).toBe('skip')
+    expect(result.skipped).toHaveLength(1)
     expect(result.entries).toHaveLength(0)
+    expect(result.errors).toHaveLength(0)
   })
 })
