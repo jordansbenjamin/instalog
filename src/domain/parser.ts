@@ -34,16 +34,17 @@ const EXAMPLE_INPUT_2 = `29/4/26
 OPS-9 8:45am-9am (going through tasks for the day on Jira)
 CCT-118 9am-10am`
 
-function isValidDate(date: string): boolean {
+function isValidDate(dateLine: string): boolean {
   // Only supports DD/M/YY for now
-  const isValidDateFormat = /^\d{1,2}\/\d{1,2}\/\d{2}$/.test(date);
-  const [ day, month ] = date.split('/').map(Number);
+  const isValidDateFormat = /^\d{1,2}\/\d{1,2}\/\d{2}$/.test(dateLine);
+  const [ day, month ] = dateLine.split('/').map(Number);
   const isValidRange = day >= 1 && day <= 31 && month >= 1 && month <= 12;
   return isValidDateFormat && isValidRange;
 }
 
-function extractDateInfo(date: string): ParsedDate {
-
+function extractDateInfo(dateLine: string): ParsedDate {
+  const [ day, month, year ] = dateLine.split('/').map(Number);
+  return { day, month, year}
 }
 
 export function parseTimesheet(input: string): ParseResult | ParseError {
@@ -52,10 +53,10 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
   }
 
   const lines = input.trim().split('\n');
-  const entries: ParsedEntry[] = [];
-  const date: ParsedDate = {};
-  const error: ParseError[] = [];
-  const skipped: SkippedLine[] = [];
+  let date: ParsedDate | null = null;
+  // const entries: ParsedEntry[] = [];
+  // const error: ParseError[] = [];
+  // const skipped: SkippedLine[] = [];
 
   for (let i = 0; i < lines.length; i++) {
     const currentLine = lines[i];
@@ -63,8 +64,7 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
 
     // If line is a date, parse and save date then continue
     if (isValidDate(currentLine)) {
-      
-
+      date = extractDateInfo(currentLine);
       continue;
     }
 
@@ -72,6 +72,9 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
   }
 
   console.log(lines)
+  if (date && entries && errors && skipped) {
+    return { date, entries, errors, skipped }
+  }
 }
 
 parseTimesheet(EXAMPLE_INPUT)
