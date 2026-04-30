@@ -47,6 +47,14 @@ function extractDateInfo(dateLine: string): ParsedDate {
   return { day, month, year}
 }
 
+function isValidTicketEntry(entryLine: string): boolean {
+  return /^[A-Z]+-\d+/.test(entryLine);
+}
+
+function extractEntryInfo(entryLine: string) {
+  const [ ticketId, timePeriod, description] = entryLine.split(' ');
+}
+
 export function parseTimesheet(input: string): ParseResult | ParseError {
   if (!input || input === '' || typeof input !== "string") {
     return { errorMessage: "Input is empty, please enter timesheet."};
@@ -68,7 +76,13 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
       continue;
     }
 
-    // If line is a valid entry (a ticket line), grab ticket info
+    // If line is a valid entry (a ticket line), grab ticket info, else, line is skipped
+    if (!isValidTicketEntry(currentLine)) {
+      // TODO: Still considering if LineInfo is a better approach
+      // const skippedLine = {lineNumber, rawLine: currentLine}
+      // skipped.push(skippedLine);
+      continue
+    }
   }
 
   console.log(lines)

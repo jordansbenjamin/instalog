@@ -27,10 +27,17 @@ export interface SkippedLine {
   rawLine: string;
 }
 
+// type LineKind = "date" | "ok" | "skip" | "err" | "blank";
+
+// interface LineInfo {
+//   lineKind: LineKind;
+// }
+
 // The complete result of parsing a timesheet, including entries, errors, and skipped lines.
 export interface ParseResult {
   date: ParsedDate;
   entries: ParsedEntry[];
   errors: ParseError[];
   skipped: SkippedLine[];
+  // lineInfo: LineInfo[];
 }
