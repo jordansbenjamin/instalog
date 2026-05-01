@@ -1,4 +1,4 @@
-import type { ParsedDate, ParsedEntry, ParseError, ParseResult, SkippedLine } from "../types/shared";
+import type { ParsedDate, ParsedEntry, ParseError, ParseResult } from "../types/shared";
 
 // const EXAMPLE_INPUT = `29/4/26
 
@@ -67,24 +67,26 @@ function convertTimeToMinutes(time: string) {
 
 export function parseTimesheet(input: string): ParseResult | ParseError {
   if (!input || input === '' || typeof input !== "string") {
-    return { errorMessage: "Input is empty, please enter timesheet."};
+    return { errorMessage: "Input is empty, please add a timesheet."};
   }
 
   const lines = input.trim().split('\n');
-  let date: ParsedDate | null = null;
+  
+  const dateLine = lines.find(line => isValidDate(line.trim()));
+  if (!dateLine) return { errorMessage: "No date found, please add a date"};
+  const date: ParsedDate = extractDateInfo(dateLine);
+
   const entries: ParsedEntry[] = [];
-  const errors: ParseError[] = [];
+  // const errors: ParseError[] = [];
 
   for (let i = 0; i < lines.length; i++) {
-    const currentLine = lines[i];
+    const currentLine = lines[i].trim();
     // If line is blank
-    if (currentLine.trim() === '') continue;
+    if (currentLine === '') continue;
 
-    if (isValidDate(currentLine)) {
-      date = extractDateInfo(currentLine);
-      continue;
-    }
+    if (isValidDate(currentLine)) continue;
 
+    // skipped line
     if (!isValidTicketEntry(currentLine)) {
       continue;
     }
@@ -98,16 +100,28 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
     //   // TBD
     // }
 
-    const timePeriod 
+    const [startTime, endTime] = timePeriod.split("-");
+    const startMinutes = convertTimeToMinutes(startTime);
+    const endMinutes = convertTimeToMinutes(endTime);
+
+    let parsedDescription;
+    if (description?.startsWith("(") && description?.endsWith(")")) {
+      parsedDescription = description.slice(1,description.length-1)
+    }
+
+    const validEntry = {
+      lineNumber: i+1,
+      ticketId,
+      startMinutes,
+      endMinutes,
+      description: parsedDescription,
+    }
+
+    entries.push(validEntry);
   }
 
-  console.log(lines)
-  // if (date && entries && errors && skipped) {
-  // }
-  return { date, entries, errors, skipped }
+  return { date, entries}
 }
 
-
-
-parseTimesheet(EXAMPLE_INPUT)
-parseTimesheet(EXAMPLE_INPUT_2)
+console.log(parseTimesheet(EXAMPLE_INPUT))
+console.log(parseTimesheet(EXAMPLE_INPUT_2))

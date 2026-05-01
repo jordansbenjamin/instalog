@@ -14,10 +14,9 @@ export interface ParsedEntry {
   description?: string;
 }
 
-// Represents a line that failed to parse with error details.
 export interface ParseError {
-  lineNumber?: number;
-  rawLine?: string;
+  // lineNumber?: number;
+  // rawLine?: string;
   errorMessage: string;
 }
 
@@ -40,6 +39,6 @@ export interface ParseError {
 export interface ParseResult {
   date: ParsedDate;
   entries: ParsedEntry[];
-  errors: ParseError[];
+  // errors: ParseError[];
   // lines: LineInfo[];
 }
