@@ -51,8 +51,18 @@ function isValidTicketEntry(entryLine: string): boolean {
   return /^[A-Z]+-\d+/.test(entryLine);
 }
 
-function extractEntryInfo(entryLine: string) {
-  const [ ticketId, timePeriod, description] = entryLine.split(' ');
+function convertTimeToMinutes(time: string) {
+  const [hour, minute] = time.split(":").map(num => parseInt(num, 10));
+  let convertedHour = hour;
+  
+  if ((time.includes("am") && hour === 12) || (time.includes("pm") && hour !== 12)) {
+    convertedHour = hour + 12;
+  }
+
+  if (!minute) return convertedHour * 60;
+  
+  const convertedTime = (convertedHour * 60) + minute;
+  return convertedTime;
 }
 
 export function parseTimesheet(input: string): ParseResult | ParseError {
@@ -62,34 +72,42 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
 
   const lines = input.trim().split('\n');
   let date: ParsedDate | null = null;
-  // const entries: ParsedEntry[] = [];
-  // const error: ParseError[] = [];
-  // const skipped: SkippedLine[] = [];
+  const entries: ParsedEntry[] = [];
+  const errors: ParseError[] = [];
 
   for (let i = 0; i < lines.length; i++) {
     const currentLine = lines[i];
+    // If line is blank
     if (currentLine.trim() === '') continue;
 
-    // If line is a date, parse and save date then continue
     if (isValidDate(currentLine)) {
       date = extractDateInfo(currentLine);
       continue;
     }
 
-    // If line is a valid entry (a ticket line), grab ticket info, else, line is skipped
     if (!isValidTicketEntry(currentLine)) {
-      // TODO: Still considering if LineInfo is a better approach
-      // const skippedLine = {lineNumber, rawLine: currentLine}
-      // skipped.push(skippedLine);
-      continue
+      continue;
     }
+
+    const [ ticketId, timePeriod, description] = currentLine.split(' ');
+
+    // if (!isValidTimePeriod(timePeriod)) {
+    //   // TBD
+    // }
+    // if (!isValidDescription(description)) {
+    //   // TBD
+    // }
+
+    const timePeriod 
   }
 
   console.log(lines)
-  if (date && entries && errors && skipped) {
-    return { date, entries, errors, skipped }
-  }
+  // if (date && entries && errors && skipped) {
+  // }
+  return { date, entries, errors, skipped }
 }
+
+
 
 parseTimesheet(EXAMPLE_INPUT)
 parseTimesheet(EXAMPLE_INPUT_2)
