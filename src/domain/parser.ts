@@ -48,7 +48,7 @@ function extractDateInfo(dateLine: string): ParsedDate {
 }
 
 function isValidTicketEntry(entryLine: string): boolean {
-  return /^[A-Z]+-\d+/.test(entryLine);
+  return /^[A-Z][A-Z0-9]*-\d+/.test(entryLine);
 }
 
 function convertTimeToMinutes(time: string) {
@@ -80,6 +80,7 @@ export function parseTimesheet(input: string): ParseResult {
   // const errors: ParseError[] = [];
 
   for (let i = 0; i < lines.length; i++) {
+    const lineNumber = i+1;
     const currentLine = lines[i].trim();
     // If line is blank
     if (currentLine === '') continue;
@@ -91,7 +92,8 @@ export function parseTimesheet(input: string): ParseResult {
       continue;
     }
 
-    const [ ticketId, timePeriod, description] = currentLine.split(' ');
+    const [ ticketId, timePeriod, ...descriptionParts] = currentLine.split(' ');
+    const description = descriptionParts.join(' ');
 
     // if (!isValidTimePeriod(timePeriod)) {
     //   // TBD
@@ -110,13 +112,13 @@ export function parseTimesheet(input: string): ParseResult {
     }
 
     const validEntry = {
-      lineNumber: i+1,
+      lineNumber,
       ticketId,
       startMinutes,
       endMinutes,
-      description: parsedDescription,
+      description: parsedDescription
     }
-
+    console.log("valid entry:", validEntry)
     entries.push(validEntry);
   }
 
