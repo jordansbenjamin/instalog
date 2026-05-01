@@ -149,6 +149,49 @@ Makeup 5pm-5:30pm`
   })
 })
 
+describe('parseTimesheet time conversion tests', () => {
+  it('converts 12pm (noon) as start time to 720 minutes', () => {
+    const input = `16/3/26
+OPS-9 12pm-1pm`
+
+    const result = assertSuccess(parseTimesheet(input))
+
+    expect(result.entries[0].startMinutes).toBe(720) // 12pm = noon
+    expect(result.entries[0].endMinutes).toBe(780)   // 1pm
+  })
+
+  it('converts 12:30pm to 750 minutes', () => {
+    const input = `16/3/26
+OPS-9 12:30pm-1pm`
+
+    const result = assertSuccess(parseTimesheet(input))
+
+    expect(result.entries[0].startMinutes).toBe(750) // 12:30pm
+    expect(result.entries[0].endMinutes).toBe(780)   // 1pm
+  })
+
+  it('handles a time entry spanning noon (am start, pm end)', () => {
+    const input = `16/3/26
+OPS-9 11:30am-12:30pm`
+
+    const result = assertSuccess(parseTimesheet(input))
+
+    expect(result.entries[0].startMinutes).toBe(690) // 11:30am
+    expect(result.entries[0].endMinutes).toBe(750)   // 12:30pm
+  })
+
+  // known bug: 12am (midnight) incorrectly converts to 1440 instead of 0
+  it('converts 12am (midnight) to 0 minutes', () => {
+    const input = `16/3/26
+OPS-9 12am-1am`
+
+    const result = assertSuccess(parseTimesheet(input))
+
+    expect(result.entries[0].startMinutes).toBe(0)   // 12am = midnight
+    expect(result.entries[0].endMinutes).toBe(60)    // 1am
+  })
+})
+
 describe('parseTimesheet error handling tests', () => {
   it('returns failure when input is empty', () => {
     const result = parseTimesheet('')
@@ -166,6 +209,18 @@ describe('parseTimesheet error handling tests', () => {
     if (!result.success) {
       expect(result.errorMessage).toBe('No date found, please add a date')
     }
+  })
+
+  it('returns failure when input is whitespace only', () => {
+    const result = parseTimesheet('   ')
+
+    expect(result.success).toBe(false)
+  })
+
+  it('returns failure when input is newlines only', () => {
+    const result = parseTimesheet('\n\n\n')
+
+    expect(result.success).toBe(false)
   })
 })
 
