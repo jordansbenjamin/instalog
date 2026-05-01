@@ -14,12 +14,6 @@ export interface ParsedEntry {
   description?: string;
 }
 
-export interface ParseError {
-  // lineNumber?: number;
-  // rawLine?: string;
-  errorMessage: string;
-}
-
 // // Represents a line that was intentionally skipped (e.g., Lunch, Makeup).
 // export interface SkippedLine {
 //   lineNumber: number;
@@ -36,9 +30,6 @@ export interface ParseError {
 // }
 
 // The complete result of parsing a timesheet, including entries, errors, and skipped lines.
-export interface ParseResult {
-  date: ParsedDate;
-  entries: ParsedEntry[];
-  // errors: ParseError[];
-  // lines: LineInfo[];
-}
+export type ParseResult = 
+  | { success: true; date: ParsedDate; entries: ParsedEntry[];} 
+  | { success: false; errorMessage: string}

@@ -1,4 +1,4 @@
-import type { ParsedDate, ParsedEntry, ParseError, ParseResult } from "../types/shared";
+import type { ParsedDate, ParsedEntry, ParseResult } from "../types/shared";
 
 // const EXAMPLE_INPUT = `29/4/26
 
@@ -65,15 +65,15 @@ function convertTimeToMinutes(time: string) {
   return convertedTime;
 }
 
-export function parseTimesheet(input: string): ParseResult | ParseError {
+export function parseTimesheet(input: string): ParseResult {
   if (!input || input === '' || typeof input !== "string") {
-    return { errorMessage: "Input is empty, please add a timesheet."};
+    return { success: false, errorMessage: "Input is empty, please add a timesheet."};
   }
 
   const lines = input.trim().split('\n');
   
   const dateLine = lines.find(line => isValidDate(line.trim()));
-  if (!dateLine) return { errorMessage: "No date found, please add a date"};
+  if (!dateLine) return { success: false, errorMessage: "No date found, please add a date"};
   const date: ParsedDate = extractDateInfo(dateLine);
 
   const entries: ParsedEntry[] = [];
@@ -120,7 +120,7 @@ export function parseTimesheet(input: string): ParseResult | ParseError {
     entries.push(validEntry);
   }
 
-  return { date, entries}
+  return { success: true, date, entries}
 }
 
 console.log(parseTimesheet(EXAMPLE_INPUT))
