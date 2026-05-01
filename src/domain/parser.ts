@@ -21,8 +21,12 @@ function convertTimeToMinutes(time: string) {
   const [hour, minute] = time.split(":").map(num => parseInt(num, 10));
   let convertedHour = hour;
   
-  if ((time.includes("am") && hour === 12) || (time.includes("pm") && hour !== 12)) {
+  if (time.includes("pm") && hour !== 12) {
     convertedHour = hour + 12;
+  }
+
+  if (time.includes("am") && hour === 12) {
+    convertedHour = hour - 12;
   }
 
   if (!minute) return convertedHour * 60;

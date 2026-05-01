@@ -180,7 +180,6 @@ OPS-9 11:30am-12:30pm`
     expect(result.entries[0].endMinutes).toBe(750)   // 12:30pm
   })
 
-  // known bug: 12am (midnight) incorrectly converts to 1440 instead of 0
   it('converts 12am (midnight) to 0 minutes', () => {
     const input = `16/3/26
 OPS-9 12am-1am`
