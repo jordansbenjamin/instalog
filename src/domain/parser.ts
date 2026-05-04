@@ -17,6 +17,10 @@ function isValidTicketEntry(entryLine: string): boolean {
   return /^[A-Z][A-Z0-9]*-\d+/.test(entryLine);
 }
 
+function isValidDescription(description: string): boolean {
+  return description.startsWith("(") && description.endsWith(")");
+}
+
 function convertTimeToMinutes(time: string) {
   const [hour, minute] = time.split(":").map(num => parseInt(num, 10));
   let convertedHour = hour;
@@ -85,8 +89,8 @@ export function parseTimesheet(input: string): ParseResult {
     const endMinutes = convertTimeToMinutes(endTime);
 
     let parsedDescription;
-    if (description?.startsWith("(") && description?.endsWith(")")) {
-      parsedDescription = description.slice(1,description.length-1)
+    if (isValidDescription(description)) {
+      parsedDescription = description.slice(1,description.length-1).trim();
     }
 
     const validEntry = {

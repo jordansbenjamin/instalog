@@ -14,12 +14,6 @@ export interface ParsedEntry {
   description?: string;
 }
 
-// // Represents a line that was intentionally skipped (e.g., Lunch, Makeup).
-// export interface SkippedLine {
-//   lineNumber: number;
-//   rawLine: string;
-// }
-
 // type LineKind = "date" | "ok" | "skip" | "err" | "blank";
 
 // interface LineInfo {
