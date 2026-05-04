@@ -1,3 +1,5 @@
+import type { generateWorklogADF } from "../domain/transformer";
+
 // Represents a date parsed from the first line of the timesheet (DD/M/YY format).
 export interface ParsedDate {
   year: number;
@@ -27,3 +29,8 @@ export interface ParsedEntry {
 export type ParseResult = 
   | { success: true; date: ParsedDate; entries: ParsedEntry[];} 
   | { success: false; errorMessage: string}
+
+export interface JiraWorklog {
+  ticketId: string;
+  body: ReturnType<typeof generateWorklogADF>
+}

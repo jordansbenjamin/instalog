@@ -1,3 +1,5 @@
+import type { ParsedDate, ParsedEntry } from "../types/shared";
+
 export function generateWorklogADF(timeSpent: number, timeStarted: string, descriptionText?: string) {
   const bodyData = {
     timeSpentSeconds: timeSpent,
@@ -25,4 +27,6 @@ export function generateWorklogADF(timeSpent: number, timeStarted: string, descr
   return bodyData;
 }
 
-export function transformTimesheet() {}
+export function transformTimesheet(entries: ParsedEntry[], date: ParsedDate) {
+  
+}
