@@ -36,15 +36,24 @@ function convertTimeToMinutes(time: string) {
 }
 
 export function parseTimesheet(input: string): ParseResult {
-  if (!input || input === '' || input === ' ' || typeof input !== "string") {
+  if (!input.trim()) {
     return { success: false, errorMessage: "Input is empty, please add a timesheet."};
   }
 
   const lines = input.trim().split('\n');
   
-  const dateLine = lines.find(line => isValidDate(line.trim()));
-  if (!dateLine) return { success: false, errorMessage: "No date found, please add a date"};
-  const date: ParsedDate = extractDateInfo(dateLine);
+  const firstNonBlankLine = lines.find(line => line.trim() !== '')?.trim();
+
+  if (!firstNonBlankLine || !isValidDate(firstNonBlankLine)) {
+    return { success: false, errorMessage: "No date found, please add a date"};
+  }
+  
+  const date: ParsedDate = extractDateInfo(firstNonBlankLine);
+
+  // return error if lines is date only (no entries)
+  if (lines.length === 1 && isValidDate(firstNonBlankLine)) {
+    return { success: false, errorMessage: "No date ticket entry added, please add a ticket entry"};
+  }
 
   const entries: ParsedEntry[] = [];
 

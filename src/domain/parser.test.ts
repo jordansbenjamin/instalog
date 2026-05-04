@@ -189,6 +189,16 @@ OPS-9 12am-1am`
     expect(result.entries[0].startMinutes).toBe(0)   // 12am = midnight
     expect(result.entries[0].endMinutes).toBe(60)    // 1am
   })
+
+  it('converts 9:00am start and 9:00pm end correctly', () => {
+    const input = `16/3/26
+OPS-9 9:00am-9:00pm`
+
+    const result = assertSuccess(parseTimesheet(input))
+
+    expect(result.entries[0].startMinutes).toBe(540)  // 9:00am = 9 * 60
+    expect(result.entries[0].endMinutes).toBe(1260)   // 9:00pm = 21 * 60
+  })
 })
 
 describe('parseTimesheet error handling tests', () => {
