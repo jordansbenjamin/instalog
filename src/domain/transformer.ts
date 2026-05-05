@@ -1,8 +1,8 @@
-import type { ParsedDate, ParsedEntry } from "../types/shared";
+import type { JiraWorklog, ParsedDate, ParsedEntry } from "../types/shared";
 
-export function generateWorklogADF(timeSpent: number, timeStarted: string, descriptionText?: string) {
+export function generateWorklogADF(durationInSeconds: number, timeStarted: string, descriptionText?: string) {
   const bodyData = {
-    timeSpentSeconds: timeSpent,
+    timeSpentSeconds: durationInSeconds,
     started: timeStarted,
     // NOTE: Could be more explicit with ...(descriptionText !== undefined && descriptionText !== "" ? { comment: { ... } } : {})
     ...(descriptionText && {
@@ -27,6 +27,22 @@ export function generateWorklogADF(timeSpent: number, timeStarted: string, descr
   return bodyData;
 }
 
-export function transformTimesheet(entries: ParsedEntry[], date: ParsedDate) {
-  
+function extractDurationInSeconds() {}
+
+export function transformTimesheet(entries: ParsedEntry[], date: ParsedDate): JiraWorklog[] {
+  // if (entries.length < 1) return;
+  const transformedEntries: JiraWorklog[] = entries.map(entry => {
+    // if (!entry) return;
+    const { ticketId, startMinutes, endMinutes, description } = entry;
+    // timeSpent is duration in seconds
+    const durationInSeconds = extractDurationInSeconds(startMinutes, endMinutes);
+    // timeStarted is UTC
+    const timeStarted = extractTimeStartedUTC()
+
+    const body = generateWorklogADF(durationInSeconds, timeStarted, description)
+
+    return { ticketId, body }
+  });
+
+  return transformedEntries;
 }
