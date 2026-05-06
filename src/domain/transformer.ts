@@ -27,7 +27,9 @@ export function generateWorklogADF(durationInSeconds: number, timeStarted: strin
   return bodyData;
 }
 
-function extractDurationInSeconds() {}
+function calculateTimeStarted(startMinutes: number, date: ParsedDate) {
+  // TBD
+}
 
 export function transformTimesheet(entries: ParsedEntry[], date: ParsedDate): JiraWorklog[] {
   // if (entries.length < 1) return;
@@ -35,9 +37,9 @@ export function transformTimesheet(entries: ParsedEntry[], date: ParsedDate): Ji
     // if (!entry) return;
     const { ticketId, startMinutes, endMinutes, description } = entry;
     // timeSpent is duration in seconds
-    const durationInSeconds = extractDurationInSeconds(startMinutes, endMinutes);
+    const durationInSeconds = (endMinutes - startMinutes) * 60;
     // timeStarted is UTC
-    const timeStarted = extractTimeStartedUTC()
+    const timeStarted = calculateTimeStarted(startMinutes, date);
 
     const body = generateWorklogADF(durationInSeconds, timeStarted, description)
 
