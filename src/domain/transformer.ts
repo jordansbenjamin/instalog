@@ -27,9 +27,21 @@ export function generateWorklogADF(durationInSeconds: number, timeStarted: strin
   return bodyData;
 }
 
-function calculateTimeStarted(startMinutes: number, date: ParsedDate) {
-  // TBD
+function calculateTimeStarted(startMinutes: number, date: ParsedDate): string {
+  // "2026-03-18T19:00:00.000+1000"
+  const hour = Math.floor(startMinutes / 60);
+  const minute = startMinutes % 60;
+  const yearStr = `${date.year + 2000}`;
+  const monthStr = `${date.month}`.padStart(2, '0');
+  const dayStr = `${date.day}`.padStart(2, '0');
+
+  const isoString = `${yearStr}-${monthStr}-${dayStr}T${hour}:${minute}:00.000+1000`;
+  console.log(isoString)
+  return isoString;
 }
+
+calculateTimeStarted(1170, {day: 8, month: 3, year: 26})
+calculateTimeStarted(1168, {day: 18, month: 3, year: 26})
 
 export function transformTimesheet(entries: ParsedEntry[], date: ParsedDate): JiraWorklog[] {
   // if (entries.length < 1) return;

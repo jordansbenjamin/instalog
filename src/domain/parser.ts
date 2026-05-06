@@ -39,6 +39,8 @@ function convertTimeToMinutes(time: string) {
   return convertedTime;
 }
 
+console.log(convertTimeToMinutes("7:28pm"))
+
 export function parseTimesheet(input: string): ParseResult {
   if (!input.trim()) {
     return { success: false, errorMessage: "Input is empty, please add a timesheet."};
