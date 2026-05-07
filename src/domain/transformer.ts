@@ -29,8 +29,8 @@ export function generateWorklogADF(durationInSeconds: number, timeStarted: strin
 
 function calculateTimeStarted(startMinutes: number, date: ParsedDate): string {
   // "2026-03-18T19:00:00.000+1000"
-  const hour = Math.floor(startMinutes / 60);
-  const minute = startMinutes % 60;
+  const hour = `${Math.floor(startMinutes / 60)}`.padStart(2, '0');
+  const minute = `${startMinutes % 60}`.padStart(2, '0');
   const yearStr = `${date.year + 2000}`;
   const monthStr = `${date.month}`.padStart(2, '0');
   const dayStr = `${date.day}`.padStart(2, '0');
@@ -40,7 +40,7 @@ function calculateTimeStarted(startMinutes: number, date: ParsedDate): string {
   return isoString;
 }
 
-calculateTimeStarted(1170, {day: 8, month: 3, year: 26})
+calculateTimeStarted(65, {day: 8, month: 3, year: 26})
 calculateTimeStarted(1168, {day: 18, month: 3, year: 26})
 
 export function transformTimesheet(entries: ParsedEntry[], date: ParsedDate): JiraWorklog[] {
