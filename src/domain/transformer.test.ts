@@ -21,7 +21,7 @@ C25-3278 8:40am-9:18am`
     expect(transformedTimesheet).toHaveLength(1)
     expect(transformedTimesheet[0].ticketId).toBe('C25-3278')
     expect(transformedTimesheet[0].body.timeSpentSeconds).toBe(2280)
-    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T08:40:00.000+1100')
+    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T08:40:00.000+1000')
     expect(transformedTimesheet[0].body.comment).toBeUndefined()
   })
 
@@ -33,7 +33,7 @@ FDES-13 12pm-12:30pm`
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
 
-    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T12:00:00.000+1100')
+    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T12:00:00.000+1000')
     expect(transformedTimesheet[0].body.timeSpentSeconds).toBe(1800)
   })
 
@@ -45,7 +45,7 @@ FDES-13 12am-12:30am`
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
 
-    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T00:00:00.000+1100')
+    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T00:00:00.000+1000')
     expect(transformedTimesheet[0].body.timeSpentSeconds).toBe(1800)
   })
 
@@ -58,7 +58,7 @@ C25-100 1pm-2pm`
     const transformedTimesheet = transformTimesheet(entries, date);
 
     expect(transformedTimesheet[0].body.timeSpentSeconds).toBe(3600)
-    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T13:00:00.000+1100')
+    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T13:00:00.000+1000')
   })
 
   it('calculates duration across the AM/PM boundary', () => {
@@ -70,13 +70,13 @@ C25-101 11:30am-1:00pm`
     const transformedTimesheet = transformTimesheet(entries, date);
 
     expect(transformedTimesheet[0].body.timeSpentSeconds).toBe(5400)
-    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T11:30:00.000+1100')
+    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T11:30:00.000+1000')
   })
 
   it('includes ADF comment structure when description is provided', () => {
     const input = `16/3/26
 
-C25-200 9am-10am fixed login bug`
+C25-200 9am-10am (fixed login bug)`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
@@ -107,9 +107,9 @@ C25-3 11am-12pm`
 
     expect(transformedTimesheet).toHaveLength(3)
     expect(transformedTimesheet.map(t => t.ticketId)).toEqual(['C25-1', 'C25-2', 'C25-3'])
-    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T09:00:00.000+1100')
-    expect(transformedTimesheet[1].body.started).toBe('2026-03-16T10:00:00.000+1100')
-    expect(transformedTimesheet[2].body.started).toBe('2026-03-16T11:00:00.000+1100')
+    expect(transformedTimesheet[0].body.started).toBe('2026-03-16T09:00:00.000+1000')
+    expect(transformedTimesheet[1].body.started).toBe('2026-03-16T10:00:00.000+1000')
+    expect(transformedTimesheet[2].body.started).toBe('2026-03-16T11:00:00.000+1000')
     expect(transformedTimesheet[0].body.timeSpentSeconds).toBe(3600)
     expect(transformedTimesheet[1].body.timeSpentSeconds).toBe(3600)
     expect(transformedTimesheet[2].body.timeSpentSeconds).toBe(3600)
