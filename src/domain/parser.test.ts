@@ -231,6 +231,24 @@ describe('parseTimesheet error handling tests', () => {
 
     expect(result.success).toBe(false)
   })
+
+  it('returns failure when end time is before start time', () => {
+    const result = parseTimesheet(`16/3/26\n\nC25-100 10am-9am`)
+
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.errorMessage).toBe('Starting time should be less than and not equal to ending time.')
+    }
+  })
+
+  it('returns failure when end time equals start time', () => {
+    const result = parseTimesheet(`16/3/26\n\nC25-100 9am-9am`)
+
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.errorMessage).toBe('Starting time should be less than and not equal to ending time.')
+    }
+  })
 })
 
 // TODO: implement when per-line error and skipped tracking is added to the parser
