@@ -90,6 +90,10 @@ export function parseTimesheet(input: string): ParseResult {
     const startMinutes = convertTimeToMinutes(startTime);
     const endMinutes = convertTimeToMinutes(endTime);
 
+    if (endMinutes <= startMinutes) {
+      return { success: false, errorMessage: "Starting time should be less than and not equal to ending time." }
+    }
+
     let parsedDescription;
     if (isValidDescription(description)) {
       parsedDescription = description.slice(1,description.length-1).trim();
