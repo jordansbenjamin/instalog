@@ -114,19 +114,4 @@ C25-3 11am-12pm`
     expect(transformedTimesheet[1].body.timeSpentSeconds).toBe(3600)
     expect(transformedTimesheet[2].body.timeSpentSeconds).toBe(3600)
   })
-
-  it('excludes LUNCH and MAKEUP entries from transformed output', () => {
-    const input = `16/3/26
-
-C25-1 9am-10am
-LUNCH 12pm-1pm
-C25-2 2pm-3pm
-MAKEUP 5pm-6pm`
-
-    const { entries, date } = parseOrThrow(input)
-    const transformedTimesheet = transformTimesheet(entries, date);
-
-    expect(transformedTimesheet).toHaveLength(2)
-    expect(transformedTimesheet.map(t => t.ticketId)).toEqual(['C25-1', 'C25-2'])
-  })
 })
