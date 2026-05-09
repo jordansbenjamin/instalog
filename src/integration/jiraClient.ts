@@ -8,7 +8,9 @@ function classifyStatus(status: number): SubmissionErrorKind {
   return 'unknown';
 }
 
-function isRetryable() {}
+function isRetryable(kind: SubmissionErrorKind): boolean {
+  return kind === 'server' || kind === 'network';
+}
 
 function buildErrorMessage() {}
 
