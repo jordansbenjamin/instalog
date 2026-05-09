@@ -1,4 +1,16 @@
-import type { JiraWorklog } from "../types/shared";
+import type { JiraWorklog, SubmissionErrorKind } from "../types/shared";
+
+function classifyStatus(status: number): SubmissionErrorKind {
+  if (status === 401) return 'auth';
+  if (status === 403) return 'permission';
+  if (status === 404) return 'not-found';
+  if (status >= 500) return 'server';
+  return 'unknown';
+}
+
+function isRetryable() {}
+
+function buildErrorMessage() {}
 
 export async function postWorklog(worklogEntry: JiraWorklog) {
   const baseUrl = import.meta.env.VITE_JIRA_BASE_URL;
@@ -10,7 +22,8 @@ export async function postWorklog(worklogEntry: JiraWorklog) {
       ok: false,
       ticketId: worklogEntry.ticketId,
       kind: 'config',
-      message: "Jira credentials are not configured. Check your .env file"
+      message: "Jira credentials are not configured. Check your .env file",
+      retryable: false,
     }
   }
 
