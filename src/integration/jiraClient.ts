@@ -1,4 +1,4 @@
-import type { JiraWorklog, SubmissionErrorKind } from "../types/shared";
+import type { JiraWorklog, SubmissionErrorKind, SubmissionResult } from "../types/shared";
 
 function classifyStatus(status: number): SubmissionErrorKind {
   if (status === 401) return 'auth';
@@ -31,7 +31,7 @@ function buildErrorMessage(kind: SubmissionErrorKind, status: number, body: stri
   }
 }
 
-export async function postWorklog(worklogEntry: JiraWorklog) {
+export async function postWorklog(worklogEntry: JiraWorklog): Promise<SubmissionResult> {
   const baseUrl = import.meta.env.VITE_JIRA_BASE_URL;
   const username = import.meta.env.VITE_JIRA_EMAIL;
   const password = import.meta.env.VITE_JIRA_API_TOKEN;
@@ -62,18 +62,27 @@ export async function postWorklog(worklogEntry: JiraWorklog) {
       },
       body: JSON.stringify(worklogEntry.body)
     });
-  } catch(err) {
-    console.error(err)
-  }
-
-  if (!response.ok) {
+  } catch(error) {
     return {
       ok: false,
       ticketId: worklogEntry.ticketId,
-      kind: '',
-      status: response.status,
-      message: '',
-      retryable: ''
+      kind: 'network',
+      message: error instanceof Error ? error.message : "Network and connection error, please try again.",
+      retryable: true,
+    }
+  }
+
+  if (!response.ok) {
+    const resStatus = response.status;
+    const errorBody = await response.text();
+    const errorKind = classifyStatus(resStatus);
+    return {
+      ok: false,
+      ticketId: worklogEntry.ticketId,
+      kind: errorKind,
+      status: resStatus,
+      message: buildErrorMessage(errorKind, resStatus, errorBody),
+      retryable: isRetryable(errorKind),
     }
   }
 
