@@ -12,7 +12,24 @@ function isRetryable(kind: SubmissionErrorKind): boolean {
   return kind === 'server' || kind === 'network';
 }
 
-function buildErrorMessage() {}
+function buildErrorMessage(kind: SubmissionErrorKind, status: number, body: string): string {
+  switch (kind) {
+    case 'auth':
+      return 'Your Jira credentials were rejected. Check your API token.'
+    case 'permission':
+      return "You don't have permission to log work on this issue."
+    case 'not-found':
+      return "This ticket doesn't exist in Jira. Check the ticket ID."
+    case 'server':
+      return `Jira is having trouble (${status}). Try again in a moment.`
+    case 'unknown':
+      // return `Unexpected error (${status}): ${body.slice(0, 200)}`
+      return `Unexpected error (${status}): ${body}`
+    default:
+      // return body.slice(0, 200)
+      return body;
+  }
+}
 
 export async function postWorklog(worklogEntry: JiraWorklog) {
   const baseUrl = import.meta.env.VITE_JIRA_BASE_URL;
