@@ -34,3 +34,27 @@ export interface JiraWorklog {
   ticketId: string;
   body: ReturnType<typeof generateWorklogADF>
 }
+
+export type SubmissionErrorKind =
+  | 'auth'        // 401: token is bad
+  | 'permission'  // 403: user not allowed on this ticket
+  | 'not-found'   // 404: ticket doesn't exist
+  | 'server'      // 5xx: Requesting server's problem (jira)
+  | 'network'     // fetch threw: network/connectivity issue
+  | 'config'      // env vars missing: should not happen at runtime
+  | 'unknown'     // catch-all for statuses not recognised
+
+export type SubmissionResult =
+  | {
+      ok: true;
+      ticketId: string;
+      worklogId: string;
+    }
+  | {
+      ok: false;
+      ticketId: string;
+      kind: SubmissionErrorKind;
+      status?: number;
+      message: string;
+      retryable: boolean;
+    }
