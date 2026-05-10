@@ -91,6 +91,6 @@ export async function postWorklog(worklogEntry: JiraWorklog): Promise<Submission
   return {
     ok: true,
     ticketId: worklogEntry.ticketId,
-    worklogId: data.id,
+    worklogId: data?.id,
   }
 }
