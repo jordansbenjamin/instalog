@@ -8,3 +8,10 @@ interface State {
   parsedResult: ParseResult | null;
   submissionResults: Record<string, SubmissionResult | 'pending'>;
 }
+
+const initialState: State = {
+  step: 'paste',
+  rawInput: '',
+  parsedResult: null,
+  submissionResults: {},
+}
