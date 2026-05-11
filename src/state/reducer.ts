@@ -4,7 +4,7 @@ type Step = 'paste' | 'preview' | 'submitting' | 'results';
 
 interface State {
   step: Step;
-  rawInput: string;
+  text: string;
   parsedResult: ParseResult | null;
   submissionResults: Record<string, SubmissionResult | 'pending'>;
 }
@@ -18,11 +18,10 @@ type Action =
   | { type: "SUBMIT"; }
   | { type: "SUBMISSION_RESULT"; submissionResult: SubmissionResult}
   | { type: "RESET"; }
-  | { type: "LOAD_EXAMPLE"; }
 
 const initialState: State = {
   step: 'paste',
-  rawInput: '',
+  text: '',
   parsedResult: null,
   submissionResults: {},
 }
