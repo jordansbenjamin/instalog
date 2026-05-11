@@ -25,3 +25,26 @@ const initialState: State = {
   parsedResult: null,
   submissionResults: {},
 }
+
+function reducer(state: State, action: Action): State {
+  switch(action.type) {
+    case "TEXT_CHANGED":
+      return { ...state, text: state.text };
+    case "PARSE_RESULT":
+      return { ...state, parsedResult: state.parsedResult };
+    case "EDIT_ENTRY":
+      return { ...state, parsedResult: state.parsedResult };
+    case "DELETE_ENTRY":
+      return { ...state, parsedResult: state.parsedResult };
+    case "BACK":
+      return { ...state, parsedResult: state.parsedResult };
+    case "SUBMIT":
+      return { ...state, parsedResult: state.parsedResult };
+    case "SUBMISSION_RESULT":
+      return { ...state, parsedResult: state.parsedResult };
+    case "RESET":
+      return initialState;
+    default:
+      return state;
+  }
+}
