@@ -26,14 +26,21 @@ const initialState: State = {
   submissionResults: {},
 }
 
-function reducer(state: State, action: Action): State {
+export function reducer(state: State, action: Action): State {
   switch(action.type) {
     case "TEXT_CHANGED":
-      return { ...state, text: state.text };
+      return { ...state, text: action.text };
     case "PARSE_RESULT":
-      return { ...state, parsedResult: state.parsedResult };
+      return { ...state, parsedResult: action.parsedResult };
     case "EDIT_ENTRY":
-      return { ...state, parsedResult: state.parsedResult };
+      if (!state.parsedResult || !state.parsedResult.success) return state;
+      return {
+        ...state,
+        parsedResult: {
+          ...state.parsedResult,
+          entries: state.parsedResult.entries.map((entry: ParsedEntry, index: number) => index === action.index ? {...entry, ...action.patch} : entry),
+        }
+      };
     case "DELETE_ENTRY":
       return { ...state, parsedResult: state.parsedResult };
     case "BACK":
@@ -45,6 +52,7 @@ function reducer(state: State, action: Action): State {
     case "RESET":
       return initialState;
     default:
-      return state;
+      const _exhaustive: never = action;
+      return _exhaustive;
   }
 }
