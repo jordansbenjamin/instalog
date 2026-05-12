@@ -31,7 +31,7 @@ export function reducer(state: State, action: Action): State {
     case "TEXT_CHANGED":
       return { ...state, text: action.text };
     case "PARSE_RESULT":
-      return { ...state, parsedResult: action.parsedResult };
+      return { ...state, step: 'preview', parsedResult: action.parsedResult };
     case "EDIT_ENTRY":
       if (!state.parsedResult || !state.parsedResult.success) return state;
       return {
@@ -42,11 +42,18 @@ export function reducer(state: State, action: Action): State {
         }
       };
     case "DELETE_ENTRY":
-      return { ...state, parsedResult: state.parsedResult };
+      if (!state.parsedResult || !state.parsedResult.success) return state;
+      return { 
+        ...state, 
+        parsedResult: {
+          ...state.parsedResult,
+          entries: state.parsedResult.entries.filter((_, index) => index !== action.index),
+        }
+      };
     case "BACK":
-      return { ...state, parsedResult: state.parsedResult };
+      return { ...state, step: 'paste', parsedResult: null };
     case "SUBMIT":
-      return { ...state, parsedResult: state.parsedResult };
+      return { ...state, step: 'submitting' };
     case "SUBMISSION_RESULT":
       return { ...state, parsedResult: state.parsedResult };
     case "RESET":
