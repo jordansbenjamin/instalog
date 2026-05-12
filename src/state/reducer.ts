@@ -18,6 +18,7 @@ type Action =
   | { type: "SUBMIT_STARTED"; }
   | { type: "SUBMIT_ENDED"; }
   | { type: "SUBMISSION_RESULT"; index: number; submissionResult: SubmissionResult}
+  | { type: "RETRY_SUBMISSION"; }
   | { type: "RESET"; }
 
 const initialState: State = {
@@ -57,16 +58,21 @@ export function reducer(state: State, action: Action): State {
       return { ...state, step: 'submitting' };
     case "SUBMIT_ENDED":
       return { ...state, step: 'results' };
-    case "SUBMISSION_RESULT":
+    case "SUBMISSION_RESULT": {
       const updatedResults = [...state.submissionResults];
       updatedResults[action.index] = action.submissionResult;
       return { ...state,  submissionResults: updatedResults};
-    // case "RETRY":
-    //   return initialState;
+    }
+    case "RETRY_SUBMISSION":
+      return { 
+        ...state,
+        submissionResults: state.submissionResults.filter(result => result.ok)
+      };
     case "RESET":
       return initialState;
-    default:
+    default: {
       const _exhaustive: never = action;
       return _exhaustive;
+    }
   }
 }
