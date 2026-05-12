@@ -21,7 +21,7 @@ type Action =
   | { type: "RETRY_SUBMISSION"; }
   | { type: "RESET"; }
 
-const initialState: State = {
+export const initialState: State = {
   step: 'paste',
   text: '',
   parsedResult: null,
