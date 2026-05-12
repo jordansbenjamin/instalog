@@ -6,7 +6,7 @@ interface State {
   step: Step;
   text: string;
   parsedResult: ParseResult | null;
-  submissionResults: Record<string, SubmissionResult | 'pending'>;
+  submissionResults: SubmissionResult[];
 }
 
 type Action =
@@ -15,15 +15,16 @@ type Action =
   | { type: "EDIT_ENTRY"; index: number; patch: Partial<ParsedEntry>}
   | { type: "DELETE_ENTRY"; index: number}
   | { type: "BACK"; }
-  | { type: "SUBMIT"; }
-  | { type: "SUBMISSION_RESULT"; submissionResult: SubmissionResult}
+  | { type: "SUBMIT_STARTED"; }
+  | { type: "SUBMIT_ENDED"; }
+  | { type: "SUBMISSION_RESULT"; index: number; submissionResult: SubmissionResult}
   | { type: "RESET"; }
 
 const initialState: State = {
   step: 'paste',
   text: '',
   parsedResult: null,
-  submissionResults: {},
+  submissionResults: [],
 }
 
 export function reducer(state: State, action: Action): State {
@@ -51,11 +52,17 @@ export function reducer(state: State, action: Action): State {
         }
       };
     case "BACK":
-      return { ...state, step: 'paste', parsedResult: null };
-    case "SUBMIT":
+      return state.step === 'preview' ?  { ...state, step: 'paste', parsedResult: null } : state;
+    case "SUBMIT_STARTED":
       return { ...state, step: 'submitting' };
+    case "SUBMIT_ENDED":
+      return { ...state, step: 'results' };
     case "SUBMISSION_RESULT":
-      return { ...state, parsedResult: state.parsedResult };
+      const updatedResults = [...state.submissionResults];
+      updatedResults[action.index] = action.submissionResult;
+      return { ...state,  submissionResults: updatedResults};
+    // case "RETRY":
+    //   return initialState;
     case "RESET":
       return initialState;
     default:
