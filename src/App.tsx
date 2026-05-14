@@ -1,6 +1,13 @@
 
 function App() {
-  return <div></div>
+  return (
+    <main>
+      <Header/>
+      <AppContainer>
+        
+      </AppContainer>
+    </main>
+  )
 }
 
 export default App
