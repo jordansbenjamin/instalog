@@ -6,9 +6,7 @@ function App() {
     <div className="app">
       <Header />
       <main>
-        <AppContainer>
-          {/* Steps component go in here */}
-        </AppContainer>
+        <AppContainer />
       </main>
     </div>
   )
