@@ -1,11 +1,11 @@
-import AppContainer from "./components/layout/AppContainer"
 import Header from "./components/layout/Header"
+import StepView from "./components/layout/StepView"
 
 function App() {
   return (
     <div className="app">
       <Header />
-      <AppContainer />
+      <StepView />
     </div>
   )
 }
