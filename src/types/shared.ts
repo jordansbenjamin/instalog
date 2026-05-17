@@ -1,4 +1,6 @@
+import type { Dispatch } from "react";
 import type { generateWorklogADF } from "../domain/transformer";
+import type { Action, State } from "../state/reducer";
 
 // Represents a date parsed from the first line of the timesheet (DD/M/YY format).
 export interface ParsedDate {
@@ -57,3 +59,8 @@ export type SubmissionResult =
       message: string;
       retryable: boolean;
     }
+
+export interface StepProps {
+  state: State;
+  dispatch: Dispatch<Action>;
+}

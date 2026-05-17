@@ -2,14 +2,14 @@ import type { ParsedEntry, ParseResult, SubmissionResult } from "../types/shared
 
 type Step = 'paste' | 'preview' | 'submitting' | 'results';
 
-interface State {
+export interface State {
   step: Step;
   text: string;
   parsedResult: ParseResult | null;
   submissionResults: SubmissionResult[];
 }
 
-type Action =
+export type Action =
   | { type: "TEXT_CHANGED"; text: string}
   | { type: "PARSE_RESULT"; parsedResult: ParseResult}
   | { type: "EDIT_ENTRY"; index: number; patch: Partial<ParsedEntry>}
