@@ -1,12 +1,16 @@
+import AppContainer from "./components/layout/AppContainer"
+import Header from "./components/layout/Header"
 
 function App() {
   return (
-    <main>
-      <Header/>
-      <AppContainer>
-        
-      </AppContainer>
-    </main>
+    <div className="app">
+      <Header />
+      <main>
+        <AppContainer>
+          {/* Steps component go in here */}
+        </AppContainer>
+      </main>
+    </div>
   )
 }
 
