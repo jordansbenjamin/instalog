@@ -1,10 +1,12 @@
+import type { Dispatch } from "react";
+import type { Action, State } from "../../state/reducer";
 import type { StepProps } from "../../types/shared";
 import PasteStep from "../Paste/PasteStep";
 import PreviewStep from "../Preview/PreviewStep";
 import ResultsStep from "../Results/ResultsStep";
 import SubmittingStep from "../Submitting/SubmittingStep";
 
-function renderStep(state, dispatch) {
+function renderStep(state: State, dispatch: Dispatch<Action>) {
   switch (state.step) {
     case 'paste': return <PasteStep state={state} dispatch={dispatch}/>
     case 'preview': return <PreviewStep state={state} dispatch={dispatch}/>
@@ -15,11 +17,9 @@ function renderStep(state, dispatch) {
 
 export default function StepView({state, dispatch}: StepProps) {
   return (
-    <main>
-      <div className="app-container">
-        {/* render step progress here */}
-        {renderStep(state, dispatch)}
-      </div>
-    </main>
+    <div className="app-container">
+      {/* render step progress here */}
+      {renderStep(state, dispatch)}
+    </div>
   )
 }

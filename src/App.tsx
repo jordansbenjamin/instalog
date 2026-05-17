@@ -9,7 +9,9 @@ function App() {
   return (
     <div className="app">
       <Header />
-      <StepView state={state} dispatch={dispatch} />
+      <main className="main">
+        <StepView state={state} dispatch={dispatch} />
+      </main>
     </div>
   )
 }
