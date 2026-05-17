@@ -1,8 +1,11 @@
 
 export default function AppContainer() {
   return (
-    <div>
-      {/* {renderStep()} */}
-    </div>
+    <main>
+      <div>
+        {/* render step progress here */}
+        {/* {renderStep()} */}
+      </div>
+    </main>
   )
 }
