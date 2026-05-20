@@ -1,5 +1,8 @@
 export default function Header() {
   return (
-    <header>Header</header>
+    <header>
+      <AppLogo/>
+      <StatusPill/>
+    </header>
   )
 }
