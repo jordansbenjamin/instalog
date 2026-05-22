@@ -1,5 +1,6 @@
 .appContainer {
-  width: 600px;
+  max-width: 750px;
+  width: 75%;
   height: 600px;
   padding: 20px;
   background-color: var(--surface);
