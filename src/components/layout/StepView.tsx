@@ -5,6 +5,7 @@ import PasteStep from "../Paste/PasteStep";
 import PreviewStep from "../Preview/PreviewStep";
 import ResultsStep from "../Results/ResultsStep";
 import SubmittingStep from "../Submitting/SubmittingStep";
+import styles from "./StepView.module.css"
 
 function renderStep(state: State, dispatch: Dispatch<Action>) {
   switch (state.step) {
@@ -17,7 +18,7 @@ function renderStep(state: State, dispatch: Dispatch<Action>) {
 
 export default function StepView({state, dispatch}: StepProps) {
   return (
-    <div className="app-container">
+    <div className={styles.appShell}>
       {/* render step progress here */}
       {renderStep(state, dispatch)}
     </div>
