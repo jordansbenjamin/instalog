@@ -1,5 +1,9 @@
-.appShell {
+.appContainer {
   width: 600px;
   height: 600px;
-  border: 1px solid var(--line);
+  padding: 20px;
+  background-color: var(--surface);
+  border: 1.25px solid var(--line);
+  border-radius: var(--r-6);
+  box-shadow: var(--shadow-md);
 }

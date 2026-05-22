@@ -18,7 +18,7 @@ function renderStep(state: State, dispatch: Dispatch<Action>) {
 
 export default function StepView({state, dispatch}: StepProps) {
   return (
-    <div className={styles.appShell}>
+    <div className={styles.appContainer}>
       {/* render step progress here */}
       {renderStep(state, dispatch)}
     </div>
