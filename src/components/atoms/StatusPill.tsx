@@ -1,6 +1,8 @@
 
 export default function StatusPill() {
   return (
-    <div>StatusPill</div>
+    <div>
+      <span>StatusPill</span>
+    </div>
   )
 }
