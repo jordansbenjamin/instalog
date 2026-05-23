@@ -1,0 +1,6 @@
+.progressContainer {
+  height: 12%;
+  padding: .8rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}

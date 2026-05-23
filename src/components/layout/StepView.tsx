@@ -6,6 +6,7 @@ import PreviewStep from "../Preview/PreviewStep";
 import ResultsStep from "../Results/ResultsStep";
 import SubmittingStep from "../Submitting/SubmittingStep";
 import styles from "./StepView.module.css"
+import StepProgress from "../StepProgress";
 
 function renderStep(state: State, dispatch: Dispatch<Action>) {
   switch (state.step) {
@@ -19,7 +20,7 @@ function renderStep(state: State, dispatch: Dispatch<Action>) {
 export default function StepView({state, dispatch}: StepProps) {
   return (
     <div className={styles.appContainer}>
-      {/* render step progress here */}
+      <StepProgress />
       {renderStep(state, dispatch)}
     </div>
   )
