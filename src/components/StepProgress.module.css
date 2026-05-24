@@ -3,5 +3,5 @@
   padding: .8rem;
   background: var(--surface-2);
   border-bottom: 1px solid var(--line);
-  border-radius: var(--r-3) var(--r-3) 0 0;
+  border-radius: var(--r-5) var(--r-5) 0 0;
 }

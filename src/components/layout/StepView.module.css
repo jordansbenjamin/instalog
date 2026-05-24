@@ -1,8 +1,8 @@
 .appContainer {
   max-width: 750px;
   width: 75%;
-  height: 600px;
-  max-height: calc(100vh - 100px);
+  min-height: 600px;
+  /* max-height: calc(100vh - 100px); */
   padding: 20px;
   background-color: var(--surface);
   border: 1.25px solid var(--line);
