@@ -8,10 +8,10 @@ interface StepFooterProps {
 export default function StepFooter({left, right}: StepFooterProps) {
   return (
     <div className={styles.stepFooterContainer}>
-      <div className={styles.stepFooterLeft}>
+      <div className={styles.stepFooterInnerContainer}>
         {left?.map(el => el)}
       </div>
-      <div className={styles.stepFooterRight}>
+      <div className={styles.stepFooterInnerContainer}>
         {right?.map(el => el)}
       </div>
     </div>

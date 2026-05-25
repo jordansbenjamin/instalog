@@ -1,5 +1,4 @@
 .stepFooterContainer {
-  width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -7,5 +6,4 @@
 .stepFooterInnerContainer {
   display: flex;
   gap: 20px;
-  background-color: aqua;
 }
