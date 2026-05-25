@@ -1,4 +1,5 @@
 import type { StepProps } from "../../types/shared";
+import Button from "../atoms/Button";
 import StepFooter from "../StepFooter";
 import styles from "./PasteStep.module.css"
 
@@ -9,10 +10,10 @@ export default function PasteStep({state, dispatch}: StepProps) {
       <div>
         <textarea/>
         <StepFooter left={[
-          <button>Clear</button>, 
-          <button>Load example</button>
+          <Button>Clear</Button>, 
+          <Button>Load example</Button>
           ]}
-          right={[<button>Parse entries</button>]}
+          right={[<Button>Parse entries</Button>]}
           />
       </div>
     </div>
