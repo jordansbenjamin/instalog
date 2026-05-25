@@ -7,13 +7,7 @@ export default function PasteStep({state, dispatch}: StepProps) {
       <div>PasteStep</div>
       <div>
         <textarea/>
-        <div>
-          <button>Clear</button>
-          <button>Load example</button>
-        </div>
-        <div>
-          <button>Parse entries</button>
-        </div>
+        {/* Add step footer here */}
       </div>
     </div>
   )
