@@ -1,0 +1,4 @@
+.stepFooterContainer {
+  display: flex;
+  justify-content: space-between;
+}

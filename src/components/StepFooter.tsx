@@ -1,13 +1,18 @@
+import styles from "./StepFooter.module.css"
 
-export default function StepFooter() {
+interface StepFooterProps {
+  left?: React.ReactNode[];
+  right?: React.ReactNode[];
+}
+
+export default function StepFooter({left, right}: StepFooterProps) {
   return (
-    <div>
-      <div>
-        <button>Clear</button>
-        <button>Load example</button>
+    <div className={styles.stepFooterContainer}>
+      <div className={styles.stepFooterLeft}>
+        {left?.map(el => el)}
       </div>
-      <div>
-        <button>Parse entries</button>
+      <div className={styles.stepFooterRight}>
+        {right?.map(el => el)}
       </div>
     </div>
   )
