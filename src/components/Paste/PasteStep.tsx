@@ -13,7 +13,7 @@ export default function PasteStep({state, dispatch}: StepProps) {
           <Button>Clear</Button>, 
           <Button>Load example</Button>
           ]}
-          right={[<Button>Parse entries</Button>]}
+          right={[<Button onClick={() => dispatch({ type: "PARSE_RESULT", parsedResult: { success: true, date: { year: 2026, month: 1, day: 1 }, entries: [] } })}>Parse entries</Button>]}
           />
       </div>
     </div>
