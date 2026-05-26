@@ -9,7 +9,7 @@ export default function PreviewStep({state, dispatch}: StepProps) {
       <div>PreviewStep</div>
       <div>
         <div>Preview Metrics</div>
-        <div>Previe parsed entries</div>
+        <div>Preview parsed entries</div>
         <StepFooter left={[<Button>Back to paste</Button>]}
           right={[<Button>Parse entries</Button>]}
           />
