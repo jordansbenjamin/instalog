@@ -8,11 +8,9 @@ export default function PreviewStep({state, dispatch}: StepProps) {
     <div>
       <div>PreviewStep</div>
       <div>
-        <textarea/>
-        <StepFooter left={[
-          <Button>Clear</Button>, 
-          <Button>Load example</Button>
-          ]}
+        <div>Preview Metrics</div>
+        <div>Previe parsed entries</div>
+        <StepFooter left={[<Button>Back to paste</Button>]}
           right={[<Button>Parse entries</Button>]}
           />
       </div>
