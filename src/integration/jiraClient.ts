@@ -86,11 +86,22 @@ export async function postWorklog(worklogEntry: JiraWorklog): Promise<Submission
     }
   }
 
-  const data = await response.json();
-  // if (data) {}
-  return {
-    ok: true,
-    ticketId: worklogEntry.ticketId,
-    worklogId: data?.id,
+  let data: unknown = null;
+  try {
+    data = await response.json();
+  } catch (error) {
+    console.error("Failed to parse Jira worklog response:", error);
   }
+
+  if (!(typeof data === "object" && data !== null && "id" in data && typeof data.id === "string")) {
+    return {
+      ok: false,
+      ticketId: worklogEntry.ticketId,
+      kind: 'unknown',
+      message: "Jira accepted the request but returned an unexpected response.",
+      retryable: false,
+    }
+  }
+
+  return { ok: true, ticketId: worklogEntry.ticketId, worklogId: data.id };
 }

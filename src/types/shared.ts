@@ -50,6 +50,7 @@ export type SubmissionResult =
   | {
       ok: true;
       ticketId: string;
+      worklogId?: string;
     }
   | {
       ok: false;
