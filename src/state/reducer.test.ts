@@ -16,6 +16,7 @@ const makeParseResult = (entries: ParsedEntry[]): ParseResult => ({
   success: true,
   date: { year: 2026, month: 5, day: 12 },
   entries,
+  lines: [],
 });
 
 const makeSuccess = (ticketId: string): SubmissionResult => ({
