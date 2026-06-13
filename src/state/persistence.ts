@@ -75,3 +75,13 @@ export function saveState(state: State): void {
     // Storage full or unavailable — nothing actionable, keep running.
   }
 }
+
+// Recovery hatch: drop the persisted session so the next load starts fresh.
+// Used by the error boundary when corrupt saved state may be the culprit.
+export function clearState(): void {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Storage unavailable — nothing to clear.
+  }
+}
