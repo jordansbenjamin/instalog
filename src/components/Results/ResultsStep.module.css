@@ -1,0 +1,69 @@
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* small unit (h / m) inside the Time-posted metric value */
+.unit {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-3);
+  margin-left: 1px;
+}
+
+/* ── Responses list card ── (shares its shape with Preview's list — a candidate
+   to extract into a shared List primitive in a later pass) */
+.list {
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.listHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  font: 500 10.5px/1.4 var(--mono);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.listBody {
+  padding: 6px;
+}
+
+.listFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-2);
+  font: 400 12.5px/1.4 var(--sans);
+  color: var(--ink-2);
+}
+.listFoot strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.warnText {
+  color: var(--error);
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.actionsGroup {
+  display: inline-flex;
+  gap: 8px;
+}
