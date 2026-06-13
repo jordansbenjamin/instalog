@@ -2,11 +2,11 @@ import type { StepProps } from "../../types/shared";
 import Button from "../atoms/Button";
 import StepFooter from "../StepFooter";
 
-export default function PreviewStep({state, dispatch}: StepProps) {
+export default function PreviewStep({ state }: StepProps) {
   return (
     // <div className={styles.pastePreviewView}>
     <div>
-      <div>PreviewStep</div>
+      <div>PreviewStep — {state.step}</div>
       <div>
         <div>Preview Metrics</div>
         <div>Preview parsed entries</div>

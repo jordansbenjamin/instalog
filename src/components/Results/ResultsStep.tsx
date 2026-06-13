@@ -2,11 +2,11 @@ import type { StepProps } from "../../types/shared";
 import Button from "../atoms/Button";
 import StepFooter from "../StepFooter";
 
-export default function ResultsStep({state, dispatch}: StepProps) {
+export default function ResultsStep({ state }: StepProps) {
   return (
     // <div className={styles.pastePreviewView}>
     <div>
-      <div>ResultsStep</div>
+      <div>ResultsStep — {state.step}</div>
       <div>
         <div>Results Metrics</div>
         <div>Worklog responses</div>

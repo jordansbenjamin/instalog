@@ -1,7 +1,7 @@
 import type { StepProps } from "../../types/shared";
 
-export default function SubmittingStep({state, dispatch}: StepProps) {
+export default function SubmittingStep({ state }: StepProps) {
   return (
-    <div>SubmittingStep</div>
+    <div>SubmittingStep — {state.step}</div>
   )
 }

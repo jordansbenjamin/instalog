@@ -3,7 +3,7 @@ import Button from "../atoms/Button";
 import StepFooter from "../StepFooter";
 import styles from "./PasteStep.module.css"
 
-export default function PasteStep({state, dispatch}: StepProps) {
+export default function PasteStep({ dispatch }: StepProps) {
   return (
     <div className={styles.pasteStepView}>
       <div>PasteStep</div>
