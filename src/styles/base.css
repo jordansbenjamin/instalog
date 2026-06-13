@@ -70,3 +70,17 @@ a {
   background: var(--accent-light);
   color: var(--accent-ink);
 }
+
+/* Respect users who ask for less motion: neutralize every animation/transition
+   in one place. !important wins regardless of where a component declares its
+   own motion, so there's nothing to audit per component. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

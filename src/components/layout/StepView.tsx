@@ -5,6 +5,7 @@ import PasteStep from "../Paste/PasteStep";
 import PreviewStep from "../Preview/PreviewStep";
 import ResultsStep from "../Results/ResultsStep";
 import SubmittingStep from "../Submitting/SubmittingStep";
+import styles from "./StepView.module.css";
 
 function renderStep(state: State, dispatch: Dispatch<Action>) {
   switch (state.step) {
@@ -16,5 +17,12 @@ function renderStep(state: State, dispatch: Dispatch<Action>) {
 }
 
 export default function StepView({ state, dispatch }: StepProps) {
-  return renderStep(state, dispatch);
+  // Keying by step remounts this wrapper on every step change, replaying the
+  // enter animation. Within a step (e.g. editing a Preview note) the key is
+  // stable, so there's no remount.
+  return (
+    <div key={state.step} className={styles.step}>
+      {renderStep(state, dispatch)}
+    </div>
+  );
 }

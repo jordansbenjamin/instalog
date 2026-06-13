@@ -26,3 +26,8 @@
   -webkit-appearance: none;
 }
 .clickable:active { transform: translateY(0.5px); }
+.clickable:focus-visible {
+  outline: none;
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}

@@ -1,0 +1,3 @@
+.step {
+  animation: il-step-in var(--dur-slow) var(--ease-out);
+}

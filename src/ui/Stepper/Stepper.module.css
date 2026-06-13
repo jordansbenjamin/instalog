@@ -18,6 +18,10 @@
   transition: color var(--dur-base) var(--ease-out);
 }
 .item:hover:not(.active):not(.done) { color: var(--ink-2); }
+.item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
 
 .num {
   width: 22px;
