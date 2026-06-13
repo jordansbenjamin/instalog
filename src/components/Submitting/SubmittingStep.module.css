@@ -1,0 +1,86 @@
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  padding: 22px 24px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.title {
+  margin: 0;
+  font: 500 15px/1.4 var(--sans);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.count {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font: 400 11px/1.4 var(--mono);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.meta strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Live log ── */
+.log {
+  margin-top: 18px;
+  padding: 12px 14px;
+  background: var(--bg-inset);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-3);
+  font: 400 11.5px/1.85 var(--mono);
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.logRow {
+  display: flex;
+  gap: 10px;
+  color: var(--ink-2);
+  animation: il-log-in var(--dur-fast) var(--ease-out) backwards;
+}
+
+.tag {
+  width: 14px;
+  flex-shrink: 0;
+  font-weight: 700;
+}
+.ok .tag {
+  color: var(--success);
+}
+.err .tag {
+  color: var(--error);
+}
+.pending .tag {
+  color: var(--warn);
+  display: inline-block;
+  animation: il-spin 1.2s linear infinite;
+}
+
+.time {
+  color: var(--ink-4);
+  min-width: 60px;
+}
+
+.msg strong {
+  color: var(--ink);
+  font-weight: 600;
+}
