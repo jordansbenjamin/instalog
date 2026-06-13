@@ -84,10 +84,11 @@ export function reducer(state: State, action: Action): State {
       return { ...state,  submissionResults: updatedResults};
     }
     case "RETRY_SUBMISSION":
-      return {
-        ...state,
-        submissionResults: state.submissionResults.filter(result => result.ok)
-      };
+      // Re-enter the submitting flow to re-post failures. submissionResults is
+      // preserved (NOT filtered), so it stays index-aligned with the entries;
+      // the submission loop re-posts only the non-ok slots, never duplicating a
+      // worklog that already succeeded.
+      return { ...state, step: 'submitting' };
     case "CONNECT_STARTED":
       // Entering the handshake: no account yet, gate stays locked.
       return { ...state, connection: { status: 'connecting', account: null } };
@@ -99,9 +100,9 @@ export function reducer(state: State, action: Action): State {
       // it just re-locks behind the gate.
       return { ...state, connection: { status: 'disconnected', account: null } };
     case "RESET":
-      // NOTE: wipes connection too. Reachable only from the Results step, which is
-      // still a stub — Phase 6 makes RESET preserve the connection slice.
-      return initialState;
+      // Start over: clear the wizard back to a blank Paste step, but KEEP the
+      // Jira connection — you shouldn't have to reconnect to log another day.
+      return { ...initialState, connection: state.connection };
     default: {
       const _exhaustive: never = action;
       return _exhaustive;

@@ -9,15 +9,14 @@ import styles from "./SubmittingStep.module.css";
 const TAG: Record<string, string> = { ok: "✓", err: "×", pending: "◐" };
 
 export default function SubmittingStep({ state, dispatch }: StepProps) {
-  const { log, progress } = useSubmission(state, dispatch);
+  const { log, progress, total } = useSubmission(state, dispatch);
 
   const result = state.parsedResult;
   const entries = result && result.success ? result.entries : [];
-  const total = entries.length;
 
-  // The most-recently appended log row is the entry currently in flight; rows
-  // are appended in entry order, so its index is log.length - 1.
-  const currentEntry = entries[Math.max(0, log.length - 1)];
+  // The last appended log row carries the entry index currently in flight — this
+  // holds even on a retry, which submits a non-contiguous subset of entries.
+  const currentEntry = entries[log[log.length - 1]?.index ?? 0];
   const currentTicket = currentEntry?.ticketId ?? "—";
   const currentDuration = currentEntry ? formatDuration(currentEntry.endMinutes - currentEntry.startMinutes) : "";
 

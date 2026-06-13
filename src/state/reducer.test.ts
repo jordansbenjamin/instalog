@@ -269,39 +269,27 @@ describe("SUBMIT_ENDED", () => {
 // ---------------------------------------------------------------------------
 
 describe("RETRY_SUBMISSION", () => {
-  it("removes failed results from submissionResults", () => {
+  it("re-enters the submitting step", () => {
     const state = reducer(
       withState({
         step: "results",
-        submissionResults: [makeSuccess("ABC-1"), makeFailure("ABC-2"), makeSuccess("ABC-3")],
+        submissionResults: [makeSuccess("ABC-1"), makeFailure("ABC-2")],
       }),
       { type: "RETRY_SUBMISSION" }
     );
-    expect(state.submissionResults.every((r) => r.ok)).toBe(true);
-    expect(state.submissionResults).toHaveLength(2);
+    expect(state.step).toBe("submitting");
   });
 
-  it("keeps successful results", () => {
-    const success = makeSuccess("ABC-1");
+  it("preserves submissionResults so index alignment with entries holds", () => {
+    // The old bug filtered out failures, collapsing the array. Now the results
+    // are left intact (the loop re-posts only non-ok slots in place).
+    const results = [makeSuccess("ABC-1"), makeFailure("ABC-2"), makeSuccess("ABC-3")];
     const state = reducer(
-      withState({
-        step: "results",
-        submissionResults: [success, makeFailure("ABC-2")],
-      }),
+      withState({ step: "results", submissionResults: results }),
       { type: "RETRY_SUBMISSION" }
     );
-    expect(state.submissionResults[0]).toEqual(success);
-  });
-
-  it("does not change the step", () => {
-    const state = reducer(
-      withState({
-        step: "results",
-        submissionResults: [makeFailure("ABC-1")],
-      }),
-      { type: "RETRY_SUBMISSION" }
-    );
-    expect(state.step).toBe("results");
+    expect(state.submissionResults).toEqual(results);
+    expect(state.submissionResults).toHaveLength(3);
   });
 });
 
@@ -310,7 +298,7 @@ describe("RETRY_SUBMISSION", () => {
 // ---------------------------------------------------------------------------
 
 describe("RESET", () => {
-  it("returns the initial state regardless of current state", () => {
+  it("clears the wizard back to a blank paste step", () => {
     const state = reducer(
       withState({
         step: "results",
@@ -320,7 +308,19 @@ describe("RESET", () => {
       }),
       { type: "RESET" }
     );
-    expect(state).toEqual(initialState);
+    expect(state.step).toBe("paste");
+    expect(state.text).toBe("");
+    expect(state.parsedResult).toBeNull();
+    expect(state.submissionResults).toEqual([]);
+  });
+
+  it("preserves the connection — start over keeps you connected", () => {
+    const connection = { status: "connected" as const, account: makeAccount() };
+    const state = reducer(
+      withState({ step: "results", submissionResults: [makeSuccess("ABC-1")], connection }),
+      { type: "RESET" }
+    );
+    expect(state.connection).toEqual(connection);
   });
 });
 
