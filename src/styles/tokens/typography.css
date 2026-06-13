@@ -1,0 +1,27 @@
+/* ============================================================
+   Design tokens — typography
+   Three families with fixed roles:
+     Sans  (Inter)        — UI body, headings, hero
+     Mono  (JetBrains)    — every "value": times, tickets, counts
+     Serif (Fraunces)     — display flourishes only (hero em)
+   Font @import lives in styles/index.css (kept with the other
+   @imports so ordering stays valid).
+   ============================================================ */
+
+:root {
+  --sans:  'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --serif: 'Fraunces', ui-serif, Georgia, serif;
+
+  /* Type scale — semantic shorthands (weight size/line family) */
+  --t-display: 300 clamp(36px, 5vw, 56px) / 1 var(--sans); /* hero */
+  --t-h1:      600 26px / 1.15 var(--sans);
+  --t-h2:      500 18px / 1.25 var(--sans);
+  --t-h3:      500 15px / 1.35 var(--sans);
+  --t-body:    400 14px / 1.5  var(--sans);
+  --t-body-sm: 400 13px / 1.5  var(--sans);
+  --t-caption: 400 12px / 1.45 var(--sans);
+  --t-meta:    500 11px / 1.4  var(--mono);   /* uppercase labels */
+  --t-tk:      500 12.5px / 1.4 var(--mono);  /* ticket keys */
+  --t-num:     600 26px / 1 var(--sans);      /* metric values */
+}

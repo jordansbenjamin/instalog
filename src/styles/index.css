@@ -1,0 +1,17 @@
+/* ============================================================
+   instalog global stylesheet — the single entry imported by main.tsx.
+   Order matters: fonts + tokens first, then the shared motion layer,
+   then the base element reset. Everything below this is colocated
+   *.module.css scoped to its component.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:ital,wght@0,300..700;1,300..700&display=swap");
+
+@import "./tokens/color.css";
+@import "./tokens/typography.css";
+@import "./tokens/space.css";
+@import "./tokens/elevation.css";
+@import "./tokens/motion.css";
+
+@import "./animations.css";
+@import "./base.css";

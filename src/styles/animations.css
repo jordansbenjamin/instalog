@@ -1,0 +1,63 @@
+/* ============================================================
+   Shared keyframes — the global "motion layer".
+   Global on purpose: CSS Modules scope class names and locally
+   declared keyframes, but leave references to globally defined
+   keyframes untouched — so scoped component modules can share these
+   by name. Namespaced `il-` to stay collision-free when instalog is
+   embedded in a larger app.
+   ============================================================ */
+
+/* Ambient loops (≥ 1s) */
+@keyframes il-ping {
+  0%        { transform: scale(1);   opacity: .5; }
+  80%, 100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes il-pulse {
+  0%, 100% { transform: scale(1);   opacity: .55; }
+  50%      { transform: scale(2.1); opacity: 0; }
+}
+@keyframes il-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes il-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Arrivals + reveals */
+@keyframes il-count-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes il-row-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes il-slide-down {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes il-toast-in {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes il-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes il-modal-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes il-log-in {
+  from { opacity: 0; transform: translateX(-4px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* One-shots */
+@keyframes il-shake {
+  10%, 90%      { transform: translateX(-1px); }
+  20%, 80%      { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60%      { transform: translateX(3px); }
+}

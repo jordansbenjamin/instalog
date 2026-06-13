@@ -1,0 +1,82 @@
+/* ============================================================
+   Design tokens — color
+   Paper-warm neutrals, ink text scale, lines, the single accent
+   "voice" (themeable via [data-accent] on <html>), and restrained
+   semantic status. Structured so a future dark theme only needs to
+   swap the ink/surface families.
+   ============================================================ */
+
+:root {
+  /* Paper neutrals — warm off-white surface scale */
+  --bg:        #f6f4ee;
+  --bg-alt:    #efece2;
+  --bg-inset:  #ecead0;
+  --surface:   #fdfcf8;
+  --surface-2: #f9f7f0;
+  --surface-3: #f1eee4;
+
+  /* Ink — text scale (never pure black) */
+  --ink:   #16140f;
+  --ink-2: #4a463c;
+  --ink-3: #8a8577;
+  --ink-4: #b4ae9e;
+  --ink-5: #d6d1bf;
+
+  /* Lines — borders + dividers */
+  --line:        #e4dfd2;
+  --line-soft:   #efece3;
+  --line-strong: #cfc9b9;
+
+  /* Accent — overridden per [data-accent] below (default: soft blue) */
+  --accent:         #2c5ce6;
+  --accent-hover:   #1f48c2;
+  --accent-pressed: #183a9e;
+  --accent-ink:     #16317a;
+  --accent-soft:    #eaf0ff;
+  --accent-light:   #d6e1ff;
+  --accent-ring:    rgba(44, 92, 230, 0.16);
+  --accent-on:      #ffffff;
+
+  /* Semantic status — desaturated to live on paper */
+  --success:       #1a7f4a;
+  --success-light: #d9efdf;
+  --success-ink:   #0b4224;
+
+  --error:       #c43c2d;
+  --error-light: #fbe9e4;
+  --error-mid:   #f3c3b8;
+  --error-ink:   #6b1912;
+
+  --warn:       #b0711a;
+  --warn-light: #fbeed0;
+  --warn-ink:   #5b370a;
+}
+
+/* Accent themes — set [data-accent] on <html> */
+html[data-accent="blue"] {
+  --accent:         #2c5ce6;
+  --accent-hover:   #1f48c2;
+  --accent-pressed: #183a9e;
+  --accent-ink:     #16317a;
+  --accent-soft:    #eaf0ff;
+  --accent-light:   #d6e1ff;
+  --accent-ring:    rgba(44, 92, 230, 0.16);
+}
+html[data-accent="rust"] {
+  --accent:         #b14a26;
+  --accent-hover:   #953d1e;
+  --accent-pressed: #762f17;
+  --accent-ink:     #5c2411;
+  --accent-soft:    #f8ece4;
+  --accent-light:   #f2d5c4;
+  --accent-ring:    rgba(177, 74, 38, 0.16);
+}
+html[data-accent="forest"] {
+  --accent:         #2c6a42;
+  --accent-hover:   #1f5633;
+  --accent-pressed: #174528;
+  --accent-ink:     #0e2d19;
+  --accent-soft:    #e6f0e8;
+  --accent-light:   #cde1d1;
+  --accent-ring:    rgba(44, 106, 66, 0.16);
+}

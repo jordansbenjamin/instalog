@@ -1,0 +1,40 @@
+/* ============================================================
+   Design tokens — space & shape
+   Padding scale (density-aware via [data-density] on <html>) and
+   the radius language (gentle, not rounded — tops out at 14px for
+   the largest card; pills are reserved for status indicators).
+   ============================================================ */
+
+:root {
+  /* Padding scale */
+  --pad-xs: 6px;
+  --pad-sm: 10px;
+  --pad-md: 14px;
+  --pad-lg: 20px;
+  --pad-xl: 28px;
+
+  /* Radii */
+  --r-1: 4px;    /* keys, chips */
+  --r-2: 6px;    /* segments, list rows, icon-btns */
+  --r-3: 8px;    /* buttons */
+  --r-4: 10px;   /* paste field, metrics, inner cards */
+  --r-5: 14px;   /* the frame — largest card */
+  --r-6: 20px;   /* hero-scale cards */
+  --r-pill: 999px;
+}
+
+/* Density themes — set [data-density] on <html> */
+html[data-density="tight"] {
+  --pad-xs: 4px;
+  --pad-sm: 8px;
+  --pad-md: 10px;
+  --pad-lg: 14px;
+  --pad-xl: 20px;
+}
+html[data-density="airy"] {
+  --pad-xs: 8px;
+  --pad-sm: 12px;
+  --pad-md: 18px;
+  --pad-lg: 26px;
+  --pad-xl: 36px;
+}
