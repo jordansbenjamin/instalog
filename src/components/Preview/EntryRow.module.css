@@ -1,0 +1,125 @@
+.entry {
+  display: grid;
+  grid-template-columns: 110px 1fr 2fr 96px auto;
+  gap: 18px;
+  align-items: center;
+  padding: 11px 14px;
+  border-radius: var(--r-2);
+  position: relative;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+  animation: il-row-in var(--dur-base) var(--ease-out) backwards;
+}
+.entry:nth-child(1) { animation-delay: 0s; }
+.entry:nth-child(2) { animation-delay: 0.03s; }
+.entry:nth-child(3) { animation-delay: 0.06s; }
+.entry:nth-child(4) { animation-delay: 0.09s; }
+.entry:nth-child(5) { animation-delay: 0.12s; }
+.entry:nth-child(6) { animation-delay: 0.15s; }
+.entry:nth-child(7) { animation-delay: 0.18s; }
+.entry:nth-child(8) { animation-delay: 0.21s; }
+
+/* accent rail that slides in on hover */
+.entry::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  bottom: 10px;
+  width: 2.5px;
+  background: var(--accent);
+  border-radius: 2px;
+  opacity: 0;
+  transform: translateX(-3px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.entry:hover {
+  background: var(--accent-soft);
+}
+.entry:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ticket {
+  font: 500 12.5px/1 var(--mono);
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+
+.time {
+  font: 400 12px/1 var(--mono);
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.arrow {
+  color: var(--ink-4);
+  margin: 0 5px;
+}
+
+.note {
+  font: 400 13px/1.4 var(--sans);
+  color: var(--ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.noteEmpty {
+  color: var(--ink-4);
+  font-style: italic;
+}
+
+.dur {
+  text-align: right;
+  font: 500 12.5px/1 var(--mono);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.entry:hover .actions {
+  opacity: 1;
+}
+.actionsVisible {
+  opacity: 1;
+}
+
+/* inline edit mode */
+.editing {
+  background: var(--surface);
+  box-shadow: 0 0 0 1.5px var(--accent) inset, 0 0 0 5px var(--accent-ring);
+  z-index: 1;
+  cursor: default;
+}
+.editing::before {
+  display: none;
+}
+
+.input {
+  width: 100%;
+  font: 400 13px/1.4 var(--sans);
+  color: var(--ink);
+  background: transparent;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-1);
+  padding: 3px 6px;
+  outline: none;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+.input:focus {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
