@@ -27,6 +27,26 @@ export interface ParsedEntry {
 //   errorMessage?: string;
 // }
 
+// ── Jira connection ──────────────────────────────────────────────────────
+// A connected Jira (or demo) account. `isDemo` is the single flag that, later,
+// selects the fake vs. real Jira adapter at submission time — so demo-ness
+// travels as data, not as a separate code path.
+export interface Account {
+  name: string;
+  site: string;
+  initials: string;
+  isDemo: boolean;
+}
+
+// The connection is a tiny state machine: you are either disconnected, mid-
+// handshake (connecting), or connected with an account in hand.
+export type ConnectionStatus = "disconnected" | "connecting" | "connected";
+
+export interface ConnectionState {
+  status: ConnectionStatus;
+  account: Account | null;
+}
+
 // The complete result of parsing a timesheet, including entries, errors, and skipped lines.
 export type ParseResult = 
   | { success: true; date: ParsedDate; entries: ParsedEntry[];} 

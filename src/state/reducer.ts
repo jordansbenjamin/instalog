@@ -1,4 +1,4 @@
-import type { ParsedEntry, ParseResult, SubmissionResult } from "../types/shared";
+import type { Account, ConnectionState, ParsedEntry, ParseResult, SubmissionResult } from "../types/shared";
 
 type Step = 'paste' | 'preview' | 'submitting' | 'results';
 
@@ -7,6 +7,7 @@ export interface State {
   text: string;
   parsedResult: ParseResult | null;
   submissionResults: SubmissionResult[];
+  connection: ConnectionState;
 }
 
 export type Action =
@@ -20,12 +21,16 @@ export type Action =
   | { type: "SUBMISSION_RESULT"; index: number; submissionResult: SubmissionResult}
   | { type: "RETRY_SUBMISSION"; }
   | { type: "RESET"; }
+  | { type: "CONNECT_STARTED"; }
+  | { type: "CONNECT_SUCCEEDED"; account: Account}
+  | { type: "DISCONNECT"; }
 
 export const initialState: State = {
   step: 'paste',
   text: '',
   parsedResult: null,
   submissionResults: [],
+  connection: { status: 'disconnected', account: null },
 }
 
 export function reducer(state: State, action: Action): State {
@@ -64,11 +69,23 @@ export function reducer(state: State, action: Action): State {
       return { ...state,  submissionResults: updatedResults};
     }
     case "RETRY_SUBMISSION":
-      return { 
+      return {
         ...state,
         submissionResults: state.submissionResults.filter(result => result.ok)
       };
+    case "CONNECT_STARTED":
+      // Entering the handshake: no account yet, gate stays locked.
+      return { ...state, connection: { status: 'connecting', account: null } };
+    case "CONNECT_SUCCEEDED":
+      // Handshake resolved (real-simulated or demo): account in hand, gate unlocks.
+      return { ...state, connection: { status: 'connected', account: action.account } };
+    case "DISCONNECT":
+      // Drop the connection only — the wizard's work (text/entries) is untouched,
+      // it just re-locks behind the gate.
+      return { ...state, connection: { status: 'disconnected', account: null } };
     case "RESET":
+      // NOTE: wipes connection too. Reachable only from the Results step, which is
+      // still a stub — Phase 6 makes RESET preserve the connection slice.
       return initialState;
     default: {
       const _exhaustive: never = action;

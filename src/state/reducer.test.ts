@@ -1,5 +1,5 @@
 import { reducer, initialState } from "./reducer";
-import type { ParsedEntry, ParseResult, SubmissionResult } from "../types/shared";
+import type { Account, ParsedEntry, ParseResult, SubmissionResult } from "../types/shared";
 import { describe, expect, it } from "vitest";
 
 type State = ReturnType<typeof reducer>;
@@ -30,6 +30,14 @@ const makeFailure = (ticketId: string): SubmissionResult => ({
   status: 500,
   message: "Internal server error",
   retryable: true,
+});
+
+const makeAccount = (overrides: Partial<Account> = {}): Account => ({
+  name: "Maddy Chen",
+  site: "graphite.atlassian.net",
+  initials: "MC",
+  isDemo: false,
+  ...overrides,
 });
 
 // Overrides only the fields you care about for a given test
@@ -271,5 +279,72 @@ describe("RESET", () => {
       { type: "RESET" }
     );
     expect(state).toEqual(initialState);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// CONNECT_STARTED
+// ---------------------------------------------------------------------------
+
+describe("CONNECT_STARTED", () => {
+  it("moves the connection into the connecting state with no account", () => {
+    const state = reducer(initialState, { type: "CONNECT_STARTED" });
+    expect(state.connection).toEqual({ status: "connecting", account: null });
+  });
+
+  it("does not touch the wizard slice", () => {
+    const before = withState({ step: "preview", text: "draft" });
+    const state = reducer(before, { type: "CONNECT_STARTED" });
+    expect(state.step).toBe("preview");
+    expect(state.text).toBe("draft");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// CONNECT_SUCCEEDED
+// ---------------------------------------------------------------------------
+
+describe("CONNECT_SUCCEEDED", () => {
+  it("stores the account and marks the connection connected", () => {
+    const account = makeAccount();
+    const state = reducer(
+      withState({ connection: { status: "connecting", account: null } }),
+      { type: "CONNECT_SUCCEEDED", account }
+    );
+    expect(state.connection).toEqual({ status: "connected", account });
+  });
+
+  it("carries the isDemo flag through on the account", () => {
+    const account = makeAccount({ name: "Demo User", site: "demo.instalog.app", initials: "DE", isDemo: true });
+    const state = reducer(initialState, { type: "CONNECT_SUCCEEDED", account });
+    expect(state.connection.account?.isDemo).toBe(true);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// DISCONNECT
+// ---------------------------------------------------------------------------
+
+describe("DISCONNECT", () => {
+  it("clears the connection back to disconnected", () => {
+    const state = reducer(
+      withState({ connection: { status: "connected", account: makeAccount() } }),
+      { type: "DISCONNECT" }
+    );
+    expect(state.connection).toEqual({ status: "disconnected", account: null });
+  });
+
+  it("preserves the wizard's in-progress work", () => {
+    const parsedResult = makeParseResult([makeEntry("ABC-1")]);
+    const before = withState({
+      step: "preview",
+      text: "ABC-1 9am-10am",
+      parsedResult,
+      connection: { status: "connected", account: makeAccount() },
+    });
+    const state = reducer(before, { type: "DISCONNECT" });
+    expect(state.step).toBe("preview");
+    expect(state.text).toBe("ABC-1 9am-10am");
+    expect(state.parsedResult).toEqual(parsedResult);
   });
 });
