@@ -1,0 +1,41 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 600 15px/1 var(--sans);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* faint diagonal highlight across the mark */
+.mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.12) 50%, transparent 60%);
+}
+
+.mark svg {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.onAccent {
+  background: var(--accent);
+  color: var(--accent-on);
+}

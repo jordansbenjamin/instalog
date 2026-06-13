@@ -1,0 +1,28 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px 5px 9px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  font: var(--t-meta);
+  color: var(--ink-2);
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+.pill:hover {
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+/* clickable variant — keeps the meta (mono) font of .pill rather than
+   resetting it, which the prototype's `font: inherit` accidentally did */
+.clickable {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.clickable:active { transform: translateY(0.5px); }

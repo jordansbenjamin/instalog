@@ -1,0 +1,11 @@
+.frame {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-5);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.body {
+  padding: var(--pad-xl);
+}

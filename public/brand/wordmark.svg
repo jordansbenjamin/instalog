@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="36" viewBox="0 0 180 36" fill="none">
+  <rect x="0" y="3" width="30" height="30" rx="7" fill="#16140f"></rect>
+  <path d="M7 12h16M7 18h11M7 24h13" stroke="#fdfcf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+  <text x="40" y="25" font-family="Inter, sans-serif" font-size="22" font-weight="600" fill="#16140f" letter-spacing="-0.4">instalog</text>
+</svg>

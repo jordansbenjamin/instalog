@@ -1,0 +1,28 @@
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* slow ping behind the dot (references the global keyframe) */
+.dot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  opacity: 0.42;
+  animation: il-ping 2.2s cubic-bezier(0, 0, .2, 1) infinite;
+}
+
+.neutral { background: var(--ink-3); }
+.neutral::before { display: none; }
+
+.warn  { background: var(--warn); }
+.error { background: var(--error); }
+
+.connecting { background: var(--warn); }
+.connecting::before { animation: il-pulse 1.1s var(--ease-in-out) infinite; }

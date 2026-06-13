@@ -1,0 +1,63 @@
+.button {
+  --_bg: var(--surface);
+  --_fg: var(--ink);
+  --_bd: var(--line-strong);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: var(--r-3);
+  font: 500 13.5px/1 var(--sans);
+  letter-spacing: -0.005em;
+  color: var(--_fg);
+  background: var(--_bg);
+  border: 1px solid var(--_bd);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.button:hover  { transform: translateY(-0.5px); box-shadow: var(--shadow-sm); }
+.button:active { transform: translateY(0); box-shadow: none; }
+.button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--accent-ring); }
+.button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.ghost { background: transparent; }
+.ghost:hover { background: var(--surface); border-color: var(--ink-4); }
+
+.primary {
+  --_bg: var(--accent);
+  --_fg: var(--accent-on);
+  --_bd: var(--accent);
+  box-shadow: 0 1px 0 rgba(22, 20, 15, 0.1) inset, 0 1px 2px rgba(22, 20, 15, 0.06);
+}
+.primary:hover {
+  --_bg: var(--accent-hover);
+  --_bd: var(--accent-hover);
+  box-shadow: 0 4px 14px -3px var(--accent-ring), 0 1px 0 rgba(255, 255, 255, 0.18) inset;
+}
+.primary:active { --_bg: var(--accent-pressed); --_bd: var(--accent-pressed); }
+
+/* icon inside a primary button nudges right on hover */
+.primary .icon { transition: transform var(--dur-base) var(--ease-out); }
+.primary:hover .icon { transform: translateX(2px); }
+
+.success { --_bg: var(--success); --_fg: #fff; --_bd: var(--success); }
+
+.danger { --_fg: var(--error); --_bd: var(--error-mid); background: transparent; }
+.danger:hover { background: var(--error-light); }
+
+.icon {
+  width: 15px;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
