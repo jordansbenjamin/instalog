@@ -1,12 +1,30 @@
 .header {
-  width: 100%;
-  height: 60px;
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--pad-lg);
-  background: var(--bg);
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 86%, white);
+  backdrop-filter: saturate(1.3) blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.right {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* mono version string + divider before the pill */
+.meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+  padding-right: 8px;
+  border-right: 1px solid var(--line);
+  margin-right: 4px;
+  white-space: nowrap;
 }
