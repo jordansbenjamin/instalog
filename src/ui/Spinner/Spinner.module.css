@@ -1,0 +1,9 @@
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent-light);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  animation: il-spin 0.8s linear infinite;
+}

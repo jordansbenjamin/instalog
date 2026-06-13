@@ -1,0 +1,74 @@
+.wrap {
+  position: relative;
+}
+
+/* When locked, dim + desaturate + blur the wizard and kill interaction. The
+   descendant selector targets the content layer specifically so the gate card
+   on top stays crisp. */
+.wrap.locked .content {
+  filter: saturate(0.55) blur(1.5px);
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.gate {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  animation: il-fade var(--dur-slow) var(--ease-out);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-pop);
+  padding: 28px 30px 24px;
+  max-width: 372px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+}
+
+.lock {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.title {
+  margin: 0;
+  font: 600 17px/1.25 var(--sans);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.body {
+  margin: 0;
+  font: var(--t-body-sm);
+  color: var(--ink-2);
+  max-width: 30ch;
+  text-wrap: pretty;
+}
+
+.action {
+  margin-top: 4px;
+}
+
+.fine {
+  font: 400 10.5px/1.5 var(--mono);
+  color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}

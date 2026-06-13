@@ -1,0 +1,23 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(22, 20, 15, 0.34);
+  backdrop-filter: saturate(1.1) blur(2px);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  animation: il-fade var(--dur-base) var(--ease-out);
+}
+
+.modal {
+  width: 100%;
+  max-width: 416px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-5);
+  box-shadow: var(--shadow-lg);
+  padding: 26px 26px 22px;
+  position: relative;
+  animation: il-modal-in var(--dur-slow) var(--ease-spring);
+}

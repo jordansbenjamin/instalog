@@ -64,6 +64,12 @@
   font-weight: 500;
 }
 
+/* the "not connected" cue in the locked hero copy — accent-tinted */
+.heroKey {
+  color: var(--accent);
+  font-weight: 500;
+}
+
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;

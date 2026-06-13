@@ -1,0 +1,29 @@
+.iconButton {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--r-1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.iconButton:hover {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--accent);
+}
+
+.iconButton:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.danger:hover {
+  color: var(--error);
+}
