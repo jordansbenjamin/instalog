@@ -1,0 +1,39 @@
+.suggest {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px 8px 12px;
+  font: 500 12px/1.4 var(--mono);
+  background: var(--warn-light);
+  color: var(--warn-ink);
+  border: 1px solid color-mix(in srgb, var(--warn) 30%, transparent);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
+  animation: il-slide-down var(--dur-base) var(--ease-out);
+}
+
+.icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.message {
+  color: var(--warn-ink);
+}
+.message strong {
+  font-weight: 600;
+}
+
+.apply {
+  font: 500 11px/1.4 var(--mono);
+  color: var(--warn-ink);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid color-mix(in srgb, var(--warn) 25%, transparent);
+  border-radius: var(--r-1);
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.apply:hover {
+  background: #fff;
+}
