@@ -1,0 +1,57 @@
+.metrics {
+  display: grid;
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.metric {
+  padding: 16px 18px;
+  border-right: 1px solid var(--line);
+  position: relative;
+  animation: il-count-up var(--dur-slow) var(--ease-out) backwards;
+}
+.metric:last-child {
+  border-right: none;
+}
+.metric:nth-child(2) { animation-delay: 0.05s; }
+.metric:nth-child(3) { animation-delay: 0.1s; }
+.metric:nth-child(4) { animation-delay: 0.15s; }
+
+.label {
+  font: 500 10px/1 var(--mono);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.value {
+  font-family: var(--sans);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.u {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-3);
+  margin-right: 3px;
+}
+
+.accent .value { color: var(--accent); }
+.success .value { color: var(--success); }
+.success .label { color: var(--success); }
+.error .value { color: var(--error); }
+.error .label { color: var(--error); }

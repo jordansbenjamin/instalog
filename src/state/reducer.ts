@@ -15,6 +15,7 @@ export type Action =
   | { type: "PARSE_RESULT"; parsedResult: ParseResult}
   | { type: "EDIT_ENTRY"; index: number; patch: Partial<ParsedEntry>}
   | { type: "DELETE_ENTRY"; index: number}
+  | { type: "RESTORE_ENTRY"; index: number; entry: ParsedEntry}
   | { type: "BACK"; }
   | { type: "SUBMIT_STARTED"; }
   | { type: "SUBMIT_ENDED"; }
@@ -50,11 +51,25 @@ export function reducer(state: State, action: Action): State {
       };
     case "DELETE_ENTRY":
       if (!state.parsedResult || !state.parsedResult.success) return state;
-      return { 
-        ...state, 
+      return {
+        ...state,
         parsedResult: {
           ...state.parsedResult,
           entries: state.parsedResult.entries.filter((_, index) => index !== action.index),
+        }
+      };
+    case "RESTORE_ENTRY":
+      // Undo a delete: splice the entry back at the index it was removed from.
+      if (!state.parsedResult || !state.parsedResult.success) return state;
+      return {
+        ...state,
+        parsedResult: {
+          ...state.parsedResult,
+          entries: [
+            ...state.parsedResult.entries.slice(0, action.index),
+            action.entry,
+            ...state.parsedResult.entries.slice(action.index),
+          ],
         }
       };
     case "BACK":

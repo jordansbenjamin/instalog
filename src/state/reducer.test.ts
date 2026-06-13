@@ -144,6 +144,47 @@ describe("DELETE_ENTRY", () => {
 });
 
 // ---------------------------------------------------------------------------
+// RESTORE_ENTRY
+// ---------------------------------------------------------------------------
+
+describe("RESTORE_ENTRY", () => {
+  it("re-inserts the entry at the given index", () => {
+    const restored = makeEntry("ABC-2");
+    const state = reducer(
+      withState({ parsedResult: makeParseResult([makeEntry("ABC-1"), makeEntry("ABC-3")]) }),
+      { type: "RESTORE_ENTRY", index: 1, entry: restored }
+    );
+    expect(getEntries(state).map((e) => e.ticketId)).toEqual(["ABC-1", "ABC-2", "ABC-3"]);
+  });
+
+  it("round-trips with DELETE_ENTRY back to the original order", () => {
+    const before = withState({
+      parsedResult: makeParseResult([makeEntry("ABC-1"), makeEntry("ABC-2"), makeEntry("ABC-3")]),
+    });
+    const removed = getEntries(before)[1];
+    const afterDelete = reducer(before, { type: "DELETE_ENTRY", index: 1 });
+    const afterRestore = reducer(afterDelete, { type: "RESTORE_ENTRY", index: 1, entry: removed });
+    expect(getEntries(afterRestore).map((e) => e.ticketId)).toEqual(["ABC-1", "ABC-2", "ABC-3"]);
+  });
+
+  it("appends when the index is at the end", () => {
+    const state = reducer(
+      withState({ parsedResult: makeParseResult([makeEntry("ABC-1")]) }),
+      { type: "RESTORE_ENTRY", index: 1, entry: makeEntry("ABC-2") }
+    );
+    expect(getEntries(state).map((e) => e.ticketId)).toEqual(["ABC-1", "ABC-2"]);
+  });
+
+  it("returns state unchanged when parsedResult is null", () => {
+    const state = reducer(
+      withState({ parsedResult: null }),
+      { type: "RESTORE_ENTRY", index: 0, entry: makeEntry("ABC-1") }
+    );
+    expect(state.parsedResult).toBeNull();
+  });
+});
+
+// ---------------------------------------------------------------------------
 // BACK
 // ---------------------------------------------------------------------------
 
