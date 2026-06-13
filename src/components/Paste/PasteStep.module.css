@@ -1,3 +1,45 @@
-.pasteStepView {
-  background-color: bisque;
+.step {
+  display: block;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.title {
+  margin: 0;
+  font: 500 14px/1.4 var(--sans);
+  color: var(--ink);
+}
+
+.hint {
+  font: 400 11px/1.4 var(--mono);
+  color: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.hintText {
+  margin-left: 2px;
+}
+
+.suggestWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+.actionsGroup {
+  display: inline-flex;
+  gap: 8px;
 }
