@@ -4,10 +4,12 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import {
   createMongoTokenStore,
   createMongoSessionStore,
+  createMongoUserStore,
 } from "./mongoStores";
 import {
   runTokenStoreContract,
   runSessionStoreContract,
+  runUserStoreContract,
 } from "./storeContract";
 import { createTokenCipher } from "../crypto/tokenCipher";
 
@@ -38,6 +40,8 @@ async function freshDb(): Promise<Db> {
 runTokenStoreContract("Mongo", async () =>
   createMongoTokenStore(await freshDb(), cipher),
 );
+
+runUserStoreContract("Mongo", async () => createMongoUserStore(await freshDb()));
 
 runSessionStoreContract("Mongo", async (deps) =>
   createMongoSessionStore(await freshDb(), deps),

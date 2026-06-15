@@ -19,6 +19,24 @@ export interface TokenStore {
   delete(atlassianAccountId: string): Promise<void>;
 }
 
+/**
+ * A user's profile + the Jira site to act against. Not secret (no encryption),
+ * unlike tokens. cloudId keys every Jira API call; name/site feed the UI's account.
+ */
+export interface StoredUser {
+  readonly atlassianAccountId: string;
+  readonly name: string;
+  readonly email: string;
+  readonly cloudId: string;
+  readonly site: string;
+}
+
+export interface UserStore {
+  save(user: StoredUser): Promise<void>;
+  get(atlassianAccountId: string): Promise<StoredUser | null>;
+  delete(atlassianAccountId: string): Promise<void>;
+}
+
 export interface Session {
   readonly sessionId: string;
   readonly atlassianAccountId: string;

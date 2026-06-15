@@ -3,7 +3,9 @@ import type {
   SessionStore,
   SessionStoreDeps,
   StoredTokens,
+  StoredUser,
   TokenStore,
+  UserStore,
 } from "./types";
 
 // In-memory implementations: a fast TDD seam and a test double for higher layers.
@@ -22,6 +24,22 @@ export function createInMemoryTokenStore(): TokenStore {
     },
     async delete(atlassianAccountId) {
       tokens.delete(atlassianAccountId);
+    },
+  };
+}
+
+export function createInMemoryUserStore(): UserStore {
+  const users = new Map<string, StoredUser>();
+  return {
+    async save(user) {
+      users.set(user.atlassianAccountId, { ...user });
+    },
+    async get(atlassianAccountId) {
+      const user = users.get(atlassianAccountId);
+      return user ? { ...user } : null;
+    },
+    async delete(atlassianAccountId) {
+      users.delete(atlassianAccountId);
     },
   };
 }

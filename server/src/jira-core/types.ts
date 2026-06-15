@@ -38,3 +38,27 @@ export interface WorklogInput {
 export interface WorklogResult {
   readonly worklogId: string;
 }
+
+/** The authenticated Atlassian account, from GET /me (read:me scope). */
+export interface CurrentUser {
+  readonly accountId: string;
+  readonly name: string;
+  readonly email: string;
+}
+
+/** The shape createJiraCore returns. Routers depend on this; tests can fake it. */
+export interface JiraCore {
+  buildAuthorizeUrl(state: string, codeChallenge: string): string;
+  exchangeCodeForTokens(
+    code: string,
+    codeVerifier: string,
+  ): Promise<AtlassianTokens>;
+  refreshTokens(refreshToken: string): Promise<AtlassianTokens>;
+  getAccessibleResources(accessToken: string): Promise<AccessibleResource[]>;
+  getCurrentUser(accessToken: string): Promise<CurrentUser>;
+  postWorklog(
+    cloudId: string,
+    accessToken: string,
+    worklog: WorklogInput,
+  ): Promise<WorklogResult>;
+}

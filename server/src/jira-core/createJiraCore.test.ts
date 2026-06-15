@@ -234,6 +234,43 @@ describe("getAccessibleResources", () => {
   });
 });
 
+describe("getCurrentUser", () => {
+  it("GETs /me with the bearer token and maps account_id→accountId", async () => {
+    const fetchMock = mockFetchJson({
+      account_id: "557058:abc",
+      name: "Maddy Chen",
+      email: "maddy@graphite.test",
+      picture: "https://...",
+    });
+
+    const user = await jira.getCurrentUser("access-abc");
+
+    expect(fetchMock.mock.calls[0][0]).toBe("https://api.atlassian.com/me");
+    expect(sentAuthHeader(fetchMock)).toBe("Bearer access-abc");
+    expect(user).toEqual({
+      accountId: "557058:abc",
+      name: "Maddy Chen",
+      email: "maddy@graphite.test",
+    });
+  });
+
+  it("throws auth when the access token is rejected", async () => {
+    mockFetchJson({ message: "Unauthorized" }, 401);
+
+    await expect(jira.getCurrentUser("expired")).rejects.toMatchObject({
+      kind: "auth",
+    });
+  });
+
+  it("throws invalid-response when /me omits account_id", async () => {
+    mockFetchJson({ name: "No Id" }, 200);
+
+    await expect(jira.getCurrentUser("access-abc")).rejects.toMatchObject({
+      kind: "invalid-response",
+    });
+  });
+});
+
 describe("postWorklog", () => {
   const worklog = {
     ticketId: "ABC-1",

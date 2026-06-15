@@ -4,7 +4,9 @@ import type {
   Session,
   SessionStore,
   SessionStoreDeps,
+  StoredUser,
   TokenStore,
+  UserStore,
 } from "./types";
 
 // Native-driver implementations behind the store ports. The TokenStore composes
@@ -48,6 +50,36 @@ export function createMongoTokenStore(db: Db, cipher: TokenCipher): TokenStore {
         cipher.decrypt(doc.refreshTokenEnc),
       ]);
       return { accessToken, refreshToken, accessExpiresAt: doc.accessExpiresAt };
+    },
+    async delete(atlassianAccountId) {
+      await collection.deleteOne({ atlassianAccountId });
+    },
+  };
+}
+
+export function createMongoUserStore(db: Db): UserStore {
+  const collection = db.collection<StoredUser>("users");
+  return {
+    async save(user) {
+      const { atlassianAccountId, ...rest } = user;
+      await collection.updateOne(
+        { atlassianAccountId },
+        { $set: { atlassianAccountId, ...rest } },
+        { upsert: true },
+      );
+    },
+    async get(atlassianAccountId) {
+      const doc = await collection.findOne({ atlassianAccountId });
+      if (!doc) {
+        return null;
+      }
+      return {
+        atlassianAccountId: doc.atlassianAccountId,
+        name: doc.name,
+        email: doc.email,
+        cloudId: doc.cloudId,
+        site: doc.site,
+      };
     },
     async delete(atlassianAccountId) {
       await collection.deleteOne({ atlassianAccountId });

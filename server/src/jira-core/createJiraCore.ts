@@ -2,6 +2,8 @@ import { JiraCoreError, classifyStatus } from "./errors";
 import type {
   AccessibleResource,
   AtlassianTokens,
+  CurrentUser,
+  JiraCore,
   JiraCoreConfig,
   WorklogInput,
   WorklogResult,
@@ -11,6 +13,7 @@ const AUTHORIZE_URL = "https://auth.atlassian.com/authorize";
 const TOKEN_URL = "https://auth.atlassian.com/oauth/token";
 const ACCESSIBLE_RESOURCES_URL =
   "https://api.atlassian.com/oauth/token/accessible-resources";
+const ME_URL = "https://api.atlassian.com/me";
 const JIRA_API_BASE = "https://api.atlassian.com/ex/jira";
 
 /** Bearer-authenticated fetch with the network failure wrapped into a JiraCoreError. */
@@ -104,7 +107,7 @@ function isInvalidGrant(body: string): boolean {
  * config. Pure core: no Express, no DB, no process.env — the shell supplies config
  * and persistence. Functions throw JiraCoreError on failure.
  */
-export function createJiraCore(config: JiraCoreConfig) {
+export function createJiraCore(config: JiraCoreConfig): JiraCore {
   function buildAuthorizeUrl(state: string, codeChallenge: string): string {
     const params = new URLSearchParams({
       audience: "api.atlassian.com",
@@ -248,11 +251,45 @@ export function createJiraCore(config: JiraCoreConfig) {
     return { worklogId: data.id };
   }
 
+  async function getCurrentUser(accessToken: string): Promise<CurrentUser> {
+    const response = await bearerFetch(ME_URL, accessToken);
+    if (!response.ok) {
+      throw new JiraCoreError(
+        classifyStatus(response.status),
+        `Failed to fetch the current user (${response.status}).`,
+        response.status,
+      );
+    }
+    const data: unknown = await response.json().catch(() => null);
+    if (
+      typeof data !== "object" ||
+      data === null ||
+      !("account_id" in data) ||
+      typeof data.account_id !== "string"
+    ) {
+      throw new JiraCoreError(
+        "invalid-response",
+        "The /me response was missing account_id.",
+      );
+    }
+    const profile = data as {
+      account_id: string;
+      name?: unknown;
+      email?: unknown;
+    };
+    return {
+      accountId: profile.account_id,
+      name: typeof profile.name === "string" ? profile.name : "",
+      email: typeof profile.email === "string" ? profile.email : "",
+    };
+  }
+
   return {
     buildAuthorizeUrl,
     exchangeCodeForTokens,
     refreshTokens,
     getAccessibleResources,
+    getCurrentUser,
     postWorklog,
   };
 }

@@ -10,9 +10,11 @@ export {
 export { JiraCoreError, classifyStatus } from "./errors";
 export type { JiraErrorKind } from "./errors";
 export type {
+  JiraCore,
   JiraCoreConfig,
   AtlassianTokens,
   AccessibleResource,
+  CurrentUser,
   WorklogInput,
   WorklogResult,
 } from "./types";

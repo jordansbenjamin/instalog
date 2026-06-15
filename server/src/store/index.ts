@@ -3,15 +3,19 @@
 export type {
   StoredTokens,
   TokenStore,
+  StoredUser,
+  UserStore,
   Session,
   SessionStore,
   SessionStoreDeps,
 } from "./types";
 export {
   createInMemoryTokenStore,
+  createInMemoryUserStore,
   createInMemorySessionStore,
 } from "./inMemoryStores";
 export {
   createMongoTokenStore,
+  createMongoUserStore,
   createMongoSessionStore,
 } from "./mongoStores";
