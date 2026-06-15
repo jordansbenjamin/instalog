@@ -1,0 +1,22 @@
+{
+  "name": "instalog-server",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "instalog backend — Express API + serves the built Vite SPA (Phase 8: Atlassian OAuth)",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "tsx": "^4.22.4"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.9.3",
+    "typescript": "^6.0.3"
+  }
+}
