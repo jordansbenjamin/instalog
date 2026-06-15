@@ -13,7 +13,22 @@ export interface Env {
   readonly nodeEnv: NodeEnv;
   readonly port: number;
   readonly isProduction: boolean;
+  readonly atlassian: {
+    readonly clientId: string;
+    readonly clientSecret: string;
+    readonly redirectUri: string;
+  };
+  readonly mongoUri: string;
+  readonly tokenEncryptionKey: string;
 }
+
+// Least-privilege scopes (design doc §Decisions). Constant, not env-configurable.
+export const ATLASSIAN_SCOPES: readonly string[] = [
+  "read:me",
+  "read:jira-work",
+  "write:jira-work",
+  "offline_access",
+];
 
 const DEFAULT_PORT = 3000;
 const DEFAULT_NODE_ENV: NodeEnv = "development";
@@ -54,6 +69,15 @@ function parsePort(raw: string | undefined): number {
   return port;
 }
 
+/** Require a non-empty env var; fail fast at boot if a deploy is misconfigured. */
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (value === undefined || value.trim() === "") {
+    throw new Error(`Missing required environment variable: ${name}.`);
+  }
+  return value;
+}
+
 function loadEnv(): Env {
   const nodeEnv = parseNodeEnv(process.env.NODE_ENV);
   const port = parsePort(process.env.PORT);
@@ -61,6 +85,13 @@ function loadEnv(): Env {
     nodeEnv,
     port,
     isProduction: nodeEnv === "production",
+    atlassian: {
+      clientId: requireEnv("ATLASSIAN_CLIENT_ID"),
+      clientSecret: requireEnv("ATLASSIAN_CLIENT_SECRET"),
+      redirectUri: requireEnv("ATLASSIAN_REDIRECT_URI"),
+    },
+    mongoUri: requireEnv("MONGODB_URI"),
+    tokenEncryptionKey: requireEnv("TOKEN_ENCRYPTION_KEY"),
   };
 }
 

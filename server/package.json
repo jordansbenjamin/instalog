@@ -12,15 +12,19 @@
     "test:run": "vitest run"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongodb": "^7.3.0",
     "tsx": "^4.22.4"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/node": "^25.9.3",
+    "@types/supertest": "^7.2.0",
     "mongodb-memory-server": "^11.2.0",
+    "supertest": "^7.2.2",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
   }

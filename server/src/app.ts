@@ -1,7 +1,13 @@
-import express, { type Express, Router } from "express";
+import express, { type Express, type Router } from "express";
+import cookieParser from "cookie-parser";
 import path from "node:path";
 import { existsSync } from "node:fs";
 import { healthRouter } from "./routes/health";
+
+export interface AppDeps {
+  /** The /jira/* + /me router, built with its store/jira-core/cipher dependencies. */
+  readonly apiRouter: Router;
+}
 
 /** The Vite SPA build output, served in production. From server/src → instalog/dist. */
 export const distPath: string = path.resolve(import.meta.dirname, "../../dist");
@@ -18,17 +24,19 @@ export const indexHtmlPath: string = path.join(distPath, "index.html");
  *   3. express.static — serve the built SPA assets.
  *   4. Catch-all — return index.html so client-side routing works on deep links.
  */
-export function buildApp(): Express {
+export function buildApp(deps: AppDeps): Express {
   const app = express();
 
   app.use(express.json());
+  app.use(cookieParser());
 
-  const apiRouter = Router();
-  apiRouter.use("/health", healthRouter);
-  apiRouter.use((_req, res) => {
+  const api = express.Router();
+  api.use("/health", healthRouter);
+  api.use(deps.apiRouter); // /jira/* and /me
+  api.use((_req, res) => {
     res.status(404).json({ error: "not_found", message: "Unknown API route." });
   });
-  app.use("/api", apiRouter);
+  app.use("/api", api);
 
   app.use(express.static(distPath));
   app.use((_req, res) => {
