@@ -28,7 +28,7 @@ function App() {
   // Third arg is the lazy initializer: rehydrate from localStorage (with a
   // fresh-session fallback) before the first render.
   const [state, dispatch] = useReducer(reducer, initialState, loadState);
-  const conn = useConnection(dispatch);
+  const conn = useConnection(dispatch, state.connection);
 
   // Persist the whole reducer state on every change. Cheap, and it's the single
   // source of truth, so there's nothing else to keep in sync.
