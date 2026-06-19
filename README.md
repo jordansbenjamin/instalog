@@ -150,10 +150,21 @@ npm run test:run
 
 ## Deployment
 
-Not currently deployed. The standalone, multi-user path is a Node/Express backend that holds the
-Atlassian OAuth client secret server-side, stores each user's tokens encrypted, and exposes
-`/api/jira/*` to the SPA — deployed as one service (Express serving the built SPA, same origin).
-Full design: `docs/plans/phase8-oauth-backend.md`.
+Deployed as a **single Vercel project** so the SPA and API share one origin — the `httpOnly`
+session cookie stays first-party and there's no CORS:
+
+- The **Vite SPA** is built and served statically from Vercel's CDN.
+- The **Express API** (`server/`) runs as one **Vercel Function** at `api/index.ts`, handling
+  `/api/*`. It holds the Atlassian OAuth client secret server-side, stores each user's tokens
+  **encrypted** in MongoDB Atlas, and keeps the session in an `httpOnly` cookie. The browser never
+  sees a token. The Mongo client is cached at module scope so warm invocations reuse the pool.
+- `vercel.json` routes `/api/*` to the function; all other paths fall back to the SPA.
+
+To deploy: set the server env vars (see [server/.env.example](server/.env.example)) in the Vercel
+project settings, and register the Atlassian callback URL as
+`https://<your-app>.vercel.app/api/jira/callback`.
+
+Design + decisions: `docs/plans/phase8-oauth-backend.md`.
 
 ---
 

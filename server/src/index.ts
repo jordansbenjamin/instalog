@@ -1,46 +1,15 @@
 import { existsSync } from "node:fs";
 import { MongoClient } from "mongodb";
-import { env, ATLASSIAN_SCOPES } from "./config/env";
+import { env } from "./config/env";
 import { buildApp, indexHtmlPath } from "./app";
-import { createJiraCore } from "./jira-core";
-import { createTokenCipher } from "./crypto/tokenCipher";
-import {
-  createMongoTokenStore,
-  createMongoUserStore,
-  createMongoSessionStore,
-} from "./store";
-import { createApiRouter } from "./routes/apiRouter";
-import { SESSION_TTL_MS } from "./routes/cookies";
-import { generateSessionId } from "./auth/sessionId";
+import { createApiRouterForDb } from "./wiring";
 
 async function main(): Promise<void> {
   const client = new MongoClient(env.mongoUri);
   await client.connect();
   const db = client.db(); // database name comes from the connection string
 
-  const cipher = createTokenCipher(env.tokenEncryptionKey);
-  const jira = createJiraCore({
-    clientId: env.atlassian.clientId,
-    clientSecret: env.atlassian.clientSecret,
-    redirectUri: env.atlassian.redirectUri,
-    scopes: ATLASSIAN_SCOPES,
-  });
-
-  const apiRouter = createApiRouter({
-    jira,
-    tokenStore: createMongoTokenStore(db, cipher),
-    userStore: createMongoUserStore(db),
-    sessionStore: createMongoSessionStore(db, {
-      now: () => Date.now(),
-      ttlMs: SESSION_TTL_MS,
-      generateId: generateSessionId,
-    }),
-    cipher,
-    isProduction: env.isProduction,
-    now: () => Date.now(),
-  });
-
-  const app = buildApp({ apiRouter });
+  const app = buildApp({ apiRouter: createApiRouterForDb(db) });
 
   if (!existsSync(indexHtmlPath)) {
     console.warn(
