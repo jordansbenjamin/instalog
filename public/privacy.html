@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>instalog — Privacy Policy</title>
+    <style>
+      :root { color-scheme: light; }
+      body {
+        max-width: 44rem;
+        margin: 0 auto;
+        padding: 3rem 1.25rem 5rem;
+        font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: #1a1f2b;
+        background: #fff;
+      }
+      h1 { font-size: 1.9rem; margin-bottom: 0.25rem; }
+      h2 { font-size: 1.15rem; margin-top: 2.25rem; }
+      .meta { color: #5b6472; font-size: 0.9rem; margin-bottom: 2rem; }
+      ul { padding-left: 1.25rem; }
+      li { margin: 0.4rem 0; }
+      code { background: #f2f3f5; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.9em; }
+      a { color: #1a56db; }
+      footer { margin-top: 3rem; color: #5b6472; font-size: 0.9rem; }
+    </style>
+  </head>
+  <body>
+    <h1>instalog — Privacy Policy</h1>
+    <p class="meta">Last updated: 20 June 2026</p>
+
+    <p>
+      instalog turns plain-text timesheet notes into Jira worklogs. To do that on your behalf it
+      connects to your Atlassian (Jira) account using OAuth 2.0. This page explains exactly what
+      data instalog accesses, why, and how it is stored.
+    </p>
+
+    <h2>What instalog accesses and stores</h2>
+    <ul>
+      <li>
+        <strong>Your Atlassian profile</strong> — name, email, and account ID (via the
+        <code>read:me</code> scope), used to identify your session and show your name in the app.
+      </li>
+      <li>
+        <strong>Your Jira site</strong> — the cloud ID and site URL of the Jira instance you grant
+        access to, used to know where to post worklogs.
+      </li>
+      <li>
+        <strong>OAuth tokens</strong> — the access and refresh tokens Atlassian issues, used to post
+        worklogs to Jira on your behalf. These are <strong>encrypted at rest</strong> (AES-256-GCM)
+        and are <strong>never sent to your browser</strong>.
+      </li>
+      <li>
+        <strong>A session cookie</strong> — an <code>httpOnly</code>, <code>Secure</code> cookie that
+        keeps you signed in. It holds only an opaque session ID, never a token.
+      </li>
+    </ul>
+
+    <h2>What instalog does not do</h2>
+    <ul>
+      <li>It does not sell, rent, or share your data with third parties.</li>
+      <li>It does not run advertising or third-party tracking.</li>
+      <li>It does not read your Jira data beyond what is needed to validate tickets and post worklogs.</li>
+      <li>It never exposes your Atlassian tokens to the browser or to anyone else.</li>
+    </ul>
+
+    <h2>Scopes requested</h2>
+    <p>
+      <code>read:me</code> (identity), <code>read:jira-work</code> (validate tickets),
+      <code>write:jira-work</code> (post worklogs), and <code>offline_access</code> (refresh the
+      access token so you don't have to reconnect hourly).
+    </p>
+
+    <h2>Storage and security</h2>
+    <p>
+      Data is stored in a MongoDB database. Tokens are encrypted before they are written and
+      decrypted only server-side when posting a worklog. The session cookie is <code>httpOnly</code>
+      and <code>SameSite=Lax</code>, so it is not readable by JavaScript and is not sent on
+      cross-site requests.
+    </p>
+
+    <h2>Deleting your data</h2>
+    <p>
+      Clicking <strong>Disconnect</strong> in the app immediately deletes your stored tokens,
+      profile record, and session. You can also revoke instalog's access at any time from your
+      <a href="https://id.atlassian.com/manage-profile/security/connected-apps">Atlassian connected apps</a>
+      settings.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about this policy or your data: reach out via
+      <a href="https://github.com/jordansbenjamin">github.com/jordansbenjamin</a>.
+    </p>
+
+    <footer>
+      instalog is a personal/portfolio project. This policy describes its current behaviour and may
+      be updated as the project evolves.
+    </footer>
+  </body>
+</html>
