@@ -1,4 +1,4 @@
-import { createServerlessApp } from "../server/src/serverlessApp";
+import { createServerlessApp } from "../server/src/serverlessApp.js";
 
 // Vercel entry point. The whole Express app runs as ONE Vercel Function, handling
 // every /api/* request (routed here by vercel.json). The SPA is served separately

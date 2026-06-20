@@ -1,5 +1,5 @@
 import type { Db } from "mongodb";
-import type { TokenCipher } from "../crypto/tokenCipher";
+import type { TokenCipher } from "../crypto/tokenCipher.js";
 import type {
   Session,
   SessionStore,
@@ -7,7 +7,7 @@ import type {
   StoredUser,
   TokenStore,
   UserStore,
-} from "./types";
+} from "./types.js";
 
 // Native-driver implementations behind the store ports. The TokenStore composes
 // the cipher so tokens are encrypted at rest; callers only ever see plaintext.

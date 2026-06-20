@@ -6,7 +6,7 @@ import type {
   StoredUser,
   TokenStore,
   UserStore,
-} from "./types";
+} from "./types.js";
 
 // In-memory implementations: a fast TDD seam and a test double for higher layers.
 // RAM is not "at rest", so these hold plaintext — encryption-at-rest is the Mongo

@@ -8,14 +8,14 @@ export type {
   Session,
   SessionStore,
   SessionStoreDeps,
-} from "./types";
+} from "./types.js";
 export {
   createInMemoryTokenStore,
   createInMemoryUserStore,
   createInMemorySessionStore,
-} from "./inMemoryStores";
+} from "./inMemoryStores.js";
 export {
   createMongoTokenStore,
   createMongoUserStore,
   createMongoSessionStore,
-} from "./mongoStores";
+} from "./mongoStores.js";

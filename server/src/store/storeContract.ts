@@ -6,7 +6,7 @@ import type {
   StoredUser,
   TokenStore,
   UserStore,
-} from "./types";
+} from "./types.js";
 
 // One behavioural contract, run against every TokenStore/SessionStore
 // implementation. If the in-memory and Mongo impls both pass the same suite,

@@ -1,16 +1,16 @@
 import type { Db } from "mongodb";
 import type { Router } from "express";
-import { env, ATLASSIAN_SCOPES } from "./config/env";
-import { createJiraCore } from "./jira-core";
-import { createTokenCipher } from "./crypto/tokenCipher";
+import { env, ATLASSIAN_SCOPES } from "./config/env.js";
+import { createJiraCore } from "./jira-core/index.js";
+import { createTokenCipher } from "./crypto/tokenCipher.js";
 import {
   createMongoTokenStore,
   createMongoUserStore,
   createMongoSessionStore,
-} from "./store";
-import { createApiRouter } from "./routes/apiRouter";
-import { SESSION_TTL_MS } from "./routes/cookies";
-import { generateSessionId } from "./auth/sessionId";
+} from "./store/index.js";
+import { createApiRouter } from "./routes/apiRouter.js";
+import { SESSION_TTL_MS } from "./routes/cookies.js";
+import { generateSessionId } from "./auth/sessionId.js";
 
 // Composition root for the API: wires jira-core + the Mongo stores + the cipher
 // into the request router, given a connected Db. Shared by both runtime shells —

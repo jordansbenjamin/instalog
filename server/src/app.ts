@@ -2,7 +2,7 @@ import express, { type Express, type Router } from "express";
 import cookieParser from "cookie-parser";
 import path from "node:path";
 import { existsSync } from "node:fs";
-import { healthRouter } from "./routes/health";
+import { healthRouter } from "./routes/health.js";
 
 export interface AppDeps {
   /** The /jira/* + /me router, built with its store/jira-core/cipher dependencies. */

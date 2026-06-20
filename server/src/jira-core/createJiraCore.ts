@@ -1,4 +1,4 @@
-import { JiraCoreError, classifyStatus } from "./errors";
+import { JiraCoreError, classifyStatus } from "./errors.js";
 import type {
   AccessibleResource,
   AtlassianTokens,
@@ -7,7 +7,7 @@ import type {
   JiraCoreConfig,
   WorklogInput,
   WorklogResult,
-} from "./types";
+} from "./types.js";
 
 const AUTHORIZE_URL = "https://auth.atlassian.com/authorize";
 const TOKEN_URL = "https://auth.atlassian.com/oauth/token";

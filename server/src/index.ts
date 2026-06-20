@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import { MongoClient } from "mongodb";
-import { env } from "./config/env";
-import { buildApp, indexHtmlPath } from "./app";
-import { createApiRouterForDb } from "./wiring";
+import { env } from "./config/env.js";
+import { buildApp, indexHtmlPath } from "./app.js";
+import { createApiRouterForDb } from "./wiring.js";
 
 async function main(): Promise<void> {
   const client = new MongoClient(env.mongoUri);

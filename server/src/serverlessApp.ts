@@ -1,8 +1,8 @@
 import { MongoClient, type Db } from "mongodb";
 import type { Express } from "express";
-import { env } from "./config/env";
-import { buildApp } from "./app";
-import { createApiRouterForDb } from "./wiring";
+import { env } from "./config/env.js";
+import { buildApp } from "./app.js";
+import { createApiRouterForDb } from "./wiring.js";
 
 // Serverless shell for Vercel. Unlike index.ts (a long-lived server that calls
 // app.listen), this exports a ready Express app for Vercel to invoke per request.

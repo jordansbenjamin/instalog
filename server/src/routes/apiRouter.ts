@@ -5,22 +5,22 @@ import {
   generateCodeChallenge,
   JiraCoreError,
   type JiraCore,
-} from "../jira-core";
+} from "../jira-core/index.js";
 import type {
   Session,
   SessionStore,
   TokenStore,
   UserStore,
-} from "../store";
-import type { TokenCipher } from "../crypto/tokenCipher";
-import { needsRefresh } from "../auth/needsRefresh";
-import { toAccount, hostFromUrl } from "./account";
+} from "../store/index.js";
+import type { TokenCipher } from "../crypto/tokenCipher.js";
+import { needsRefresh } from "../auth/needsRefresh.js";
+import { toAccount, hostFromUrl } from "./account.js";
 import {
   SESSION_COOKIE,
   PKCE_COOKIE,
   sessionCookieOptions,
   pkceCookieOptions,
-} from "./cookies";
+} from "./cookies.js";
 
 export interface ApiRouterDeps {
   readonly jira: JiraCore;
