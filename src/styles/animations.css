@@ -16,6 +16,13 @@
   0%, 100% { transform: scale(1);   opacity: .55; }
   50%      { transform: scale(2.1); opacity: 0; }
 }
+/* A single radiating ring that expands once and fades — used to give the
+   active stepper dot a heartbeat. Smaller peak scale than il-ping so it
+   doesn't reach the step label sitting beside it. */
+@keyframes il-pulse-ring {
+  0%        { transform: scale(1);   opacity: .5; }
+  70%, 100% { transform: scale(1.7); opacity: 0; }
+}
 @keyframes il-spin {
   to { transform: rotate(360deg); }
 }
@@ -40,6 +47,15 @@
 @keyframes il-toast-in {
   from { opacity: 0; transform: translate(-50%, 10px); }
   to   { opacity: 1; transform: translate(-50%, 0); }
+}
+/* Bouncier bottom-toast arrival: rises from further down, overshoots above
+   its resting line, then settles. The overshoot lives in the keyframe so it
+   pairs with ease-out (a spring easing would double the bounce). The -50% X
+   keeps the toast horizontally centred throughout. */
+@keyframes il-toast-bounce {
+  0%   { opacity: 0; transform: translate(-50%, 28px) scale(0.96); }
+  55%  { opacity: 1; transform: translate(-50%, -6px) scale(1.015); }
+  100% { opacity: 1; transform: translate(-50%, 0)    scale(1); }
 }
 @keyframes il-fade {
   from { opacity: 0; }

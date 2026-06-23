@@ -24,6 +24,7 @@
 }
 
 .num {
+  position: relative;
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -44,6 +45,18 @@
   border-color: var(--accent);
   color: var(--accent-on);
   box-shadow: 0 0 0 4px var(--accent-ring);
+}
+/* Radiating heartbeat behind the active dot — a ring that expands out of the
+   circle's edge and fades, looping. Sits behind the number (z-index) so the
+   digit stays crisp. */
+.active .num::after {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  z-index: -1;
+  animation: il-pulse-ring 1.8s var(--ease-in-out) infinite;
 }
 
 .done { color: var(--accent); }

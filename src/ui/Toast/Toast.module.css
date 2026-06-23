@@ -3,8 +3,9 @@
   bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--ink);
-  color: var(--surface);
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
   padding: 10px 12px 10px 16px;
   border-radius: var(--r-3);
   font: 500 13px/1.4 var(--sans);
@@ -13,7 +14,7 @@
   gap: 12px;
   box-shadow: var(--shadow-lg);
   z-index: 100;
-  animation: il-toast-in var(--dur-base) var(--ease-spring);
+  animation: il-toast-bounce var(--dur-arrival) var(--ease-out);
 }
 
 .body {
@@ -33,5 +34,5 @@
 }
 
 .dismiss:hover {
-  color: var(--surface);
+  color: var(--ink);
 }
