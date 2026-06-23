@@ -4,7 +4,7 @@ import { parseTimesheet } from "../../domain/parser";
 import { formatDate } from "../../domain/format";
 import { Button } from "../../ui/Button/Button";
 import { Kbd } from "../../ui/Kbd/Kbd";
-import { SuggestChip } from "../../ui/SuggestChip/SuggestChip";
+// import { SuggestChip } from "../../ui/SuggestChip/SuggestChip";
 import { Icons } from "../../ui/icons/Icons";
 import { PasteEditor } from "./PasteEditor";
 import styles from "./PasteStep.module.css";
@@ -24,7 +24,7 @@ OPS-9 3:50pm-5pm (timesheets + OKR)`;
 // Hardcoded demo heuristic for the smart-fix chip. A real implementation would
 // check ticket keys against the connected project; for now it nudges a single
 // known typo so the interaction is demonstrable.
-const SUGGESTION = { wrong: "OPS-269", right: "OPS-296" } as const;
+// const SUGGESTION = { wrong: "OPS-269", right: "OPS-296" } as const;
 
 export default function PasteStep({ state, dispatch }: StepProps) {
   const text = state.text;
@@ -43,9 +43,9 @@ export default function PasteStep({ state, dispatch }: StepProps) {
     if (parsed.success) dispatch({ type: "PARSE_RESULT", parsedResult: parsed });
   };
 
-  const showSuggestion = new RegExp(`\\b${SUGGESTION.wrong}\\b`).test(text);
-  const applySuggestion = () =>
-    setText(text.replace(new RegExp(`\\b${SUGGESTION.wrong}\\b`, "g"), SUGGESTION.right));
+  // const showSuggestion = new RegExp(`\\b${SUGGESTION.wrong}\\b`).test(text);
+  // const applySuggestion = () =>
+  //   setText(text.replace(new RegExp(`\\b${SUGGESTION.wrong}\\b`, "g"), SUGGESTION.right));
 
   return (
     <div className={styles.step}>
@@ -57,13 +57,13 @@ export default function PasteStep({ state, dispatch }: StepProps) {
         </span>
       </div>
 
-      {showSuggestion && (
+      {/* {showSuggestion && (
         <div className={styles.suggestWrap}>
           <SuggestChip onApply={applySuggestion}>
             <strong>{SUGGESTION.wrong}</strong> looks off — did you mean <strong>{SUGGESTION.right}</strong>?
           </SuggestChip>
         </div>
-      )}
+      )} */}
 
       <PasteEditor
         value={text}

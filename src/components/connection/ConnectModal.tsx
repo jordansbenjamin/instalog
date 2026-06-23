@@ -56,7 +56,7 @@ export function ConnectModal({
             <div className={styles.or}>
               <span>or</span>
             </div>
-            <Button onClick={onDemo}>Explore the demo — no account needed</Button>
+            <Button onClick={onDemo}>Explore the demo (no account needed)</Button>
           </div>
           <div className={styles.fine}>
             You'll authorize instalog on Atlassian, then choose which site to use. We never see your password.

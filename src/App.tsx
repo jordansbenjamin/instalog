@@ -43,7 +43,7 @@ function App() {
     <div className={styles.app}>
       <Header connection={state.connection} onManageConnection={conn.openModal} />
       <main className={styles.page}>
-        <section className={styles.hero}>
+        {/* <section className={styles.hero}>
           <h1 className={styles.heroHeading}>
             Paste a day.<br />
             Log it in <em className={styles.heroEm}>one motion.</em>
@@ -62,7 +62,7 @@ function App() {
               </>
             )}
           </p>
-        </section>
+        </section> */}
 
         <ConnectionGate locked={locked} onConnect={conn.openModal}>
           <Frame stepper={<Stepper current={currentIndex} />}>

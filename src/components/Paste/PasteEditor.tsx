@@ -94,7 +94,7 @@ export function PasteEditor({
               <div>16/3/26</div>
               <div className={styles.ex}>ABC-123 9:00am-10:30am</div>
               <div className={styles.ex}>XYZ-45 10:30am-11:50am (standup)</div>
-              <span className={styles.placeholderHint}>// paste, type, or drop a file — any format is fine</span>
+              <span className={styles.placeholderHint}>// start pasting or typing</span>
             </div>
           )}
 
