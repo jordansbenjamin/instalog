@@ -13,13 +13,13 @@ describe('transformTimesheet functional related tests', () => {
   it('transforms a single ticket entry', () => {
     const input = `16/3/26
 
-C25-3278 8:40am-9:18am`
+ACME-4126 8:40am-9:18am`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
 
     expect(transformedTimesheet).toHaveLength(1)
-    expect(transformedTimesheet[0].ticketId).toBe('C25-3278')
+    expect(transformedTimesheet[0].ticketId).toBe('ACME-4126')
     expect(transformedTimesheet[0].body.timeSpentSeconds).toBe(2280)
     expect(transformedTimesheet[0].body.started).toBe('2026-03-16T08:40:00.000+1000')
     expect(transformedTimesheet[0].body.comment).toBeUndefined()
@@ -28,7 +28,7 @@ C25-3278 8:40am-9:18am`
   it('handles 12pm correctly (noon edge case)', () => {
     const input = `16/3/26
 
-FDES-13 12pm-12:30pm`
+DSN-92 12pm-12:30pm`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
@@ -40,7 +40,7 @@ FDES-13 12pm-12:30pm`
   it('handles 12am correctly (midnight edge case)', () => {
     const input = `16/3/26
 
-FDES-13 12am-12:30am`
+DSN-92 12am-12:30am`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);

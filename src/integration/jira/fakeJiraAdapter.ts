@@ -4,18 +4,18 @@ import { abortableDelay } from "../../lib/abortableDelay";
 
 // Demo failures keyed by ticket. These match the sample timesheet so the demo
 // always shows a realistic success/failure mix (and exercises the retry flow in
-// Results). OPS-269 is the typo the paste suggestion fixes — change it to
-// OPS-296 and it succeeds, which is the point of the "fix then retry" narrative.
+// Results). PLAT-318 is the typo the paste suggestion fixes — change it to
+// PLAT-381 and it succeeds, which is the point of the "fix then retry" narrative.
 const DEMO_FAILURES: Record<string, { status: number; kind: SubmissionErrorKind; message: string }> = {
-  "C25-3278": {
+  "ACME-4126": {
     status: 403,
     kind: "permission",
     message: "You're not a contributor on this issue yet. Ask the project lead to add you, then retry.",
   },
-  "OPS-269": {
+  "PLAT-318": {
     status: 404,
     kind: "not-found",
-    message: "Issue OPS-269 doesn't exist in Jira. Did you mean OPS-296?",
+    message: "Issue PLAT-318 doesn't exist in Jira. Did you mean PLAT-381?",
   },
 };
 

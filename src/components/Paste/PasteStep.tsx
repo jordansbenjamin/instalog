@@ -11,20 +11,20 @@ import styles from "./PasteStep.module.css";
 
 const EXAMPLE = `16/3/26
 
-C25-3278 8:40am-9:18am
-CCT-77 9:18am-10am
-OPS-1 10am-10:30am
-FDES-13 10:37am-12:35pm
+ACME-4126 8:40am-9:18am
+WEB-204 9:18am-10am
+PLAT-58 10am-10:30am
+DSN-92 10:37am-12:35pm
 Lunch 12:35pm-1:15pm
-CCT-77 1:15pm-2:38pm
-OPS-269 2:38pm-3:04pm (slack)
-FDES-13 3:28pm-3:50pm (Helping Vivian w/ Flinders)
-OPS-9 3:50pm-5pm (timesheets + OKR)`;
+WEB-204 1:15pm-2:38pm
+PLAT-318 2:38pm-3:04pm (slack)
+DSN-92 3:28pm-3:50pm (Helping Sam w/ Horizon)
+PLAT-140 3:50pm-5pm (timesheets + OKR)`;
 
 // Hardcoded demo heuristic for the smart-fix chip. A real implementation would
 // check ticket keys against the connected project; for now it nudges a single
 // known typo so the interaction is demonstrable.
-// const SUGGESTION = { wrong: "OPS-269", right: "OPS-296" } as const;
+// const SUGGESTION = { wrong: "PLAT-318", right: "PLAT-381" } as const;
 
 export default function PasteStep({ state, dispatch }: StepProps) {
   const text = state.text;
