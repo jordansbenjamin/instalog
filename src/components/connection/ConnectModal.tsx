@@ -88,7 +88,7 @@ export function ConnectModal({
           <h3 className={styles.title}>{account.isDemo ? "Demo ready" : "Connected"}</h3>
           <p className={styles.text}>
             {account.isDemo
-              ? "Explore instalog with sample data — worklogs are simulated, nothing is sent to Jira."
+              ? "Explore instalog with sample data, worklogs are simulated, nothing is sent to Jira."
               : "instalog can now log time to your Jira worklogs."}
           </p>
           <div className={cx(styles.account, account.isDemo && styles.accountDemo)}>

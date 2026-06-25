@@ -25,6 +25,10 @@
 
 .num {
   position: relative;
+  /* Own stacking context so the active heartbeat ring's negative z-index stays
+     contained here (behind the digit) instead of escaping behind the stepper's
+     opaque background, where it would be painted over and never seen. */
+  isolation: isolate;
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -47,8 +51,8 @@
   box-shadow: 0 0 0 4px var(--accent-ring);
 }
 /* Radiating heartbeat behind the active dot — a ring that expands out of the
-   circle's edge and fades, looping. Sits behind the number (z-index) so the
-   digit stays crisp. */
+   circle's edge and fades, looping. z-index: -1 keeps it behind the digit;
+   this only works because .num is an isolated stacking context (see above). */
 .active .num::after {
   content: "";
   position: absolute;

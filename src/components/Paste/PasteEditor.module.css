@@ -174,5 +174,7 @@
   height: 6px;
   background: var(--success);
   border-radius: 50%;
-  animation: il-pulse 1.6s var(--ease-in-out) infinite;
+  /* Matches the header status-pill "connecting" pulse (StatusDot .connecting):
+     same keyframe, 2s, easeInOutSine for a soft (non-abrupt) breathe. */
+  animation: il-pulse 2s cubic-bezier(0.37, 0, 0.63, 1) infinite;
 }

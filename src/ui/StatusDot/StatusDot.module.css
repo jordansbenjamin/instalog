@@ -25,4 +25,8 @@
 .error { background: var(--error); }
 
 .connecting { background: var(--warn); }
-.connecting::before { animation: il-pulse 1.1s var(--ease-in-out) infinite; }
+/* Gentle "connecting" heartbeat. Duration + easing are kept in sync with the
+   "detecting" pulse in PasteEditor.module.css (.live::before) — one tempo.
+   easeInOutSine is the softest in-out curve, so the disc breathes out and back
+   without the snap a punchier ease-in-out gives it. */
+.connecting::before { animation: il-pulse 2s cubic-bezier(0.37, 0, 0.63, 1) infinite; }
