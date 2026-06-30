@@ -12,10 +12,10 @@
   height: 26px;
   border-radius: 7px;
   background: var(--surface);
-  color: var(--ink);
+  color: var(--accent);
   border: 1px solid var(--line);
-  /* highlight bar of the logo — the accent voice */
-  --mark-accent: var(--accent);
+  /* outer bars blue, middle bar ink for contrast */
+  --mark-accent: var(--ink);
   display: inline-flex;
   align-items: center;
   justify-content: center;
