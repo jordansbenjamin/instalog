@@ -1,5 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="180" height="36" viewBox="0 0 180 36" fill="none">
   <rect x="0" y="3" width="30" height="30" rx="7" fill="#16140f"></rect>
-  <path d="M7 12h16M7 18h11M7 24h13" stroke="#fdfcf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+  <rect x="7" y="10.5" width="16" height="3" rx="1.5" fill="#fdfcf8"></rect>
+  <rect x="7" y="16.5" width="11" height="3" rx="1.5" fill="#2c5ce6"></rect>
+  <rect x="7" y="22.5" width="13" height="3" rx="1.5" fill="#fdfcf8"></rect>
   <text x="40" y="25" font-family="Inter, sans-serif" font-size="22" font-weight="600" fill="#16140f" letter-spacing="-0.4">instalog</text>
 </svg>

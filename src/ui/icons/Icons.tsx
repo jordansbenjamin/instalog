@@ -28,8 +28,10 @@ export type IconName =
 
 export const Icons: Record<IconName, IconRenderer> = {
   logo: (props) => (
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M2 4h12M2 8h8M2 12h10" />
+    <svg viewBox="0 0 16 16" fill="none" {...props}>
+      <rect x="2.4" y="2.6" width="9.6" height="2.8" rx="1.4" fill="currentColor" />
+      <rect x="2.4" y="6.6" width="6.2" height="2.8" rx="1.4" fill="var(--mark-accent, currentColor)" />
+      <rect x="2.4" y="10.6" width="8.2" height="2.8" rx="1.4" fill="currentColor" />
     </svg>
   ),
   arrow: (props) => (
