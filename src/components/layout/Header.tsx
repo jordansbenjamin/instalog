@@ -33,7 +33,7 @@ export default function Header({ connection, onManageConnection }: HeaderProps) 
     <header className={styles.header}>
       <Brand />
       <div className={styles.right}>
-        <span className={styles.meta}>v1.0 · release spec</span>
+        <span className={styles.meta}>v1.3 · release spec</span>
         <Pill dot={pill.dot} onClick={onManageConnection} title="Manage Jira connection">
           {pill.label}
         </Pill>

@@ -25,7 +25,8 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-bottom: 10px;
-  display: inline-flex;
+  /* block-level so the label sits on its own row and the value stacks below */
+  display: flex;
   align-items: center;
   gap: 6px;
 }
