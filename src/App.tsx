@@ -4,6 +4,7 @@ import type { State } from "./state/reducer";
 import { loadState, saveState } from "./state/persistence";
 import { useConnection } from "./hooks/useConnection";
 import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
 import StepView from "./components/layout/StepView";
 import { ConnectionGate } from "./components/connection/ConnectionGate";
 import { ConnectModal } from "./components/connection/ConnectModal";
@@ -70,6 +71,8 @@ function App() {
           </Frame>
         </ConnectionGate>
       </main>
+
+      <Footer />
 
       <ConnectModal
         open={conn.modalOpen}
