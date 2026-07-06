@@ -1,0 +1,39 @@
+.pill {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  /* Below Modal's scrim (50) and Toast (100), so the feedback modal/toast
+     always sit above the pill rather than fighting it for stacking order. */
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-pop);
+  cursor: pointer;
+  font: 500 12px/1.3 var(--sans);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.pill:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+@media (max-width: 480px) {
+  .pill span {
+    /* Collapse to an icon-only button on very small screens. */
+    display: none;
+  }
+}

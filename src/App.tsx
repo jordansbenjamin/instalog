@@ -8,6 +8,7 @@ import Footer from "./components/layout/Footer";
 import StepView from "./components/layout/StepView";
 import { ConnectionGate } from "./components/connection/ConnectionGate";
 import { ConnectModal } from "./components/connection/ConnectModal";
+import { FeedbackWidget } from "./components/feedback/FeedbackWidget";
 import { Frame } from "./ui/Frame/Frame";
 import { Stepper } from "./ui/Stepper/Stepper";
 import { Toast } from "./ui/Toast/Toast";
@@ -73,6 +74,11 @@ function App() {
       </main>
 
       <Footer />
+
+      <FeedbackWidget
+        step={state.step}
+        isDemo={state.connection.account?.isDemo ?? false}
+      />
 
       <ConnectModal
         open={conn.modalOpen}
