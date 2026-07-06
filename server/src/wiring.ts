@@ -11,6 +11,8 @@ import {
 import { createApiRouter } from "./routes/apiRouter.js";
 import { SESSION_TTL_MS } from "./routes/cookies.js";
 import { generateSessionId } from "./auth/sessionId.js";
+import { createFeedbackRouter } from "./routes/feedback.js";
+import { createEmailSender } from "./feedback/sendFeedbackEmail.js";
 
 // Composition root for the API: wires jira-core + the Mongo stores + the cipher
 // into the request router, given a connected Db. Shared by both runtime shells —
@@ -38,4 +40,11 @@ export function createApiRouterForDb(db: Db): Router {
     isProduction: env.isProduction,
     now: () => Date.now(),
   });
+}
+
+// Feedback needs no Db — build it from env. When `env.resend` is null (vars
+// unset), the sender is null and the route degrades to 503.
+export function createFeedbackRouterFromEnv(): Router {
+  const emailSender = env.resend ? createEmailSender(env.resend) : null;
+  return createFeedbackRouter({ emailSender, now: () => Date.now() });
 }

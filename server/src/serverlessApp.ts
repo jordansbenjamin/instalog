@@ -2,7 +2,7 @@ import { MongoClient, type Db } from "mongodb";
 import type { Express } from "express";
 import { env } from "./config/env.js";
 import { buildApp } from "./app.js";
-import { createApiRouterForDb } from "./wiring.js";
+import { createApiRouterForDb, createFeedbackRouterFromEnv } from "./wiring.js";
 
 // Serverless shell for Vercel. Unlike index.ts (a long-lived server that calls
 // app.listen), this exports a ready Express app for Vercel to invoke per request.
@@ -23,5 +23,8 @@ function getDb(): Promise<Db> {
 
 export async function createServerlessApp(): Promise<Express> {
   const db = await getDb();
-  return buildApp({ apiRouter: createApiRouterForDb(db) });
+  return buildApp({
+    apiRouter: createApiRouterForDb(db),
+    feedbackRouter: createFeedbackRouterFromEnv(),
+  });
 }

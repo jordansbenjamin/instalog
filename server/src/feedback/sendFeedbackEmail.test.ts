@@ -23,7 +23,10 @@ const INPUT: FeedbackEmailInput = {
 };
 
 function okFetch() {
-  return vi.fn(async () => new Response(null, { status: 200 }));
+  // Pin the mock's generic to `typeof fetch` — otherwise Vitest 4 infers the
+  // mock's parameter types from this zero-arg implementation, and
+  // `fetchImpl.mock.calls[0]` below would type-check as an empty tuple.
+  return vi.fn<typeof fetch>(async () => new Response(null, { status: 200 }));
 }
 
 describe("createEmailSender", () => {

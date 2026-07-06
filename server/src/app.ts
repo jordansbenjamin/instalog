@@ -7,6 +7,8 @@ import { healthRouter } from "./routes/health.js";
 export interface AppDeps {
   /** The /jira/* + /me router, built with its store/jira-core/cipher dependencies. */
   readonly apiRouter: Router;
+  /** The /feedback router. Optional so tests can omit it. */
+  readonly feedbackRouter?: Router;
 }
 
 /** The Vite SPA build output, served in production. From server/src → instalog/dist. */
@@ -33,6 +35,9 @@ export function buildApp(deps: AppDeps): Express {
   const api = express.Router();
   api.use("/health", healthRouter);
   api.use(deps.apiRouter); // /jira/* and /me
+  if (deps.feedbackRouter) {
+    api.use("/feedback", deps.feedbackRouter);
+  }
   api.use((_req, res) => {
     res.status(404).json({ error: "not_found", message: "Unknown API route." });
   });
