@@ -106,3 +106,24 @@ export interface StepProps {
   state: State;
   dispatch: Dispatch<Action>;
 }
+
+// ── Feedback / bug report ────────────────────────────────────────────────
+export type FeedbackType = "bug" | "idea";
+
+// Silent context captured at submit time — the app state a report happened in.
+export interface FeedbackContext {
+  step: string;
+  isDemo: boolean;
+  appVersion: string;
+  userAgent: string;
+  url: string;
+  submittedAt: string;
+}
+
+export interface FeedbackPayload {
+  type: FeedbackType;
+  message: string;
+  email?: string;      // optional reply-to
+  honeypot?: string;   // hidden bot trap; real users leave it empty
+  context: FeedbackContext;
+}

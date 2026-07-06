@@ -2,6 +2,7 @@ import { Brand } from "../../ui/Brand/Brand";
 import { Pill } from "../../ui/Pill/Pill";
 import type { DotVariant } from "../../ui/StatusDot/StatusDot";
 import type { ConnectionState } from "../../types/shared";
+import { APP_VERSION } from "../../version";
 import styles from "./Header.module.css";
 
 // Maps the connection state machine to the pill's dot + label. Demo connected
@@ -33,7 +34,7 @@ export default function Header({ connection, onManageConnection }: HeaderProps) 
     <header className={styles.header}>
       <Brand />
       <div className={styles.right}>
-        <span className={styles.meta}>v1.4.0 · release spec</span>
+        <span className={styles.meta}>v{APP_VERSION} · release spec</span>
         <Pill dot={pill.dot} onClick={onManageConnection} title="Manage Jira connection">
           {pill.label}
         </Pill>
