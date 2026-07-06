@@ -39,7 +39,12 @@ export function FeedbackModal({ open, status, error, onSubmit, onClose }: Feedba
       <form className={styles.card} onSubmit={handleSubmit}>
         <header className={styles.head}>
           <h2 className={styles.title}>Send feedback</h2>
-          <IconButton icon={<Icons.close width="16" height="16" />} aria-label="Close" onClick={onClose} />
+          <IconButton
+            icon={<Icons.close width="16" height="16" />}
+            aria-label="Close"
+            onClick={onClose}
+            disabled={sending}
+          />
         </header>
 
         <div className={styles.types} role="group" aria-label="Feedback type">

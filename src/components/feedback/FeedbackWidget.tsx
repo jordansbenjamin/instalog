@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icons } from "../../ui/icons/Icons";
 import { Toast } from "../../ui/Toast/Toast";
 import { StatusDot } from "../../ui/StatusDot/StatusDot";
 import { useFeedback } from "../../hooks/useFeedback";
 import { FeedbackModal } from "./FeedbackModal";
 import styles from "./FeedbackWidget.module.css";
+
+// How long the success toast lingers before auto-dismissing.
+const TOAST_MS = 4200;
 
 interface FeedbackWidgetProps {
   step: string;
@@ -29,6 +32,15 @@ export function FeedbackWidget({ step, isDemo }: FeedbackWidgetProps) {
   if (status === "sent" && open) {
     setOpen(false);
   }
+
+  // Auto-dismiss the success toast after a few seconds.
+  useEffect(() => {
+    if (status !== "sent") {
+      return;
+    }
+    const timer = setTimeout(() => reset(), TOAST_MS);
+    return () => clearTimeout(timer);
+  }, [status, reset]);
 
   return (
     <>
