@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { readResendConfig, type ResendConfig } from "./resend.js";
 
 /**
  * Typed, validated environment config — the single boundary where we read raw
@@ -20,6 +21,7 @@ export interface Env {
   };
   readonly mongoUri: string;
   readonly tokenEncryptionKey: string;
+  readonly resend: ResendConfig | null;
 }
 
 // Least-privilege scopes (design doc §Decisions). Constant, not env-configurable.
@@ -92,6 +94,7 @@ function loadEnv(): Env {
     },
     mongoUri: requireEnv("MONGODB_URI"),
     tokenEncryptionKey: requireEnv("TOKEN_ENCRYPTION_KEY"),
+    resend: readResendConfig(),
   };
 }
 
