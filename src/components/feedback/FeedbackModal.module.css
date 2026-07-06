@@ -1,0 +1,103 @@
+/* No padding here: Modal.module.css's .modal already applies the card
+   padding (26px 26px 22px) around whatever it's given as children — adding
+   more here would double it up. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font: var(--t-h3);
+  margin: 0;
+}
+
+.types {
+  display: flex;
+  gap: 8px;
+}
+
+.type {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  font: inherit;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.type:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.typeActive {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.label {
+  font: 500 12px/1.4 var(--sans);
+  color: var(--ink-2);
+}
+
+.optional {
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.textarea,
+.input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--surface);
+  color: var(--ink);
+  font: 400 13.5px/1.5 var(--sans);
+  resize: vertical;
+}
+
+.textarea:focus-visible,
+.input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+/* Visually removed but still in the DOM + focusable-by-bots. Not display:none,
+   so headless bots that skip hidden fields still see it. */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.error {
+  color: var(--error);
+  font: 500 12px/1.4 var(--sans);
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
