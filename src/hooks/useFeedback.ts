@@ -35,6 +35,7 @@ export function useFeedback(app: AppContext) {
   const abortRef = useRef<AbortController | null>(null);
 
   const reset = useCallback(() => {
+    abortRef.current?.abort();
     setStatus("idle");
     setError(null);
   }, []);
@@ -80,8 +81,9 @@ export function useFeedback(app: AppContext) {
     [app],
   );
 
-  // Cancel any in-flight request on unmount so a late resolve never setState's
-  // an unmounted component.
+  // Abort the in-flight request on unmount (and now also via reset()) so a
+  // late resolve never overrides state after the component is gone or the
+  // modal has been closed.
   useEffect(() => {
     return () => {
       abortRef.current?.abort();
