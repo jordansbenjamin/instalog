@@ -24,7 +24,8 @@ export type IconName =
   | "settings"
   | "lock"
   | "external"
-  | "close";
+  | "close"
+  | "bug";
 
 export const Icons: Record<IconName, IconRenderer> = {
   logo: (props) => (
@@ -96,6 +97,12 @@ export const Icons: Record<IconName, IconRenderer> = {
   close: (props) => (
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <path d="M4 4l8 8M12 4l-8 8" />
+    </svg>
+  ),
+  bug: (props) => (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect x="5" y="5.5" width="6" height="7" rx="3" />
+      <path d="M8 5.5V4a2 2 0 10-.001 0M2.5 8H5M11 8h2.5M3 5l1.8 1.2M13 5l-1.8 1.2M3 11.5l1.9-1.1M13 11.5l-1.9-1.1" />
     </svg>
   ),
 };
