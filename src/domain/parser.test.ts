@@ -32,7 +32,7 @@ WEB-204 9:18am-10am
 
 PLAT-58 10am-10:30am
 
-OPS-449 10:30am-10:37am
+CORE-449 10:30am-10:37am
 
 DSN-92 10:37am-12:35pm
 
@@ -233,7 +233,7 @@ describe('parseTimesheet error handling tests', () => {
   })
 
   it('marks a reversed time range as a per-line error instead of failing fatally', () => {
-    const result = parseTimesheet(`16/3/26\n\nC25-100 10am-9am`)
+    const result = parseTimesheet(`16/3/26\n\nDEMO-100 10am-9am`)
 
     const errLine = result.lines.find((line) => line.kind === 'err')
     expect(errLine?.lineNumber).toBe(3)
@@ -243,7 +243,7 @@ describe('parseTimesheet error handling tests', () => {
   })
 
   it('marks an equal start/end time as a per-line error', () => {
-    const result = parseTimesheet(`16/3/26\n\nC25-100 9am-9am`)
+    const result = parseTimesheet(`16/3/26\n\nDEMO-100 9am-9am`)
 
     expect(result.lines.find((line) => line.kind === 'err')?.lineNumber).toBe(3)
     expect(result.success).toBe(false)

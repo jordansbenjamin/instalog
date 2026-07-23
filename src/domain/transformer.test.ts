@@ -52,7 +52,7 @@ DSN-92 12am-12:30am`
   it('calculates whole-hour PM times correctly', () => {
     const input = `16/3/26
 
-C25-100 1pm-2pm`
+DEMO-100 1pm-2pm`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
@@ -64,7 +64,7 @@ C25-100 1pm-2pm`
   it('calculates duration across the AM/PM boundary', () => {
     const input = `16/3/26
 
-C25-101 11:30am-1:00pm`
+DEMO-101 11:30am-1:00pm`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
@@ -76,7 +76,7 @@ C25-101 11:30am-1:00pm`
   it('includes ADF comment structure when description is provided', () => {
     const input = `16/3/26
 
-C25-200 9am-10am (fixed login bug)`
+DEMO-200 9am-10am (fixed login bug)`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
@@ -98,15 +98,15 @@ C25-200 9am-10am (fixed login bug)`
   it('transforms multiple entries on the same day', () => {
     const input = `16/3/26
 
-C25-1 9am-10am
-C25-2 10am-11am
-C25-3 11am-12pm`
+DEMO-1 9am-10am
+DEMO-2 10am-11am
+DEMO-3 11am-12pm`
 
     const { entries, date } = parseOrThrow(input)
     const transformedTimesheet = transformTimesheet(entries, date);
 
     expect(transformedTimesheet).toHaveLength(3)
-    expect(transformedTimesheet.map(t => t.ticketId)).toEqual(['C25-1', 'C25-2', 'C25-3'])
+    expect(transformedTimesheet.map(t => t.ticketId)).toEqual(['DEMO-1', 'DEMO-2', 'DEMO-3'])
     expect(transformedTimesheet[0].body.started).toBe('2026-03-16T09:00:00.000+1000')
     expect(transformedTimesheet[1].body.started).toBe('2026-03-16T10:00:00.000+1000')
     expect(transformedTimesheet[2].body.started).toBe('2026-03-16T11:00:00.000+1000')

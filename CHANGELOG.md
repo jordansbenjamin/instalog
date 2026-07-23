@@ -7,6 +7,22 @@ numbers follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-07-24
+
+### Added
+
+- A separate common-ticket reference beside the worklog wizard.
+- Personal browser-local ticket management with add, edit, delete, search,
+  copy, and manual priority ordering.
+- Spreadsheet, CSV, and Markdown-link imports with a preview for new, updated,
+  unchanged, invalid, and conflicting rows.
+- A right-hand ticket drawer for narrow screens.
+
+### Changed
+
+- Replaced project-specific sample ticket keys with neutral documentation and
+  test examples.
+
 ## [1.5.0] - 2026-07-23
 
 `1.5.0` is the baseline for formal version tracking. Earlier development

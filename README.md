@@ -32,8 +32,32 @@ format immediately.
 - Retries only failed entries instead of sending successful work twice.
 - Exports the completed run as CSV.
 - Keeps in-progress work in local storage so a refresh does not erase your day.
+- Keeps frequently used ticket IDs in a personal reference beside the wizard.
 - Connects through Atlassian OAuth while keeping Jira tokens on the server.
 - Includes an in-app feedback form for bug reports and suggestions.
+
+## Keep common tickets close
+
+The **Common tickets** panel is a small personal cheatsheet beside the wizard.
+Select a ticket to copy its ID, then carry on with the notes you already keep.
+It is deliberately separate from the worklog flow, so it remains useful even
+when Jira is disconnected or you are trying the demo.
+
+Use **Manage list** to add tickets, give them short labels, and put the ones you
+reach for most at the top. If you already have a spreadsheet, choose **Import
+list** and paste two columns:
+
+```text
+DEMO-42    Daily planning
+TEAM-7     Team meeting
+```
+
+Tab-separated spreadsheet rows, two-column CSV, and Markdown Jira links are
+accepted. The preview shows what will be added, updated, ignored, or needs
+attention before it changes your draft.
+
+The list stays in this browser. It is not sent to instalog's backend, added to
+your Jira account, or synced to another device.
 
 ## Timesheet format
 
@@ -48,13 +72,13 @@ For example:
 ```text
 16/3/26
 
-C25-3278 8:40am-9:18am
-CCT-77 9:18am-10am
-OPS-1 10am-10:30am
-FDES-13 10:37am-12:35pm
+PROJ-3278 8:40am-9:18am
+CLIENT-77 9:18am-10am
+MEET-1 10am-10:30am
+DESIGN-13 10:37am-12:35pm
 Lunch 12:35pm-1:15pm
-OPS-269 2:38pm-3:04pm (Slack)
-FDES-13 3:28pm-3:50pm (Helping Vivian with Flinders)
+ADMIN-269 2:38pm-3:04pm (Team messages)
+DESIGN-13 3:28pm-3:50pm (Helping a teammate with review)
 ```
 
 - Dates use `D/M/YY`.
@@ -100,11 +124,11 @@ Vite forwards `/api` requests from port `5173` to the Express server on port
 ```text
 src/
 ├── domain/        # Pure parsing, validation, transformation, and formatting
-├── state/         # Wizard reducer and local-storage persistence
+├── state/         # Wizard and ticket-reference persistence
 ├── integration/   # Jira, connection, and feedback boundaries
 ├── hooks/         # Async UI orchestration
 ├── ui/            # Reusable design-system primitives
-├── components/    # Wizard steps, layout, connection, and feedback UI
+├── components/    # Wizard, ticket reference, layout, connection, and feedback UI
 ├── styles/        # Global styles and design tokens
 └── types/         # Shared application contracts
 
@@ -168,9 +192,10 @@ maintainer checklist.
 
 ## Privacy
 
-The app stores draft wizard state in your browser. For real Jira connections,
-the backend stores the account details and encrypted tokens needed to maintain
-the session. The full policy is available at `/privacy.html` in the running app.
+The app stores draft wizard state and your common-ticket reference in your
+browser. For real Jira connections, the backend stores the account details and
+encrypted tokens needed to maintain the session. The full policy is available
+at `/privacy.html` in the running app.
 
 ## License
 
