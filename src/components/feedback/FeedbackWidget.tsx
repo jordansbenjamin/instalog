@@ -46,7 +46,6 @@ export function FeedbackWidget({ step, isDemo }: FeedbackWidgetProps) {
     <>
       <button type="button" className={styles.pill} onClick={openModal} aria-label="Send feedback">
         <Icons.bug width="16" height="16" />
-        <span>Feedback</span>
       </button>
 
       <FeedbackModal

@@ -1,18 +1,30 @@
-/* Flush-left at the viewport edge; 22px matches the header's horizontal padding
-   so the link lines up under the brand logo. No top border — kept clean. */
+/* 22px matches the header's horizontal padding, keeping the footer metadata
+   aligned beneath the brand. */
 .footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 14px 22px;
 }
 
-.link {
+.link,
+.separator,
+.version {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--ink-3);
   letter-spacing: 0.02em;
+}
+
+.link {
   text-decoration: none;
 }
 
 .link:hover {
   color: var(--ink);
   text-decoration: underline;
+}
+
+.separator {
+  color: var(--ink-4);
 }

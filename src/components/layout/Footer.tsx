@@ -1,3 +1,4 @@
+import { APP_VERSION } from "../../version";
 import styles from "./Footer.module.css";
 
 // A plain anchor, not client routing: privacy.html is a static file in public/,
@@ -9,6 +10,8 @@ export default function Footer() {
       <a className={styles.link} href="/privacy.html">
         Privacy Policy
       </a>
+      <span className={styles.separator} aria-hidden="true">·</span>
+      <span className={styles.version}>v{APP_VERSION}</span>
     </footer>
   );
 }

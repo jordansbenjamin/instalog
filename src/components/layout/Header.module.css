@@ -10,21 +10,3 @@
   top: 0;
   z-index: 10;
 }
-
-.right {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* mono version string + divider before the pill */
-.meta {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-3);
-  letter-spacing: 0.02em;
-  padding-right: 8px;
-  border-right: 1px solid var(--line);
-  margin-right: 4px;
-  white-space: nowrap;
-}
