@@ -10,7 +10,7 @@
 }
 
 .page {
-  max-width: 880px;
+  max-width: 1212px;
   width: 100%;
   /* margin auto centers horizontally; flex:1 absorbs the space left below the
      sticky header so align-content can center the wizard vertically within it.
@@ -24,6 +24,26 @@
   grid-template-columns: 1fr;
   align-content: safe center;
   gap: 28px;
+}
+
+.workspace {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 880px) 260px;
+  align-items: start;
+  gap: 24px;
+}
+
+.wizard {
+  min-width: 0;
+}
+
+.ticketRail {
+  min-width: 0;
+}
+
+.ticketDrawerTrigger {
+  display: none;
 }
 
 /* ——— Hero ——— */
@@ -85,5 +105,60 @@
 
   .heroSub {
     text-align: left;
+  }
+}
+
+@media (max-width: 1050px) {
+  .page {
+    max-width: 928px;
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ticketRail {
+    display: none;
+  }
+
+  .ticketDrawerTrigger {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    color: var(--ink-2);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-3);
+    box-shadow: var(--shadow-sm);
+    font: 600 12px/1 var(--sans);
+  }
+
+  .ticketDrawerTrigger:hover {
+    color: var(--accent);
+    border-color: var(--accent-light);
+  }
+
+  .ticketDrawerTrigger:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-ring);
+  }
+
+  .ticketDrawerTrigger span {
+    min-width: 18px;
+    padding: 3px 5px;
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+    border-radius: var(--r-pill);
+    font: 600 9px/1 var(--mono);
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding: 18px 14px 24px;
+    gap: 14px;
   }
 }

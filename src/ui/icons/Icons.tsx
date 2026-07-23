@@ -25,7 +25,10 @@ export type IconName =
   | "lock"
   | "external"
   | "close"
-  | "bug";
+  | "bug"
+  | "tickets"
+  | "search"
+  | "copy";
 
 export const Icons: Record<IconName, IconRenderer> = {
   logo: (props) => (
@@ -103,6 +106,24 @@ export const Icons: Record<IconName, IconRenderer> = {
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <rect x="5" y="5.5" width="6" height="7" rx="3" />
       <path d="M8 5.5V4a2 2 0 10-.001 0M2.5 8H5M11 8h2.5M3 5l1.8 1.2M13 5l-1.8 1.2M3 11.5l1.9-1.1M13 11.5l-1.9-1.1" />
+    </svg>
+  ),
+  tickets: (props) => (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M3 3.25h10v3.5H3zM3 9.25h10v3.5H3z" />
+      <path d="M5.25 5h5.5M5.25 11h5.5" />
+    </svg>
+  ),
+  search: (props) => (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="7" cy="7" r="4.25" />
+      <path d="M10.25 10.25L14 14" />
+    </svg>
+  ),
+  copy: (props) => (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect x="5.25" y="5.25" width="7.25" height="7.25" rx="1.25" />
+      <path d="M10.75 5.25v-1.5A1.25 1.25 0 009.5 2.5H3.75A1.25 1.25 0 002.5 3.75V9.5a1.25 1.25 0 001.25 1.25h1.5" />
     </svg>
   ),
 };

@@ -1,0 +1,125 @@
+.list {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticket {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 10px 10px;
+  text-align: left;
+  background: var(--surface-2);
+  border: 1px solid transparent;
+  border-radius: var(--r-2);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.ticket:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent-light);
+  transform: translateX(-2px);
+}
+
+.ticket:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.ticketText {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.ticketId {
+  width: fit-content;
+  font: var(--t-tk);
+  color: var(--ink);
+  user-select: text;
+}
+
+.ticketLabel {
+  overflow-wrap: anywhere;
+  font: var(--t-caption);
+  color: var(--ink-2);
+}
+
+.copyIcon {
+  flex: 0 0 auto;
+  color: var(--ink-4);
+  opacity: 0;
+  transform: translateX(-3px);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.ticket:hover .copyIcon,
+.ticket:focus-visible .copyIcon {
+  color: var(--accent);
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.empty,
+.noResults {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.empty {
+  padding: 24px 8px 12px;
+}
+
+.emptyMark {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 13px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-light);
+  border-radius: var(--r-4);
+}
+
+.emptyTitle {
+  font: var(--t-h3);
+}
+
+.emptyBody,
+.noResults p {
+  margin-top: 6px;
+  max-width: 24ch;
+  font: var(--t-caption);
+  color: var(--ink-3);
+}
+
+.emptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.noResults {
+  gap: 5px;
+  color: var(--ink-4);
+}
