@@ -1,6 +1,7 @@
 import type { UseTicketReferencesResult } from "../../hooks/useTicketReferences";
 import { Icons } from "../../ui/icons/Icons";
 import { TicketReferenceList } from "./TicketReferenceList";
+import { TicketReferenceManager } from "./TicketReferenceManager";
 import styles from "./TicketReferencePanel.module.css";
 
 interface TicketReferencePanelProps {
@@ -12,6 +13,17 @@ export function TicketReferencePanel({
   references,
   headingId = "ticket-reference-heading",
 }: TicketReferencePanelProps) {
+  if (references.mode !== "reference") {
+    return (
+      <aside className={styles.panel} aria-labelledby={headingId}>
+        <TicketReferenceManager
+          references={references}
+          headingId={headingId}
+        />
+      </aside>
+    );
+  }
+
   const handleAdd = (): void => {
     references.startManaging();
     references.addDraftTicket();

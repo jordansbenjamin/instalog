@@ -28,7 +28,11 @@ export type IconName =
   | "bug"
   | "tickets"
   | "search"
-  | "copy";
+  | "copy"
+  | "grip"
+  | "up"
+  | "down"
+  | "plus";
 
 export const Icons: Record<IconName, IconRenderer> = {
   logo: (props) => (
@@ -124,6 +128,31 @@ export const Icons: Record<IconName, IconRenderer> = {
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
       <rect x="5.25" y="5.25" width="7.25" height="7.25" rx="1.25" />
       <path d="M10.75 5.25v-1.5A1.25 1.25 0 009.5 2.5H3.75A1.25 1.25 0 002.5 3.75V9.5a1.25 1.25 0 001.25 1.25h1.5" />
+    </svg>
+  ),
+  grip: (props) => (
+    <svg viewBox="0 0 16 16" fill="currentColor" {...props}>
+      <circle cx="5" cy="4" r="1" />
+      <circle cx="11" cy="4" r="1" />
+      <circle cx="5" cy="8" r="1" />
+      <circle cx="11" cy="8" r="1" />
+      <circle cx="5" cy="12" r="1" />
+      <circle cx="11" cy="12" r="1" />
+    </svg>
+  ),
+  up: (props) => (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M4 10l4-4 4 4" />
+    </svg>
+  ),
+  down: (props) => (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M4 6l4 4 4-4" />
+    </svg>
+  ),
+  plus: (props) => (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" {...props}>
+      <path d="M8 3v10M3 8h10" />
     </svg>
   ),
 };
