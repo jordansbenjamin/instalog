@@ -1,0 +1,216 @@
+.importer {
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.header {
+  padding: 0 2px 15px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 7px;
+  font: var(--t-meta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.heading {
+  font: 600 17px/1.25 var(--sans);
+  letter-spacing: -0.015em;
+}
+
+.description {
+  margin-top: 7px;
+  font: var(--t-caption);
+  color: var(--ink-3);
+}
+
+.pasteField {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.pasteField > span {
+  font: var(--t-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.pasteField textarea {
+  width: 100%;
+  min-width: 0;
+  resize: vertical;
+  padding: 10px;
+  font: 400 11.5px/1.55 var(--mono);
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  outline: none;
+}
+
+.pasteField textarea:focus {
+  background: var(--surface);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.pasteField textarea::placeholder {
+  color: var(--ink-4);
+}
+
+.hint {
+  margin-top: 7px;
+  font: 400 10px/1.45 var(--sans);
+  color: var(--ink-3);
+}
+
+.previewAction {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.preview {
+  min-height: 0;
+  margin-top: 13px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 1px 8px;
+}
+
+.summary span {
+  font: var(--t-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.summary strong {
+  font: 500 9.5px/1.3 var(--mono);
+  color: var(--ink-2);
+  text-align: right;
+}
+
+.rows {
+  max-height: min(330px, calc(100vh - 470px));
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0 2px 8px;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.previewRow {
+  padding: 9px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+}
+
+.rowHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rowNumber {
+  font: var(--t-meta);
+  color: var(--ink-3);
+}
+
+.status {
+  padding: 3px 6px;
+  font: 600 8.5px/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: var(--r-pill);
+}
+
+.new {
+  color: var(--success-ink);
+  background: var(--success-light);
+}
+
+.update {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+
+.unchanged {
+  color: var(--ink-2);
+  background: var(--surface-3);
+}
+
+.invalid,
+.conflict {
+  color: var(--error-ink);
+  background: var(--error-light);
+}
+
+.ticket {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+  margin-top: 7px;
+}
+
+.ticket code {
+  font: var(--t-tk);
+}
+
+.ticket span {
+  overflow-wrap: anywhere;
+  font: var(--t-caption);
+  color: var(--ink-2);
+}
+
+.raw {
+  display: block;
+  margin-top: 7px;
+  overflow-wrap: anywhere;
+  font: 400 10.5px/1.4 var(--mono);
+  color: var(--ink-2);
+}
+
+.message {
+  margin-top: 6px;
+  font: 500 10px/1.4 var(--sans);
+  color: var(--error);
+}
+
+.conflictNotice {
+  margin: 3px 2px 0;
+  padding: 8px 9px;
+  font: 500 10px/1.4 var(--sans);
+  color: var(--error-ink);
+  background: var(--error-light);
+  border-radius: var(--r-2);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: auto;
+  padding: 13px 2px 0;
+  border-top: 1px solid var(--line-soft);
+}
