@@ -1,42 +1,69 @@
+/* ============================================================
+   Ticket reference list — the "ledger index"
+   Hairline-ruled rows on the panel surface (not filled cards),
+   with the mono ticket ID as the anchor and a left accent
+   "cursor" that arms the row on hover/focus. Accent is spent
+   here — on the copy affordance and its confirmation — and
+   almost nowhere else in the panel.
+   ============================================================ */
+
 .list {
-  display: grid;
-  gap: 7px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+.list > li + li {
+  border-top: 1px solid var(--line-soft);
+}
+
 .ticket {
+  position: relative;
   width: 100%;
   min-width: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 11px 10px 10px;
+  gap: var(--pad-sm);
+  padding: 10px 8px 10px 14px;
   text-align: left;
-  background: var(--surface-2);
-  border: 1px solid transparent;
+  background: transparent;
   border-radius: var(--r-2);
   transition:
     background var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
+    color var(--dur-fast) var(--ease-out);
+}
+
+/* the "cursor" — a left rule that grows in when the row is armed */
+.ticket::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 3px;
+  width: 2px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--dur-fast) var(--ease-out);
 }
 
 .ticket:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent-light);
-  transform: translateX(-2px);
+  background: var(--surface-2);
+}
+
+.ticket:hover::before,
+.ticket:focus-visible::before {
+  transform: scaleY(1);
 }
 
 .ticket:focus-visible {
   outline: none;
-  border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-ring);
 }
 
-.ticketText {
+.body {
   min-width: 0;
   display: grid;
   gap: 3px;
@@ -44,7 +71,8 @@
 
 .ticketId {
   width: fit-content;
-  font: var(--t-tk);
+  font: 500 13px/1.25 var(--mono);
+  letter-spacing: 0.01em;
   color: var(--ink);
   user-select: text;
 }
@@ -52,30 +80,53 @@
 .ticketLabel {
   overflow-wrap: anywhere;
   font: var(--t-caption);
-  color: var(--ink-2);
+  color: var(--ink-3);
 }
 
-.copyIcon {
+/* copy affordance — icon + word, quiet at rest, accent when armed */
+.action {
   flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  border-radius: var(--r-1);
   color: var(--ink-4);
+  font: var(--t-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   opacity: 0;
-  transform: translateX(-3px);
   transition:
     color var(--dur-fast) var(--ease-out),
-    opacity var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
+    opacity var(--dur-fast) var(--ease-out);
 }
 
-.ticket:hover .copyIcon,
-.ticket:focus-visible .copyIcon {
-  color: var(--accent);
+.ticket:hover .action,
+.ticket:focus-visible .action {
   opacity: 1;
-  transform: translateX(0);
+  color: var(--accent);
 }
+
+/* confirmed copy — hold the accent state regardless of hover */
+.ticket[data-copied] {
+  background: var(--accent-soft);
+}
+
+.ticket[data-copied]::before {
+  transform: scaleY(1);
+}
+
+.ticket[data-copied] .action {
+  opacity: 1;
+  color: var(--accent);
+  background: var(--surface);
+}
+
+/* ——— empty + no-results states ——— */
 
 .empty,
 .noResults {
-  min-height: 220px;
+  min-height: 216px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,23 +135,24 @@
 }
 
 .empty {
-  padding: 24px 8px 12px;
+  padding: var(--pad-lg) var(--pad-sm) var(--pad-md);
 }
 
 .emptyMark {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
-  margin-bottom: 13px;
-  color: var(--accent);
-  background: var(--accent-soft);
-  border: 1px solid var(--accent-light);
+  margin-bottom: 14px;
+  color: var(--ink-3);
+  background: var(--surface-3);
+  border: 1px solid var(--line);
   border-radius: var(--r-4);
 }
 
 .emptyTitle {
   font: var(--t-h3);
+  color: var(--ink);
 }
 
 .emptyBody,
@@ -115,11 +167,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
+  gap: var(--pad-sm);
   margin-top: 18px;
 }
 
 .noResults {
-  gap: 5px;
+  gap: 6px;
   color: var(--ink-4);
 }

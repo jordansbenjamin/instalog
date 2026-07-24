@@ -29,7 +29,7 @@ function makeReferences(
     importText: "",
     importPreview: null,
     setSearch: vi.fn(),
-    copyTicketId: vi.fn(async () => undefined),
+    copyTicketId: vi.fn(async () => true),
     startManaging: vi.fn(),
     cancelManaging: vi.fn(),
     addDraftTicket: vi.fn(),

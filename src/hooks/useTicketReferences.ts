@@ -36,7 +36,7 @@ export interface UseTicketReferencesResult {
   importText: string;
   importPreview: TicketImportPreview | null;
   setSearch(search: string): void;
-  copyTicketId(ticketId: string): Promise<void>;
+  copyTicketId(ticketId: string): Promise<boolean>;
   startManaging(): void;
   cancelManaging(): void;
   addDraftTicket(): void;
@@ -113,7 +113,7 @@ export function useTicketReferences(): UseTicketReferencesResult {
     };
   }, [message]);
 
-  const copyTicketId = async (ticketId: string): Promise<void> => {
+  const copyTicketId = async (ticketId: string): Promise<boolean> => {
     try {
       if (!navigator.clipboard) {
         throw new Error("Clipboard API unavailable");
@@ -121,10 +121,12 @@ export function useTicketReferences(): UseTicketReferencesResult {
 
       await navigator.clipboard.writeText(ticketId);
       setMessage(`Copied ${ticketId}`);
+      return true;
     } catch {
       setMessage(
         "Could not copy automatically. Select the ticket ID to copy it."
       );
+      return false;
     }
   };
 

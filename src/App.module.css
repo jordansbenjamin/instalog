@@ -40,10 +40,9 @@
 
 .ticketRail {
   min-width: 0;
-}
-
-.ticketDrawerTrigger {
-  display: none;
+  /* Fill the grid row (as tall as the wizard) so the sticky panel inside
+     has travel room to stay pinned while a long wizard step scrolls. */
+  align-self: stretch;
 }
 
 /* ——— Hero ——— */
@@ -113,46 +112,23 @@
     max-width: 928px;
   }
 
+  /* Too narrow for the wizard + rail side by side: stack the reference card
+     beneath the wizard so it stays visible instead of hiding behind a drawer. */
   .workspace {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .ticketRail {
-    display: none;
+    /* No longer a full-height companion column — a normal card in the flow. */
+    align-self: start;
   }
 
-  .ticketDrawerTrigger {
-    width: fit-content;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 10px;
-    color: var(--ink-2);
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--r-3);
-    box-shadow: var(--shadow-sm);
-    font: 600 12px/1 var(--sans);
-  }
-
-  .ticketDrawerTrigger:hover {
-    color: var(--accent);
-    border-color: var(--accent-light);
-  }
-
-  .ticketDrawerTrigger:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--accent-ring);
-  }
-
-  .ticketDrawerTrigger span {
-    min-width: 18px;
-    padding: 3px 5px;
-    color: var(--accent-ink);
-    background: var(--accent-soft);
-    border-radius: var(--r-pill);
-    font: 600 9px/1 var(--mono);
-    text-align: center;
+  /* Drop the sticky pin once stacked; the panel scrolls with the page. `aside`
+     is a global element selector (CSS Modules only hashes the scoped class),
+     so this reaches the panel root inside the scoped rail. */
+  .ticketRail aside {
+    position: static;
+    top: auto;
   }
 }
 

@@ -6,26 +6,27 @@
 }
 
 .header {
-  padding: 0 2px 15px;
+  padding-bottom: var(--pad-md);
   border-bottom: 1px solid var(--line-soft);
 }
 
 .eyebrow {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
   font: var(--t-meta);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--ink-4);
 }
 
 .heading {
   font: 600 17px/1.25 var(--sans);
   letter-spacing: -0.015em;
+  color: var(--ink);
 }
 
 .description {
-  margin-top: 7px;
+  margin-top: 6px;
   font: var(--t-caption);
   color: var(--ink-3);
   text-wrap: pretty;
@@ -34,17 +35,18 @@
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 13px;
-  padding: 12px 2px 10px;
+  gap: var(--pad-md);
+  padding: var(--pad-md) 0 var(--pad-sm);
 }
 
 .toolbarAction {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   padding: 4px 0;
   font: 600 11px/1 var(--sans);
   color: var(--ink-2);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .toolbarAction:hover {
@@ -61,9 +63,9 @@
   min-height: 0;
   max-height: min(470px, calc(100vh - 310px));
   display: grid;
-  gap: 9px;
+  gap: var(--pad-sm);
   margin: 0;
-  padding: 2px 2px 10px;
+  padding: 2px 2px var(--pad-sm);
   overflow-y: auto;
   list-style: none;
   scrollbar-width: thin;
@@ -73,12 +75,14 @@
 .row {
   position: relative;
   display: grid;
-  gap: 9px;
-  padding: 10px;
+  gap: var(--pad-sm);
+  padding: var(--pad-sm);
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: var(--r-3);
-  box-shadow: var(--shadow-sm);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .dragging {
@@ -100,8 +104,11 @@
   height: 24px;
   display: grid;
   place-items: center;
-  color: var(--ink-3);
+  color: var(--ink-4);
   border-radius: var(--r-1);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
 }
 
 .dragHandle {
@@ -115,7 +122,7 @@
 
 .dragHandle:hover,
 .rowAction:hover:not(:disabled) {
-  color: var(--accent);
+  color: var(--ink);
   background: var(--surface);
 }
 
@@ -138,9 +145,9 @@
 .rowNumber {
   flex: 1;
   font: var(--t-meta);
-  color: var(--ink-3);
+  color: var(--ink-4);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
 .rowActions {
@@ -163,16 +170,21 @@
 .field input {
   width: 100%;
   min-width: 0;
-  padding: 8px 9px;
+  padding: 8px 10px;
   font: var(--t-body-sm);
+  color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-2);
   outline: none;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .field:first-of-type input {
   font-family: var(--mono);
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
 
@@ -194,7 +206,7 @@
   min-height: 190px;
   display: grid;
   place-content: center;
-  gap: 8px;
+  gap: var(--pad-sm);
   text-align: center;
   color: var(--ink-3);
 }
@@ -207,8 +219,8 @@
 .footer {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--pad-sm);
   margin-top: auto;
-  padding: 13px 2px 0;
+  padding-top: var(--pad-md);
   border-top: 1px solid var(--line-soft);
 }

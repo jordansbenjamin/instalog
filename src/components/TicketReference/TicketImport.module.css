@@ -6,54 +6,60 @@
 }
 
 .header {
-  padding: 0 2px 15px;
+  padding-bottom: var(--pad-md);
   border-bottom: 1px solid var(--line-soft);
 }
 
 .eyebrow {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
   font: var(--t-meta);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--ink-4);
 }
 
 .heading {
   font: 600 17px/1.25 var(--sans);
   letter-spacing: -0.015em;
+  color: var(--ink);
 }
 
 .description {
-  margin-top: 7px;
+  margin-top: 6px;
   font: var(--t-caption);
   color: var(--ink-3);
+  text-wrap: pretty;
 }
 
 .pasteField {
   display: grid;
   gap: 6px;
-  margin-top: 14px;
+  margin-top: var(--pad-md);
 }
 
 .pasteField > span {
   font: var(--t-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--ink-4);
 }
 
 .pasteField textarea {
   width: 100%;
   min-width: 0;
   resize: vertical;
-  padding: 10px;
+  padding: var(--pad-sm);
   font: 400 11.5px/1.55 var(--mono);
   color: var(--ink);
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: var(--r-3);
   outline: none;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .pasteField textarea:focus {
@@ -75,12 +81,12 @@
 .previewAction {
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: var(--pad-sm);
 }
 
 .preview {
   min-height: 0;
-  margin-top: 13px;
+  margin-top: var(--pad-md);
   border-top: 1px solid var(--line-soft);
 }
 
@@ -88,15 +94,15 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 10px;
-  padding: 11px 1px 8px;
+  gap: var(--pad-sm);
+  padding: var(--pad-sm) 1px 8px;
 }
 
 .summary span {
   font: var(--t-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--ink-4);
 }
 
 .summary strong {
@@ -118,7 +124,7 @@
 }
 
 .previewRow {
-  padding: 9px;
+  padding: var(--pad-sm);
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: var(--r-2);
@@ -133,11 +139,11 @@
 
 .rowNumber {
   font: var(--t-meta);
-  color: var(--ink-3);
+  color: var(--ink-4);
 }
 
 .status {
-  padding: 3px 6px;
+  padding: 3px 7px;
   font: 600 8.5px/1 var(--mono);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -168,23 +174,25 @@
 .ticket {
   min-width: 0;
   display: grid;
-  gap: 2px;
-  margin-top: 7px;
+  gap: 3px;
+  margin-top: 8px;
 }
 
 .ticket code {
-  font: var(--t-tk);
+  font: 500 12.5px/1.4 var(--mono);
+  letter-spacing: 0.01em;
+  color: var(--ink);
 }
 
 .ticket span {
   overflow-wrap: anywhere;
   font: var(--t-caption);
-  color: var(--ink-2);
+  color: var(--ink-3);
 }
 
 .raw {
   display: block;
-  margin-top: 7px;
+  margin-top: 8px;
   overflow-wrap: anywhere;
   font: 400 10.5px/1.4 var(--mono);
   color: var(--ink-2);
@@ -198,7 +206,7 @@
 
 .conflictNotice {
   margin: 3px 2px 0;
-  padding: 8px 9px;
+  padding: 8px var(--pad-sm);
   font: 500 10px/1.4 var(--sans);
   color: var(--error-ink);
   background: var(--error-light);
@@ -209,8 +217,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--pad-sm);
   margin-top: auto;
-  padding: 13px 2px 0;
+  padding-top: var(--pad-md);
   border-top: 1px solid var(--line-soft);
 }

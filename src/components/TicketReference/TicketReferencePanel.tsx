@@ -56,7 +56,7 @@ export function TicketReferencePanel({
         <span className={styles.eyebrow}>Reference</span>
         <h2 id={headingId} className={styles.heading}>Common tickets</h2>
         <p className={styles.description}>
-          Keep frequently used IDs close. Select a ticket to copy it.
+          Your go-to ticket IDs, one click from the clipboard.
         </p>
       </div>
 
@@ -85,9 +85,7 @@ export function TicketReferencePanel({
         <TicketReferenceList
           tickets={references.visibleTickets}
           hasSavedTickets={references.tickets.length > 0}
-          onCopy={(ticketId) => {
-            void references.copyTicketId(ticketId);
-          }}
+          onCopy={references.copyTicketId}
           onAdd={handleAdd}
           onImport={handleImport}
         />

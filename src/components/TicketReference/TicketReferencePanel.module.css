@@ -1,9 +1,20 @@
+/* ============================================================
+   Ticket reference panel — the sticky companion rail
+   A quiet card beside the wizard. The mono eyebrow reads like a
+   filing tab and signals which mode you're in (Reference /
+   Edit / Import). Accent lives almost entirely in the list's
+   copy affordance, so the panel chrome stays neutral.
+   ============================================================ */
+
 .panel {
+  position: sticky;
+  /* clears the sticky app header (~56px) with a small breath */
+  top: 76px;
   width: 100%;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  padding: 19px 17px 14px;
+  padding: var(--pad-lg) var(--pad-lg) var(--pad-md);
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-5);
@@ -11,34 +22,35 @@
 }
 
 .header {
-  padding: 0 2px 15px;
+  padding-bottom: var(--pad-md);
   border-bottom: 1px solid var(--line-soft);
 }
 
 .eyebrow {
   display: block;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
   font: var(--t-meta);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--ink-4);
 }
 
 .heading {
   font: 600 17px/1.25 var(--sans);
   letter-spacing: -0.015em;
+  color: var(--ink);
 }
 
 .description {
-  margin-top: 7px;
+  margin-top: 6px;
   font: var(--t-caption);
   color: var(--ink-3);
   text-wrap: pretty;
 }
 
 .warning {
-  margin: 11px 0 0;
-  padding: 9px 10px;
+  margin-top: var(--pad-sm);
+  padding: 9px var(--pad-sm);
   font: 500 11px/1.45 var(--sans);
   color: var(--warn-ink);
   background: var(--warn-light);
@@ -49,14 +61,14 @@
 .search {
   display: grid;
   gap: 6px;
-  margin-top: 14px;
+  margin-top: var(--pad-md);
 }
 
 .searchLabel {
   font: var(--t-meta);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--ink-4);
 }
 
 .searchField {
@@ -64,15 +76,18 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 9px;
+  padding: 8px 10px;
   color: var(--ink-4);
   background: var(--surface-2);
   border: 1px solid var(--line);
   border-radius: var(--r-2);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .searchField:focus-within {
-  color: var(--accent);
+  color: var(--ink-3);
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-ring);
 }
@@ -82,6 +97,7 @@
   min-width: 0;
   padding: 0;
   font: var(--t-body-sm);
+  color: var(--ink);
   background: transparent;
   border: 0;
   outline: 0;
@@ -94,25 +110,29 @@
 .listRegion {
   min-height: 0;
   max-height: min(440px, calc(100vh - 340px));
-  margin-top: 12px;
+  margin-top: var(--pad-sm);
+  /* full-bleed the ledger rows to the card edges, minus the row's own inset */
+  margin-inline: -8px;
+  padding-inline: 8px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--line-strong) transparent;
 }
 
 .statusRegion {
-  min-height: 20px;
-  padding: 7px 2px 2px;
-  font: 500 10.5px/1.35 var(--mono);
-  color: var(--accent);
+  min-height: 18px;
+  padding: 8px 2px 2px;
+  font: var(--t-meta);
+  color: var(--ink-3);
 }
 
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 11px 2px 0;
+  gap: var(--pad-sm);
+  margin-top: 2px;
+  padding-top: var(--pad-sm);
   border-top: 1px solid var(--line-soft);
 }
 
@@ -128,10 +148,11 @@
   padding: 5px 0;
   font: 600 11px/1 var(--sans);
   color: var(--ink-2);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .manage:hover {
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .manage:focus-visible {
